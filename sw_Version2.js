@@ -1,8 +1,16 @@
-// sw.js - umieść w katalogu root serwisu: https://twojadomena.pl/sw.js
-const CACHE_NAME = 'skrypt-maxa-v2';
+// sw_Version2.js - zaktualizowany: pre-cache obrazów i bump CACHE_NAME
+const CACHE_NAME = 'skrypt-maxa-v3';
 const PRECACHE = [
-  '/', // jeśli publikujesz jako plik w root, root path będzie przekierowywać
-  '/gemini-code-1781978097703_Version4.html',
+  '/',
+  '/index.html',
+  '/images/hero.svg',
+  '/images/podzialy.svg',
+  '/images/genomy.svg',
+  '/images/mutacje.svg',
+  '/images/trisomia21.svg',
+  '/images/bws.svg',
+  '/images/fish.svg',
+  '/images/lhon.svg',
   'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&family=Rubik:wght@400;500;700&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
 ];

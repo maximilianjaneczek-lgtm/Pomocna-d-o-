@@ -1,11 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="400" viewBox="0 0 1600 400">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="420" viewBox="0 0 1600 420">
   <defs>
     <linearGradient id="g" x1="0" x2="1">
-      <stop offset="0" stop-color="#60a5fa" />
-      <stop offset="1" stop-color="#34d399" />
+      <stop offset="0" stop-color="#1e3a8a" />
+      <stop offset="1" stop-color="#0d9488" />
     </linearGradient>
   </defs>
-  <rect width="100%" height="100%" fill="url(#g)" />
-  <text x="800" y="200" font-family="Poppins, sans-serif" font-size="48" text-anchor="middle" fill="#ffffff">Hero image placeholder</text>
-  <text x="800" y="250" font-family="Roboto Mono" font-size="18" text-anchor="middle" fill="#e6fff2">hero.svg (placeholder)</text>
+  <rect width="100%" height="100%" fill="#0f172a"/>
+  <g transform="translate(60,40)">
+    <rect x="0" y="0" width="1480" height="340" rx="18" fill="url(#g)" opacity="0.12"/>
+    <text x="740" y="120" font-family="Poppins, sans-serif" font-size="44" fill="#0f172a" font-weight="700" text-anchor="middle">SKRYPT MAXA — Genetyka Kliniczna II</text>
+    <text x="740" y="170" font-family="Roboto Mono, monospace" font-size="18" fill="#0f172a" text-anchor="middle">Podstawy, aberracje, diagnostyka i praktyczne schematy</text>
+  </g>
 </svg>
