@@ -1,15 +1,8 @@
-// sw_Version2.js - zaktualizowany: pre-cache obrazów (względne ścieżki) i drobne poprawki
-const CACHE_NAME = 'skrypt-maxa-v3';
+// sw_Version2.js - zaktualizowany: usunięto obrazy z pre-cache i podbito CACHE_NAME
+const CACHE_NAME = 'skrypt-maxa-v4';
 const PRECACHE = [
-  'index.html',
-  'images/hero.svg',
-  'images/podzialy.svg',
-  'images/genomy.svg',
-  'images/mutacje.svg',
-  'images/trisomia21.svg',
-  'images/bws.svg',
-  'images/fish.svg',
-  'images/lhon.svg',
+  '/',
+  '/index.html',
   'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&family=Rubik:wght@400;500;700&display=swap',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'
 ];
@@ -59,14 +52,14 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // HTML / navigacja - network-first z fallback cache (fallback: index.html)
+  // HTML / navigacja - network-first z fallback cache (fallback: /index.html)
   if (req.mode === 'navigate' || req.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
       fetch(req).then(resp => {
         const respClone = resp.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(req, respClone).catch(()=>{}));
         return resp;
-      }).catch(() => caches.match(req).then(cached => cached || caches.match('index.html')))
+      }).catch(() => caches.match(req).then(cached => cached || caches.match('/index.html')))
     );
     return;
   }
