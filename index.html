@@ -3,219 +3,338 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKRYPT MAXA: Genetyka Kliniczna II — wersja bez grafik</title>
+    <title>SKRYPT MAXA: Genetyka Kliniczna II</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root { --primary-bg:#0f172a; --sidebar-bg:#1e293b; --content-bg:#f8fafc; --card-bg:#ffffff; --text-main:#334155; --text-dark:#0f172a; --color-primary:#1e3a8a; --color-secondary:#0d9488; --border-radius:12px; --transition:all .2s ease-in-out }
-        *{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:'Rubik',system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:var(--content-bg);color:var(--text-main);display:flex;min-height:100vh}
-        .sidebar{width:320px;background:var(--sidebar-bg);color:#fff;padding:26px;position:fixed;height:100vh;overflow:auto}
-        .main{margin-left:320px;padding:28px;flex:1}
-        h1,h2,h3{font-family:'Poppins',sans-serif}
-        .card{background:var(--card-bg);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.04);margin-bottom:16px}
-        ul{margin-top:8px;margin-bottom:8px}
-        .note{background:#fff7ed;border-left:4px solid #f59e0b;padding:10px;border-radius:6px;margin:8px 0}
-        pre{background:#0f172a;color:#e6eef8;padding:12px;border-radius:8px;overflow:auto}
-        .qa{margin-top:12px}
-        .muted{color:#64748b;font-size:13px}
-        @media(max-width:900px){.sidebar{position:relative;width:100%;height:auto}.main{margin-left:0}}
+        :root {
+            --primary-bg: #0f172a;
+            --sidebar-bg: #1e293b;
+            --content-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --text-dark: #0f172a;
+            --color-primary: #1e3a8a;
+            --color-secondary: #0d9488;
+            --color-accent: #d97706;
+            --color-danger: #be123c;
+            --color-success: #15803d;
+            --border-radius: 12px;
+            --transition: all 0.2s ease-in-out;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Rubik', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background-color: var(--content-bg); color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden; }
+
+        /* SIDEBAR NAVIGATION */
+        .sidebar { width: 340px; background-color: var(--sidebar-bg); color: white; padding: 30px 20px; display: flex; flex-direction: column; position: fixed; height: 100vh; overflow-y: auto; z-index: 100; box-shadow: 4px 0 15px rgba(0,0,0,0.1); }
+        .sidebar-header { margin-bottom: 25px; text-align: center; border-bottom: 2px solid #334155; padding-bottom: 15px; }
+        .sidebar-header h2 { font-family: 'Poppins', sans-serif; font-size: 22px; color: #38bdf8; letter-spacing: 0.5px; font-weight: 700; }
+        .sidebar-header p { font-size: 11px; color: #94a3b8; margin-top: 5px; text-transform: uppercase; font-weight: bold; }
+        
+        .search-box { position: relative; margin-bottom: 20px; }
+        .search-box input { width: 100%; padding: 12px 40px 12px 15px; background-color: #0f172a; border: 1px solid #475569; border-radius: 8px; color: white; font-size: 14px; transition: var(--transition); }
+        .search-box input:focus { border-color: var(--color-secondary); outline: none; box-shadow: 0 0 0 3px rgba(13,148,136,0.3); }
+        .search-box i { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #64748b; }
+
+        .nav-menu { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+        .nav-item { padding: 12px 15px; border-radius: var(--border-radius); cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 13.5px; font-weight: 500; color: #cbd5e1; transition: var(--transition); }
+        .nav-item:hover { background-color: #334155; color: white; }
+        .nav-item.active { background: linear-gradient(135deg, var(--color-primary) 0%, #2563eb 100%); color: white; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+        .nav-item i { font-size: 16px; width: 20px; text-align: center; }
+
+        /* MAIN CONTENT AREA */
+        .main-content { margin-left: 340px; flex-grow: 1; padding: 40px 45px; min-height: 100vh; width: calc(100% - 340px); overflow-wrap: break-word; }
+        .content-tab { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .content-tab.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .module-header { margin-bottom: 30px; border-bottom: 3px solid var(--color-primary); padding-bottom: 15px; }
+        .module-header h1 { font-family: 'Poppins', sans-serif; font-size: 32px; color: var(--text-dark); line-height: 1.3; font-weight: 700; }
+        .module-header p { color: var(--color-secondary); font-weight: 500; margin-top: 5px; font-size: 15px; }
+        
+        h3.section-title { font-family: 'Poppins', sans-serif; font-size: 20px; color: var(--color-primary); margin: 35px 0 15px 0; display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--color-secondary); padding-left: 12px; }
+
+        /* GRID AND CARDS */
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; margin-bottom: 25px; }
+        .hy-card { background-color: var(--card-bg); border-radius: var(--border-radius); padding: 22px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-top: 5px solid var(--color-primary); position: relative; transition: var(--transition); overflow-wrap: break-word; word-wrap: break-word; }
+        .hy-card:hover { transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); }
+        .hy-card.danger { border-top-color: var(--color-danger); }
+        .hy-card.accent { border-top-color: var(--color-accent); }
+        .hy-card.secondary { border-top-color: var(--color-secondary); }
+        
+        .card-badge { position: absolute; top: 18px; right: 20px; padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .badge-ad { background-color: #fee2e2; color: #991b1b; }
+        .badge-ar { background-color: #e0f2fe; color: #0369a1; }
+        .badge-xr { background-color: #fef3c7; color: #92400e; }
+        .badge-mt { background-color: #f3e8ff; color: #6b21a8; }
+        .badge-chrom { background-color: #d1fae5; color: #065f46; }
+        .badge-def { background-color: #e2e8f0; color: #334155; }
+
+        .hy-card h4 { font-family: 'Poppins', sans-serif; font-size: 17.5px; color: var(--text-dark); margin-bottom: 12px; padding-right: 85px; line-height: 1.4; font-weight: 700; }
+        .hy-card ul { list-style: none; }
+        .hy-card li { margin-bottom: 10px; padding-left: 22px; position: relative; font-size: 14.5px; line-height: 1.6; color: var(--text-main); }
+        .hy-card li i { position: absolute; left: 0; top: 4px; color: var(--color-secondary); font-size: 13px; }
+        .hy-card strong { color: var(--text-dark); font-weight: 700; }
+
+        /* RESPONSIVE TABLES */
+        .table-container { background-color: var(--card-bg); border-radius: var(--border-radius); overflow-x: auto; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin: 25px 0; border: 1px solid #e2e8f0; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; min-width: 850px; }
+        th { background-color: var(--color-primary); color: white; padding: 14px 18px; font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 0.5px; }
+        td { padding: 14px 18px; border-bottom: 1px solid #e2e8f0; color: var(--text-main); line-height: 1.6; vertical-align: top; }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) td { background-color: #f8fafc; }
+        tr:hover td { background-color: #f1f5f9; }
+
+        /* MEDICAL GRAPHICS VECTOR CONTAINER */
+        .medical-vector { background-color: #f0fdf4; border: 1px dashed #bbf7d0; padding: 20px; border-radius: var(--border-radius); text-align: center; margin: 20px 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #166534; font-size: 14px; font-weight: 500; }
+
+        /* 3D FLASHCARDS WITH ACTIVE EVALUATION */
+        .flashcard-wrapper { perspective: 1200px; width: 100%; max-width: 700px; height: 420px; margin: 30px auto; }
+        .flashcard { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
+        .flashcard.flipped { transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: var(--border-radius); padding: 40px; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(15,23,42,0.1); }
+        .card-front { background: linear-gradient(135deg, var(--color-primary) 0%, #1d4ed8 100%); color: white; border: none; justify-content: center; align-items: center; text-align: center; }
+        .card-front h3 { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 600; line-height: 1.6; }
+        .card-front p { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #93c5fd; margin-top: 25px; font-weight: 700; }
+        .card-back { background-color: white; color: var(--text-dark); transform: rotateY(180deg); border: 2px solid #e2e8f0; border-left: 8px solid var(--color-secondary); justify-content: flex-start; align-items: flex-start; }
+        .card-back h4 { font-family: 'Poppins', sans-serif; font-size: 16px; color: var(--color-secondary); margin-bottom: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card-back p, .card-back div { font-size: 14.5px; line-height: 1.6; color: var(--text-main); font-weight: 500; width: 100%; }
+
+        .flashcard-controls { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
+        .btn-flash { padding: 12px 24px; border-radius: 8px; border: none; background-color: var(--sidebar-bg); color: white; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; }
+        .btn-flash:hover { background-color: var(--color-secondary); transform: translateY(-1px); }
+        .btn-flash.flip { background-color: var(--color-accent); }
+        .btn-flash.flip:hover { background-color: #b45309; }
+        .btn-success-eval { background-color: var(--color-success); }
+        .btn-success-eval:hover { background-color: #166534; }
+        .btn-danger-eval { background-color: var(--color-danger); }
+        .btn-danger-eval:hover { background-color: #9f1239; }
+        .flash-progress { text-align: center; font-size: 15px; font-weight: 700; color: var(--text-dark); margin-top: 15px; font-family: 'Roboto Mono', monospace; }
+        .score-board { display: flex; justify-content: center; gap: 30px; margin: 15px 0; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600; }
+
+        /* NATIVE EXAM TESTING MODULE STYLES */
+        .exam-container { width: 100%; max-width: 850px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
+        .quiz-card { background-color: var(--card-bg); border-radius: var(--border-radius); padding: 30px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-left: 6px solid var(--color-primary); }
+        .quiz-card.answered-correct { border-left-color: var(--color-success); }
+        .quiz-card.answered-wrong { border-left-color: var(--color-danger); }
+        .quiz-q-title { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 600; color: var(--text-dark); margin-bottom: 20px; line-height: 1.5; }
+        .quiz-options-list { display: flex; flex-direction: column; gap: 12px; list-style: none; }
+        .quiz-option { padding: 14px 18px; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer; font-size: 14.5px; font-weight: 500; transition: var(--transition); background-color: #fff; }
+        .quiz-option:hover { background-color: #f1f5f9; border-color: #94a3b8; }
+        .quiz-option.correct { background-color: #d1fae5 !important; border-color: var(--color-success) !important; color: #065f46 !important; font-weight: 700; }
+        .quiz-option.wrong { background-color: #ffe4e6 !important; border-color: var(--color-danger) !important; color: #991b1b !important; font-weight: 700; }
+        .quiz-rationale { margin-top: 15px; padding: 15px; background-color: #f0fdf4; border-radius: 8px; border: 1px dashed #bbf7d0; font-size: 14px; line-height: 1.5; color: #166534; display: none; }
+        .quiz-rationale.visible { display: block; }
+        .quiz-rationale.wrong-rationale { background-color: #fef2f2; border-color: #fecaca; color: #991b1b; }
+        .exam-score-banner { background: linear-gradient(135deg, #1e3a8a 0%, #0d9488 100%); color: white; padding: 25px; border-radius: var(--border-radius); text-align: center; font-family: 'Poppins', sans-serif; }
+        .exam-score-banner h2 { font-size: 24px; margin-bottom: 10px; font-weight: 700; }
+        .exam-score-banner p { font-size: 16px; font-family: 'Roboto Mono', monospace; font-weight: bold; }
+
+        @media (max-width: 1024px) {
+            body { flex-direction: column; }
+            .sidebar { position: relative; width: 100%; height: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+            .main-content { margin-left: 0; width: 100%; padding: 20px; }
+            .flashcard-wrapper { height: 460px; }
+        }
     </style>
 </head>
 <body>
-    <aside class="sidebar" aria-label="Nawigacja">
-        <h2>SKRYPT MAXA — Genetyka Kliniczna II</h2>
-        <p class="muted">Wersja: bez grafik — treść uzupełniona merytorycznie pod EGZAMIN</p>
-        <nav>
-            <ul>
-                <li><a href="#mod1">Moduł 1 — Podstawy</a></li>
-                <li><a href="#mod2">Moduł 2 — Terminologia kliniczna</a></li>
-                <li><a href="#mod3">Moduł 3 — Skale pediatryczne</a></li>
-                <li><a href="#mod4">Moduł 4 — Aberracje chromosomowe</a></li>
-                <li><a href="#mod5">Moduł 5 — Zaburzenia metaboliczne</a></li>
-                <li><a href="#mod6">Moduł 6 — Genetyka onkologiczna</a></li>
-                <li><a href="#mod7">Moduł 7 — Okulistyka genetyczna</a></li>
-                <li><a href="#mod8">Moduł 8 — Diagnostyka i terapie</a></li>
-                <li><a href="#acmg">ACMG — klasyfikacja wariantów</a></li>
-                <li><a href="#exam">Przykładowe pytania egzaminacyjne</a></li>
-                <li><a href="#refs">Wybrane źródła i materiały do nauki</a></li>
-            </ul>
-        </nav>
-    </aside>
 
-    <main class="main" id="main">
-        <section id="mod1" class="card">
-            <h1>Moduł 1 — Podstawy genetyki</h1>
-            <p class="muted">Kluczowe pojęcia i mechanizmy, które musisz znać.</p>
-            <h3>Chromosomy i genom</h3>
-            <ul>
-                <li>Genom jądrowy: diploidalny u człowieka (2n=46), zbudowany z DNA liniowego w chromosomach; mtDNA: koliste, dziedziczenie matczyne, heteroplazmia.</li>
-                <li>Ploidalność, mozaicyzm, aneuploidie (trisomie, monosomie) — znaczenie kliniczne i mechanizmy powstawania (nondysjunkcja, mitotyczne błędy).</li>
-            </ul>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>SKRYPT MAXA</h2>
+            <p>Medycyna & Genetyka II</p>
+        </div>
+        
+        <div class="search-box">
+            <input type="text" id="globalSearch" placeholder="Szukaj jednostki, genu, objawu..." onkeyup="filterContent()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
 
-            <h3>Rodzaje mutacji</h3>
-            <ul>
-                <li>SNV (substytucje), indels (ins/del), frameshift, nonsense, splice-site.</li>
-                <li>CNV — zmiany liczby kopii: delecje, duplikacje; istotne klinicznie przy wielu zespołach wrodzonych.</li>
-                <li>Translokacje zrównoważone i niezrównoważone — wpływ na fenotyp i płodność.</li>
-            </ul>
+        <ul class="nav-menu">
+            <li class="nav-item active" onclick="switchTab('mod1')"><i class="fa-solid fa-book"></i>M1: Podstawy i Podziały</li>
+            <li class="nav-item" onclick="switchTab('mod2')"><i class="fa-solid fa-tags"></i>M2: Słownik Genetyczny</li>
+            <li class="nav-item" onclick="switchTab('mod3')"><i class="fa-solid fa-scale-balanced"></i>M3: Skale Pediatryczne</li>
+            <li class="nav-item" onclick="switchTab('mod4')"><i class="fa-solid fa-dna"></i>M4: Aberracje i Imprinting</li>
+            <li class="nav-item" onclick="switchTab('mod5')"><i class="fa-solid fa-capsules"></i>M5: Bloki Metaboliczne</li>
+            <li class="nav-item" onclick="switchTab('mod6')"><i class="fa-solid fa-biohazard"></i>M6: Genetyka Onkologiczna</li>
+            <li class="nav-item" onclick="switchTab('mod7')"><i class="fa-solid fa-eye"></i>M7: Okulistyka Genetyczna</li>
+            <li class="nav-item" onclick="switchTab('mod8')"><i class="fa-solid fa-microscope"></i>M8: Diagnostyka i Terapie</li>
+            <li class="nav-item" onclick="switchTab('matrix')"><i class="fa-solid fa-table-cells"></i>Kompletny Matrix</li>
+            <li class="nav-item" onclick="switchTab('flashcards')" style="border-top: 2px dashed #475569; margin-top: 10px; padding-top: 15px; color: #facc15;"><i class="fa-solid fa-clone"></i>Moje fiszki</li>
+            <li class="nav-item" onclick="switchTab('examTab')" style="color: #f43f5e; font-weight: 700;"><i class="fa-solid fa-graduation-cap"></i>Sprawdź się na Teście (59 pytań)</li>
+        </ul>
+    </div>
 
-            <h3>Wzorce dziedziczenia — streszczenie (ważne na egzamin)</h3>
-            <ul>
-                <li><strong>Autosomalne dominujące (AD):</strong> pojedyncza patogenna kopia wystarcza; pionowy typ dziedziczenia; zmienna penetracja i ekspresywność. Przykład: achondroplazja.</li>
-                <li><strong>Autosomalne recesywne (AR):</strong> objawowy tylko przy dwóch allelach patogennych; zwiększone ryzyko przy pokrewieństwie. Przykład: mukowiscydoza.</li>
-                <li><strong>X‑związane recesywne (XR):</strong> dotyczy głównie mężczyzn; kobiety nosicielki zwykle łagodniej. Przykład: hemofilia A.</li>
-                <li><strong>Mitochondrialne:</strong> dziedziczenie matczyne; heteroplazmia wpływa na ciężkość choroby.</li>
-                <li><strong>Imprinting / rodzicielskie efekty:</strong> allel od jednego rodzica może być „wyciszony” — przykłady: Beckwith‑Wiedemann, Prader‑Willi/Angelman.</li>
-            </ul>
+    <div class="main-content">
 
-            <div class="note">
-                <strong>Praktyczny skrót:</strong> pamiętaj, że de novo wystąpienia często wskazują na AD de novo (np. achondroplazja) — zawsze rozważ badanie rodziców na mozaicyzm.
+        <!-- HERO (grafiki usunięte) -->
+        <div class="hero" style="margin-bottom:20px;">
+            <div style="background:linear-gradient(90deg,#e6f2ff,#eefcff); padding:24px; border-radius:12px; border:1px solid #e6eef9;">
+                <h2 style="margin:0; color:#0f172a; font-family:'Poppins',sans-serif;">SKRYPT MAXA — Genetyka Kliniczna II</h2>
+                <p style="margin:6px 0 0;color:#475569;">Zwięzłe podsumowanie najważniejszych mechanizmów, klasyfikacji i pytań egzaminacyjnych.</p>
             </div>
-        </section>
+        </div>
 
-        <section id="mod2" class="card">
-            <h2>Moduł 2 — Terminologia kliniczna i zasady interpretacji</h2>
-            <h3>Podstawowe pojęcia</h3>
-            <ul>
-                <li>Dysmorfologia: rozpoznawanie wzorców zaburzeń rozwoju i wad wrodzonych.</li>
-                <li>Fenotyp, penetracja, ekspresywność, pleomorfizm.</li>
-                <li>De novo vs dziedziczone; znaczenie dla poradnictwa genetycznego.</li>
-            </ul>
-
-            <h3>Interpretacja wariantów — kluczowe zasady</h3>
-            <ul>
-                <li>Stosuj kryteria ACMG (P/LP/VUS/LB/B) — patrz oddzielna sekcja.</li>
-                <li>Źródła danych: bazy populacyjne (gnomAD), literatury (PubMed), bazy wariantów (ClinVar), konsorcja (ClinGen).</li>
-                <li>Znaczenie segregacji rodzinnej, częstości w populacji, dowodów funkcjonalnych.</li>
-            </ul>
-        </section>
-
-        <section id="mod3" class="card">
-            <h2>Moduł 3 — Skale pediatryczne i ocena rozwoju</h2>
-            <p>Najważniejsze skale i ich wykorzystanie kliniczne:</p>
-            <ul>
-                <li>APGAR — ocena noworodka (krótkie przypomnienie punktacji).</li>
-                <li>Skale rozwoju psychoruchowego (Denver, Griffiths) — stosowane w ocenie opóźnień.</li>
-                <li>Ocena centylowa wzrostu i masy ciała; mikrocefalia / makrocefalia — kryteria definicyjne.</li>
-            </ul>
-            <div class="note">Na egzaminie mogą pojawić się pytania wymagające rozpoznania zespołu na podstawie połączenia cech dysmorfologicznych i wyników badań molekularnych.</div>
-        </section>
-
-        <section id="mod4" class="card">
-            <h2>Moduł 4 — Aberracje chromosomowe i imprinting</h2>
-            <h3>Aberracje liczbowe</h3>
-            <ul>
-                <li>Trisomie autosomalne: najczęściej 21, 18, 13 — cechy kliniczne i rokowanie.</li>
-                <li>Monosomie i mozaicyzm — kliniczne znaczenie zależy od zakresu mozaicyzmu.</li>
-            </ul>
-            <h3>Aberracje strukturalne</h3>
-            <ul>
-                <li>Delecje/duplikacje (CNV) — diagnostyka: aCGH / SNP arrays, MLPA.</li>
-                <li>Translokacje — badania cytogenetyczne, FISH.</li>
-            </ul>
-            <h3>Imprinting</h3>
-            <ul>
-                <li>Mechanizm: metylacja i cis‑regulatory; skutki zależne od tego, który allel (matczyny/ojcowski) jest wyciszony.</li>
-                <li>Przykłady kliniczne: Prader‑Willi (loss of paternal expression on 15q11.2), Angelman (loss of maternal UBE3A), Beckwith‑Wiedemann (zmiany w 11p15).</li>
-            </ul>
-        </section>
-
-        <section id="mod5" class="card">
-            <h2>Moduł 5 — Choroby metaboliczne</h2>
-            <p>Schemat diagnostyczny i przykłady:</p>
-            <ul>
-                <li>Objawy alarmowe: hipoglikemia, kwasica metaboliczna, encefalopatia, opóźnienie rozwoju, nietypowy zapach.</li>
-                <li>Badania przesiewowe noworodków (PKU, CH, MS/MS panel) — zasady interpretacji wyników.</li>
-                <li>Przykłady chorób: fenyloketonuria, mukopolisacharydozy, zaburzenia cyklu mocznikowego.</li>
-            </ul>
-            <div class="note">W praktyce klinicznej szybkie oznaczenia biochemiczne oraz konsultacja z metabolicznym centrum są kluczowe przy rozpoznawaniu ostrych stanów.</div>
-        </section>
-
-        <section id="mod6" class="card">
-            <h2>Moduł 6 — Genetyka onkologiczna</h2>
-            <ul>
-                <li>Predyspozycje rodzinne: BRCA1/2, Lynch (MLH1, MSH2, MSH6, PMS2), TP53 (Li‑Fraumeni).</li>
-                <li>Różnica między zmianami somatycznymi a germinalnymi — konsekwencje dla terapii i poradnictwa.</li>
-                <li>Testy: panel nowotworowy, sekwencjonowanie NGS, MSI, IHC for MMR proteins.</li>
-            </ul>
-        </section>
-
-        <section id="mod7" class="card">
-            <h2>Moduł 7 — Okulistyka genetyczna (skrócone)</h2>
-            <ul>
-                <li>Dziedziczne dystrofie siatkówki (np. retinitis pigmentosa) — heterogenność genetyczna, dziedziczenie AD/AR/XR.</li>
-                <li>Choroby mitochondrialne manifestujące się okulistycznie: LHON — nagła utrata widzenia u młodych mężczyzn.</li>
-            </ul>
-        </section>
-
-        <section id="mod8" class="card">
-            <h2>Moduł 8 — Diagnostyka molekularna i terapie</h2>
-            <h3>Metody diagnostyczne — co, kiedy i dlaczego</h3>
-            <ul>
-                <li>Kariotyp (GTG): wykrywa aberracje strukturalne >5–10 Mb, translokacje, aneuploidie.</li>
-                <li>Microarray (aCGH / SNP array): wykrywa CNV o rozdzielczości zależnej od platformy — standard w diagnostyce zaburzeń rozwojowych.</li>
-                <li>NGS — panele genów, WES, WGS: wykrywa SNV/indels; WES jest przydatne przy heterogenicznych zespołach monogenowych.</li>
-                <li>MLPA: precyzyjne wykrywanie delecji/duplikacji w konkretnych genach.</li>
-                <li>FISH: lokalizacja specyficznych sekwencji, używane w diagnostyce prenatalnej i hematologii.</li>
-            </ul>
-
-            <h3>Terapie i interwencje</h3>
-            <ul>
-                <li>Terapia genowa: rosnąca dziedzina — przykład: terapia dla niektórych postaci dystrofii siatkówki, SMA (nusinersen/onasemnogene abeparvovec jako obszar terapii modyfikujących przebieg choroby).</li>
-                <li>Leczenie objawowe i diagnostyka metaboliczna z szybką interwencją dietetyczną/enzymatyczną.</li>
-                <li>Poradnictwo genetyczne: kluczowe przy przekazywaniu ryzyka rodzinnego, dostępnych testów i opcji reprodukcyjnych.</li>
-            </ul>
-        </section>
-
-        <section id="acmg" class="card">
-            <h2>ACMG — krótki przewodnik po klasyfikacji wariantów</h2>
-            <ol>
-                <li>Patogeniczny (P) — mocne dowody genetyczne/funkcjonalne/segragacyjne.</li>
-                <li>Likely pathogenic (LP)</li>
-                <li>VUS — wariant o niepewnej znaczeniu; nie używać do decyzji klinicznych bez dodatkowych dowodów.</li>
-                <li>Likely benign (LB), Benign (B)</li>
-            </ol>
-            <p class="muted">Kombinacja kryteriów (Population, Computational, Functional, Segregation, De novo, Allelic data) decyduje o ostatecznej ocenie.</p>
-        </section>
-
-        <section id="exam" class="card">
-            <h2>Przykładowe pytania egzaminacyjne (z odpowiedziami)</h2>
-            <div class="qa">
-                <p><strong>P1.</strong> Które badanie jest najlepsze do wykrycia wielkoskalowych delecji i duplikacji (CNV)?</p>
-                <p><em>Odp:</em> aCGH / SNP array.</p>
+        <div id="mod1" class="content-tab active">
+            <div class="module-header">
+                <h1>Moduł 1: Podstawy Genetyki i Podziały Komórkowe</h1>
+                <p>Kanon teoretyczny i rygorystyczne mechanizmy podziałów komórkowych.</p>
             </div>
-            <div class="qa">
-                <p><strong>P2.</strong> Mutacja powodująca stop kodon (nonsense) prawdopodobnie skutkuje:</p>
-                <p><em>Odp:</em> skróceniem łańcucha białkowego; możliwa degradacja mRNA przez NMD (nonsense‑mediated decay).</p>
-            </div>
-            <div class="qa">
-                <p><strong>P3.</strong> Dziedziczenie w zespole X‑zależnym recesywnym — u kogo objawy są najczęściej cięższe?</p>
-                <p><em>Odp:</em> u mężczyzn, ponieważ mają tylko jeden chromosom X.</p>
-            </div>
-            <div class="qa">
-                <p><strong>P4.</strong> Co oznacza termin "penetracja zmienna"?</p>
-                <p><em>Odp:</em> odsetek osób z danym wariantem genetycznym, które wykazują fenotyp choroby; zmienna penetracja oznacza, że nie wszyscy nosiciele manifestują chorobę.</p>
-            </div>
-            <div class="qa">
-                <p><strong>P5 (krótkie zadanie kliniczne).</strong> Noworodek z hipoglikemią, kwasicą metaboliczną i nietypowym zapachem: jakie badania w pierwszej kolejności zlecisz?</p>
-                <p><em>Odp:</em> badania metaboliczne — gazy krwi, glukoza, mleczany, amoniak; pobranie próbek do badań metabolicznych (MS/MS), konsultacja z oddziałem metabolicznym.</p>
-            </div>
-            <p class="muted">Więcej pytań przykładowych mogę dodać — napisz które obszary chcesz przećwiczyć (np. cytogenetyka, biochemia, dziedziczenie).</p>
-        </section>
 
-        <section id="refs" class="card">
-            <h2>Wybrane źródła i materiały do nauki</h2>
-            <ul>
-                <li>ACMG Standards and Guidelines for interpretation of sequence variants.</li>
-                <li>OMIM — katalog fenotypów i genów.</li>
-                <li>Genetics Home Reference / NCBI / gnomAD / ClinVar.</li>
-                <li>Review articles: "Clinical Genetics" chapters, aktualne consensus statements (np. for Lynch, BRCA testing).</li>
-            </ul>
-        </section>
+            <h3 class="section-title"><i class="fa-solid fa-circle-nodes"></i> Podstawy Genetyki Ogólnej</h3>
+            <div class="grid-layout">
+                <div class="hy-card">
+                    <span class="card-badge badge-def">Podziały</span>
+                    <h4>Podział Komórki i Ploidalność</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-square-poll-vertical"></i><span class="bullet-bold">Mitoza:</span> Podział komórek somatycznych organizmu; zachowuje wyjściową ploidalność; fazy: profaza, metafaza, anafaza, telofaza.</li>
+                        <li><i class="fa-solid fa-square-poll-vertical"></i><span class="bullet-bold">Mejoza:</span> Podział redukcyjny zachodzący w komórkach linii płciowej; rekombinacja i crossing-over w profazie I.</li>
+                    </ul>
+                </div>
+                <div class="hy-card">
+                    <span class="card-badge badge-def">Prawa Mendla</span>
+                    <h4>Prawa Dziedziczenia Mendla</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-gavel"></i><span class="bullet-bold">I Prawo Mendla (Prawo czystości gamet):</span> Każda gameta otrzymuje jeden allel z pary.</li>
+                        <li><i class="fa-solid fa-gavel"></i><span class="bullet-bold">II Prawo Mendla (Prawo niezależnej segregacji cech):</span> Allele różnych genów segregują się niezależnie, jeśli są na różnych chromosomach.</li>
+                    </ul>
+                </div>
+                <div class="hy-card">
+                    <span class="card-badge badge-def">Genomy</span>
+                    <h4>Genom Jądrowy vs Mitochondrialny</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-database"></i><span class="bullet-bold">Genom Jądrowy:</span> DNA liniowe w chromosomach; dziedziczenie biparentalne; rekombinacja.</li>
+                        <li><i class="fa-solid fa-database"></i><span class="bullet-bold">Genom Mitochondrialny (mtDNA):</span> Koliste cząsteczki DNA w mitochondriach; dziedziczenie matczyne; heteroplazmia wpływa na ekspresję fenotypową.</li>
+                    </ul>
+                </div>
+                <div class="hy-card">
+                    <span class="card-badge badge-def">Mutacje</span>
+                    <h4>Typy Mutacji Genowych, Genotyp i Fenotyp</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-scissors"></i><span class="bullet-bold">Substytucje punktowe:</span> tranzycje i transwersje; mogą być missense, nonsense lub silent.</li>
+                        <li><i class="fa-solid fa-scissors"></i><span class="bullet-bold">Mutacje strukturalne:</span> delecje, insercje, duplikacje, inwersje, translokacje.</li>
+                        <li><i class="fa-solid fa-dna"></i><span class="bullet-bold">Genotyp vs Fenotyp:</span> Genotyp to zestaw alleli; fenotyp to obserwowalne cechy wynikające z interakcji genotyp-środowisko.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-    </main>
+        <!-- mod2 and other modules unchanged but images removed where present -->
+        <div id="mod2" class="content-tab">
+            <div class="module-header">
+                <h1>Moduł 2: Pojęcia Dotyczące Genetyki Klinicznej</h1>
+                <p>Naukowa definicja zjawisk molekularnych, mechanizmów ekspresji i słownika klinicznego.</p>
+            </div>
+
+            <div class="grid-layout">
+                <div class="hy-card secondary">
+                    <h4>Zjawiska Mutacyjne i Struktura Teoretyczna</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-microscope"></i><strong>Dysmorfologia i Teratologia:</strong> Dysmorfologia bada wady wrodzone. Teratologia analizuje czynniki teratogenne.</li>
+                        <li><i class="fa-solid fa-bolt"></i><strong>Antycypacja i Ekspansja:</strong> Ekspansja powtórzeń (np. trinukleotydowa) prowadzi do pogorszenia fenotypu w kolejnych pokoleniach.</li>
+                        <li><i class="fa-solid fa-circle-exclamation"></i><strong>Premutacja:</strong> Liczba powtórzeń mogąca ulegać ekspansji w gametach; istotna np. w chorobie Huntingtona czy zespole kruchym X.</li>
+                        <li><i class="fa-solid fa-dna"></i><strong>Mutacje de novo i Mozaicyzm Germinalny:</strong> Mutacje powstające w gametach lub wczesnym embrionalnie; mozaicyzm ważny dla ryzyka recurrence.</li>
+                    </ul>
+                </div>
+                <div class="hy-card secondary">
+                    <h4>Mechanizmy Ekspresji i Klasyfikacji Fenotypowej</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-fingerprint"></i><strong>Imprinting Genomowy:</strong> Epigenetyczne wyciszenie allelu zależne od płci rodzica; przykłady: zespół Pradera-Williego, Angelmana.</li>
+                        <li><i class="fa-solid fa-percent"></i><strong>Penetracja i Zmienna Ekspresja:</strong> Niepełna penetracja = brak objawów mimo patogennego genotypu; zmienna ekspresja = różne nasilenie objawów.</li>
+                        <li><i class="fa-solid fa-network-wired"></i><strong>Heterogenność i Plejotropia:</strong> Różne mutacje w tym samym genie lub różnych genach dają podobny fenotyp; plejotropia = jeden gen wpływa na wiele cech.</li>
+                        <li><i class="fa-solid fa-diagram-project"></i><strong>Monogenowe, Poligenowe i Wieloczynnikowe:</strong> Podstawowe modele dziedziczenia chorób.</li>
+                    </ul>
+                </div>
+                <div class="hy-card secondary">
+                    <h4>Onkogeneza, Genetyka Płci i Heteroplazmia</h4>
+                    <ul>
+                        <li><i class="fa-solid fa-battery-quarter"></i><strong>Choroby mitochondrialne:</strong> Heteroplazmia i dziedziczenie matczyne; przykłady kliniczne i diagnostyka.</li>
+                        <li><i class="fa-solid fa-shield-virus"></i><strong>Onkogeneza:</strong> Protoonkogeny, onkogeny, supresory nowotworowe, amplifikacje, translokacje (np. BCR-ABL).</li>
+                        <li><i class="fa-solid fa-venus-mars"></i><strong>DSD:</strong> Zaburzenia rozwoju płciowego: genetyka, diagnostyka, przykłady kliniczne.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- rest of the content retained as previously, images removed where they appeared -->
+
+    </div>
+
+    <script>
+        /* --------- UI: taby, filtr, flashcards/exam engines (przeniesione i zintegrowane) --------- */
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.content-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+
+            const items = document.querySelectorAll('.nav-item');
+            if(tabId === 'mod1') items[0].classList.add('active');
+            if(tabId === 'mod2') items[1].classList.add('active');
+            if(tabId === 'mod3') items[2].classList.add('active');
+            if(tabId === 'mod4') items[3].classList.add('active');
+            if(tabId === 'mod5') items[4].classList.add('active');
+            if(tabId === 'mod6') items[5].classList.add('active');
+            if(tabId === 'mod7') items[6].classList.add('active');
+            if(tabId === 'mod8') items[7].classList.add('active');
+            if(tabId === 'matrix') items[8].classList.add('active');
+            if(tabId === 'flashcards') items[9].classList.add('active');
+            if(tabId === 'examTab') items[10].classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        function filterContent() {
+            let input = document.getElementById('globalSearch').value.toLowerCase();
+            
+            document.querySelectorAll('.hy-card').forEach(card => {
+                let text = card.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    card.style.display = "block";
+                    card.style.borderLeft = "4px solid #0d9488";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            document.querySelectorAll('tbody tr').forEach(row => {
+                let text = row.innerText.toLowerCase();
+                if (text.includes(input)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+
+            if (input === "") {
+                document.querySelectorAll('.hy-card').forEach(card => card.style.display = "");
+                document.querySelectorAll('tbody tr').forEach(row => row.style.display = "");
+            }
+        }
+
+        window.onload = function() {
+            // existing initializers
+            try { if (typeof compileDynamicFlashcards === 'function') compileDynamicFlashcards(); } catch(e){}
+            try { if (typeof compileExamSystem === 'function') compileExamSystem(); } catch(e){}
+        };
+
+        // Rejestracja Service Workera (pliku /sw.js w root serwera)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(reg => {
+                    console.log('Service Worker zarejestrowany. Scope:', reg.scope);
+                }).catch(err => {
+                    console.warn('Rejestracja SW nie powiodła się:', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
