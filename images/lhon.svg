@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="500" viewBox="0 0 1100 500">
+  <rect width="100%" height="100%" fill="#fffbe6"/>
+  <g transform="translate(60,60)">
+    <rect x="0" y="0" width="980" height="380" rx="14" fill="#fff" stroke="#fff0c2"/>
+    <text x="490" y="90" font-family="Poppins, sans-serif" font-size="34" text-anchor="middle" fill="#854d0e">LHON — mutacje mitochondrialne</text>
+    <ellipse cx="300" cy="230" rx="120" ry="80" fill="#fca5a5"/>
+    <ellipse cx="700" cy="230" rx="120" ry="80" fill="#93c5fd"/>
+    <text x="300" y="230" font-family="Roboto Mono" font-size="14" text-anchor="middle" fill="#fff">mtDNA</text>
+    <text x="700" y="230" font-family="Roboto Mono" font-size="14" text-anchor="middle" fill="#fff">mtDNA</text>
+    <text x="490" y="340" font-family="Roboto Mono" font-size="14" text-anchor="middle" fill="#475569">lhon.svg (schemat)</text>
+  </g>
+</svg>
