@@ -1,209 +1,221 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>SKRYPT MAXA: Genetyka Kliniczna II</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <style>
-    :root{--primary-bg:#0f172a;--sidebar-bg:#1e293b;--content-bg:#f8fafc;--card-bg:#ffffff;--text-main:#334155;--text-dark:#0f172a;--color-primary:#1e3a8a;--color-secondary:#0d9488;--border-radius:12px;--transition:all .2s ease-in-out}
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Rubik',system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:var(--content-bg);color:var(--text-main);display:flex;min-height:100vh;overflow-x:hidden}
-    .sidebar{width:340px;background:var(--sidebar-bg);color:#fff;padding:30px 20px;position:fixed;height:100vh;overflow-y:auto;z-index:100}
-    .sidebar-header{margin-bottom:20px;text-align:center}
-    .sidebar-header h2{font-family:'Poppins',sans-serif;color:#38bdf8;font-size:20px}
-    .search-box{position:relative;margin-bottom:20px}
-    .search-box input{width:100%;padding:10px 36px 10px 12px;background:#0f172a;border:1px solid #475569;border-radius:8px;color:#fff}
-    .nav-menu{list-style:none;display:flex;flex-direction:column;gap:8px}
-    .nav-item{padding:10px 12px;border-radius:10px;cursor:pointer;color:#cbd5e1}
-    .nav-item.active{background:linear-gradient(135deg,var(--color-primary) 0%,#2563eb 100%);color:#fff}
-    .main-content{margin-left:340px;padding:28px;flex:1}
-    .module-header h1{font-family:'Poppins',sans-serif;color:var(--text-dark);margin-bottom:6px}
-    .grid-layout{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
-    .hy-card{background:var(--card-bg);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.04);position:relative}
-    .card-badge{position:absolute;right:16px;top:12px;padding:4px 8px;border-radius:12px;font-weight:700;font-size:11px}
-    .medical-vector{background:#f0fdf4;border:1px dashed #bbf7d0;padding:16px;border-radius:12px;text-align:center;margin:18px 0}
-    img.inline-figure{max-width:100%;height:auto;border-radius:8px;margin-bottom:12px;display:block}
-    @media(max-width:1024px){.sidebar{position:relative;width:100%;height:auto}.main-content{margin-left:0;padding:16px}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKRYPT MAXA: Genetyka Kliniczna II — wersja bez grafik</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono:wght@400;500;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root { --primary-bg:#0f172a; --sidebar-bg:#1e293b; --content-bg:#f8fafc; --card-bg:#ffffff; --text-main:#334155; --text-dark:#0f172a; --color-primary:#1e3a8a; --color-secondary:#0d9488; --border-radius:12px; --transition:all .2s ease-in-out }
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Rubik',system-ui,-apple-system,'Segoe UI',Roboto,Arial;background:var(--content-bg);color:var(--text-main);display:flex;min-height:100vh}
+        .sidebar{width:320px;background:var(--sidebar-bg);color:#fff;padding:26px;position:fixed;height:100vh;overflow:auto}
+        .main{margin-left:320px;padding:28px;flex:1}
+        h1,h2,h3{font-family:'Poppins',sans-serif}
+        .card{background:var(--card-bg);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.04);margin-bottom:16px}
+        ul{margin-top:8px;margin-bottom:8px}
+        .note{background:#fff7ed;border-left:4px solid #f59e0b;padding:10px;border-radius:6px;margin:8px 0}
+        pre{background:#0f172a;color:#e6eef8;padding:12px;border-radius:8px;overflow:auto}
+        .qa{margin-top:12px}
+        .muted{color:#64748b;font-size:13px}
+        @media(max-width:900px){.sidebar{position:relative;width:100%;height:auto}.main{margin-left:0}}
+    </style>
 </head>
 <body>
-  <div class="sidebar">
-    <div class="sidebar-header">
-      <h2>SKRYPT MAXA</h2>
-      <p style="font-size:11px;color:#94a3b8;margin-top:4px;text-transform:uppercase;font-weight:700">Medycyna & Genetyka II</p>
-    </div>
-    <div class="search-box">
-      <input id="globalSearch" type="text" placeholder="Szukaj jednostki, genu, objawu..." onkeyup="filterContent()">
-      <i class="fa-solid fa-magnifying-glass" style="position:absolute;right:12px;top:10px;color:#64748b"></i>
-    </div>
-    <ul class="nav-menu" role="navigation" aria-label="Główna nawigacja">
-      <li class="nav-item active" data-target="mod1" onclick="switchTab('mod1')"><i class="fa-solid fa-book" style="width:20px"></i> M1: Podstawy i Podziały</li>
-      <li class="nav-item" data-target="mod2" onclick="switchTab('mod2')"><i class="fa-solid fa-tags" style="width:20px"></i> M2: Słownik Genetyczny</li>
-      <li class="nav-item" data-target="mod3" onclick="switchTab('mod3')"><i class="fa-solid fa-scale-balanced" style="width:20px"></i> M3: Skale Pediatryczne</li>
-      <li class="nav-item" data-target="mod4" onclick="switchTab('mod4')"><i class="fa-solid fa-dna" style="width:20px"></i> M4: Aberracje i Imprinting</li>
-      <li class="nav-item" data-target="mod5" onclick="switchTab('mod5')"><i class="fa-solid fa-capsules" style="width:20px"></i> M5: Bloki Metaboliczne</li>
-      <li class="nav-item" data-target="mod6" onclick="switchTab('mod6')"><i class="fa-solid fa-biohazard" style="width:20px"></i> M6: Genetyka Onkologiczna</li>
-      <li class="nav-item" data-target="mod7" onclick="switchTab('mod7')"><i class="fa-solid fa-eye" style="width:20px"></i> M7: Okulistyka Genetyczna</li>
-      <li class="nav-item" data-target="mod8" onclick="switchTab('mod8')"><i class="fa-solid fa-microscope" style="width:20px"></i> M8: Diagnostyka i Terapie</li>
-      <li class="nav-item" data-target="matrix" onclick="switchTab('matrix')"><i class="fa-solid fa-table-cells" style="width:20px"></i> Kompletny Matrix</li>
-      <li class="nav-item" data-target="flashcards" onclick="switchTab('flashcards')" style="margin-top:8px;border-top:2px dashed #475569;padding-top:12px;color:#facc15"><i class="fa-solid fa-clone"></i> Moduł Aktywnej Nauki (Fiszki)</li>
-      <li class="nav-item" data-target="examTab" onclick="switchTab('examTab')" style="color:#f43f5e;font-weight:700"><i class="fa-solid fa-graduation-cap"></i> Sprawdź się na Teście (59 pytań)</li>
-    </ul>
-  </div>
+    <aside class="sidebar" aria-label="Nawigacja">
+        <h2>SKRYPT MAXA — Genetyka Kliniczna II</h2>
+        <p class="muted">Wersja: bez grafik — treść uzupełniona merytorycznie pod EGZAMIN</p>
+        <nav>
+            <ul>
+                <li><a href="#mod1">Moduł 1 — Podstawy</a></li>
+                <li><a href="#mod2">Moduł 2 — Terminologia kliniczna</a></li>
+                <li><a href="#mod3">Moduł 3 — Skale pediatryczne</a></li>
+                <li><a href="#mod4">Moduł 4 — Aberracje chromosomowe</a></li>
+                <li><a href="#mod5">Moduł 5 — Zaburzenia metaboliczne</a></li>
+                <li><a href="#mod6">Moduł 6 — Genetyka onkologiczna</a></li>
+                <li><a href="#mod7">Moduł 7 — Okulistyka genetyczna</a></li>
+                <li><a href="#mod8">Moduł 8 — Diagnostyka i terapie</a></li>
+                <li><a href="#acmg">ACMG — klasyfikacja wariantów</a></li>
+                <li><a href="#exam">Przykładowe pytania egzaminacyjne</a></li>
+                <li><a href="#refs">Wybrane źródła i materiały do nauki</a></li>
+            </ul>
+        </nav>
+    </aside>
 
-  <main class="main-content" id="content">
-    <!-- HERO -->
-    <div class="hero" style="margin-bottom:18px">
-      <img src="images/hero.svg" class="inline-figure" alt="SKRYPT MAXA — baner główny">
-    </div>
+    <main class="main" id="main">
+        <section id="mod1" class="card">
+            <h1>Moduł 1 — Podstawy genetyki</h1>
+            <p class="muted">Kluczowe pojęcia i mechanizmy, które musisz znać.</p>
+            <h3>Chromosomy i genom</h3>
+            <ul>
+                <li>Genom jądrowy: diploidalny u człowieka (2n=46), zbudowany z DNA liniowego w chromosomach; mtDNA: koliste, dziedziczenie matczyne, heteroplazmia.</li>
+                <li>Ploidalność, mozaicyzm, aneuploidie (trisomie, monosomie) — znaczenie kliniczne i mechanizmy powstawania (nondysjunkcja, mitotyczne błędy).</li>
+            </ul>
 
-    <!-- MODULE 1 -->
-    <section id="mod1" class="content-tab" aria-labelledby="mod1-title">
-      <div class="module-header">
-        <h1 id="mod1-title">Moduł 1: Podstawy Genetyki i Podziały Komórkowe</h1>
-        <p style="color:#0d9488;font-weight:600;margin-top:6px">Kanon teoretyczny i rygorystyczne mechanizmy podziałów komórkowych.</p>
-      </div>
+            <h3>Rodzaje mutacji</h3>
+            <ul>
+                <li>SNV (substytucje), indels (ins/del), frameshift, nonsense, splice-site.</li>
+                <li>CNV — zmiany liczby kopii: delecje, duplikacje; istotne klinicznie przy wielu zespołach wrodzonych.</li>
+                <li>Translokacje zrównoważone i niezrównoważone — wpływ na fenotyp i płodność.</li>
+            </ul>
 
-      <h3 class="section-title"><i class="fa-solid fa-circle-nodes"></i> Podstawy Genetyki Ogólnej</h3>
-      <div class="grid-layout">
-        <article class="hy-card" aria-labelledby="podzialy-title">
-          <span class="card-badge" style="background:#e2e8f0;color:#334155">Podziały</span>
-          <img src="images/podzialy.svg" alt="Schemat podziałów komórkowych" class="inline-figure">
-          <h4 id="podzialy-title">Podział Komórki i Ploidalność</h4>
-          <ul>
-            <li><i class="fa-solid fa-square-poll-vertical"></i> <strong>Mitoza:</strong> podział komórek somatycznych; zachowuje ploidalność (2n→2n). Nieprawidłowości mogą dawać mozaicyzm somatyczny.</li>
-            <li><i class="fa-solid fa-square-poll-vertical"></i> <strong>Mejoza:</strong> podział redukcyjny linii płciowej; wymiana materiału genetycznego (crossing-over); nondysjunkcja → trisomie.</li>
-          </ul>
-        </article>
+            <h3>Wzorce dziedziczenia — streszczenie (ważne na egzamin)</h3>
+            <ul>
+                <li><strong>Autosomalne dominujące (AD):</strong> pojedyncza patogenna kopia wystarcza; pionowy typ dziedziczenia; zmienna penetracja i ekspresywność. Przykład: achondroplazja.</li>
+                <li><strong>Autosomalne recesywne (AR):</strong> objawowy tylko przy dwóch allelach patogennych; zwiększone ryzyko przy pokrewieństwie. Przykład: mukowiscydoza.</li>
+                <li><strong>X‑związane recesywne (XR):</strong> dotyczy głównie mężczyzn; kobiety nosicielki zwykle łagodniej. Przykład: hemofilia A.</li>
+                <li><strong>Mitochondrialne:</strong> dziedziczenie matczyne; heteroplazmia wpływa na ciężkość choroby.</li>
+                <li><strong>Imprinting / rodzicielskie efekty:</strong> allel od jednego rodzica może być „wyciszony” — przykłady: Beckwith‑Wiedemann, Prader‑Willi/Angelman.</li>
+            </ul>
 
-        <article class="hy-card">
-          <span class="card-badge" style="background:#e2e8f0;color:#334155">Genomy</span>
-          <img src="images/genomy.svg" alt="Genom jądrowy i mitochondrialny" class="inline-figure">
-          <h4>Genom Jądrowy vs Mitochondrialny</h4>
-          <ul>
-            <li><strong>Genom jądrowy:</strong> linearne chromosomy, histony, dziedziczenie dwurodzicielske.</li>
-            <li><strong>mtDNA:</strong> koliste, dziedziczenie matczyne, heteroplazmia wpływa na zmienność fenotypu.</li>
-          </ul>
-        </article>
+            <div class="note">
+                <strong>Praktyczny skrót:</strong> pamiętaj, że de novo wystąpienia często wskazują na AD de novo (np. achondroplazja) — zawsze rozważ badanie rodziców na mozaicyzm.
+            </div>
+        </section>
 
-        <article class="hy-card">
-          <span class="card-badge" style="background:#e2e8f0;color:#334155">Mutacje</span>
-          <img src="images/mutacje.svg" alt="Typy mutacji" class="inline-figure">
-          <h4>Typy Mutacji i Przypomnienie</h4>
-          <ul>
-            <li><strong>SNV / Substytucje:</strong> tranzycje i transwersje.</li>
-            <li><strong>Indels:</strong> insercje i delecje; frameshift.</li>
-            <li><strong>CNV / Translokacje:</strong> wykrywane przez MLPA, aCGH, FISH.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
+        <section id="mod2" class="card">
+            <h2>Moduł 2 — Terminologia kliniczna i zasady interpretacji</h2>
+            <h3>Podstawowe pojęcia</h3>
+            <ul>
+                <li>Dysmorfologia: rozpoznawanie wzorców zaburzeń rozwoju i wad wrodzonych.</li>
+                <li>Fenotyp, penetracja, ekspresywność, pleomorfizm.</li>
+                <li>De novo vs dziedziczone; znaczenie dla poradnictwa genetycznego.</li>
+            </ul>
 
-    <!-- MODULE 2 (placeholder content restored) -->
-    <section id="mod2" class="content-tab" aria-labelledby="mod2-title" hidden>
-      <div class="module-header">
-        <h1 id="mod2-title">Moduł 2: Pojęcia Dotyczące Genetyki Klinicznej</h1>
-        <p style="color:#0d9488;font-weight:600;margin-top:6px">Naukowa definicja zjawisk molekularnych i słownik kliniczny.</p>
-      </div>
-      <div class="grid-layout">
-        <article class="hy-card">
-          <h4>Zjawiska Mutacyjne i Struktura Teoretyczna</h4>
-          <ul>
-            <li><strong>Dysmorfologia i Teratologia:</strong> dysmorfologia bada wady wrodzone; teratologia — czynniki środowiskowe.</li>
-            <li><strong>Antycypacja i Ekspansja:</strong> ekspansja powtórzeń, antycypacja kliniczna.</li>
-            <li><strong>Mutacje de novo:</strong> ryzyko rodzeństwa zależy od mozaicyzmu rodzica.</li>
-          </ul>
-        </article>
-        <!-- więcej kart można dodać tutaj -->
-      </div>
-    </section>
+            <h3>Interpretacja wariantów — kluczowe zasady</h3>
+            <ul>
+                <li>Stosuj kryteria ACMG (P/LP/VUS/LB/B) — patrz oddzielna sekcja.</li>
+                <li>Źródła danych: bazy populacyjne (gnomAD), literatury (PubMed), bazy wariantów (ClinVar), konsorcja (ClinGen).</li>
+                <li>Znaczenie segregacji rodzinnej, częstości w populacji, dowodów funkcjonalnych.</li>
+            </ul>
+        </section>
 
-    <!-- Other modules placeholders (kept minimal to preserve content) -->
-    <section id="mod3" class="content-tab" hidden>
-      <h2>Moduł 3: Skale Pediatryczne</h2>
-      <p>Treść modułu 3 — miejsce na tabele i opisy.</p>
-    </section>
+        <section id="mod3" class="card">
+            <h2>Moduł 3 — Skale pediatryczne i ocena rozwoju</h2>
+            <p>Najważniejsze skale i ich wykorzystanie kliniczne:</p>
+            <ul>
+                <li>APGAR — ocena noworodka (krótkie przypomnienie punktacji).</li>
+                <li>Skale rozwoju psychoruchowego (Denver, Griffiths) — stosowane w ocenie opóźnień.</li>
+                <li>Ocena centylowa wzrostu i masy ciała; mikrocefalia / makrocefalia — kryteria definicyjne.</li>
+            </ul>
+            <div class="note">Na egzaminie mogą pojawić się pytania wymagające rozpoznania zespołu na podstawie połączenia cech dysmorfologicznych i wyników badań molekularnych.</div>
+        </section>
 
-    <section id="mod4" class="content-tab" hidden>
-      <h2>Moduł 4: Aberracje i Imprinting</h2>
-      <div class="grid-layout">
-        <article class="hy-card">
-          <h4>Przykłady kliniczne</h4>
-          <p>Przykłady: zesp. Downa — <img src="images/trisomia21.svg" alt="Trisomia 21" style="max-width:220px;display:inline-block;vertical-align:middle;margin-left:8px">, Beckwith–Wiedemann — <img src="images/bws.svg" alt="BWS" style="max-width:160px;display:inline-block;margin-left:8px"></p>
-        </article>
-      </div>
-    </section>
+        <section id="mod4" class="card">
+            <h2>Moduł 4 — Aberracje chromosomowe i imprinting</h2>
+            <h3>Aberracje liczbowe</h3>
+            <ul>
+                <li>Trisomie autosomalne: najczęściej 21, 18, 13 — cechy kliniczne i rokowanie.</li>
+                <li>Monosomie i mozaicyzm — kliniczne znaczenie zależy od zakresu mozaicyzmu.</li>
+            </ul>
+            <h3>Aberracje strukturalne</h3>
+            <ul>
+                <li>Delecje/duplikacje (CNV) — diagnostyka: aCGH / SNP arrays, MLPA.</li>
+                <li>Translokacje — badania cytogenetyczne, FISH.</li>
+            </ul>
+            <h3>Imprinting</h3>
+            <ul>
+                <li>Mechanizm: metylacja i cis‑regulatory; skutki zależne od tego, który allel (matczyny/ojcowski) jest wyciszony.</li>
+                <li>Przykłady kliniczne: Prader‑Willi (loss of paternal expression on 15q11.2), Angelman (loss of maternal UBE3A), Beckwith‑Wiedemann (zmiany w 11p15).</li>
+            </ul>
+        </section>
 
-    <section id="mod5" class="content-tab" hidden>
-      <h2>Moduł 5: Bloki Metaboliczne</h2>
-      <p>Treść modułu 5.</p>
-    </section>
+        <section id="mod5" class="card">
+            <h2>Moduł 5 — Choroby metaboliczne</h2>
+            <p>Schemat diagnostyczny i przykłady:</p>
+            <ul>
+                <li>Objawy alarmowe: hipoglikemia, kwasica metaboliczna, encefalopatia, opóźnienie rozwoju, nietypowy zapach.</li>
+                <li>Badania przesiewowe noworodków (PKU, CH, MS/MS panel) — zasady interpretacji wyników.</li>
+                <li>Przykłady chorób: fenyloketonuria, mukopolisacharydozy, zaburzenia cyklu mocznikowego.</li>
+            </ul>
+            <div class="note">W praktyce klinicznej szybkie oznaczenia biochemiczne oraz konsultacja z metabolicznym centrum są kluczowe przy rozpoznawaniu ostrych stanów.</div>
+        </section>
 
-    <section id="mod6" class="content-tab" hidden>
-      <h2>Moduł 6: Genetyka Onkologiczna</h2>
-    </section>
+        <section id="mod6" class="card">
+            <h2>Moduł 6 — Genetyka onkologiczna</h2>
+            <ul>
+                <li>Predyspozycje rodzinne: BRCA1/2, Lynch (MLH1, MSH2, MSH6, PMS2), TP53 (Li‑Fraumeni).</li>
+                <li>Różnica między zmianami somatycznymi a germinalnymi — konsekwencje dla terapii i poradnictwa.</li>
+                <li>Testy: panel nowotworowy, sekwencjonowanie NGS, MSI, IHC for MMR proteins.</li>
+            </ul>
+        </section>
 
-    <section id="mod7" class="content-tab" hidden>
-      <h2>Moduł 7: Okulistyka Genetyczna</h2>
-      <p>LHON: <img src="images/lhon.svg" alt="LHON" style="max-width:200px;display:inline-block;margin-left:8px"></p>
-    </section>
+        <section id="mod7" class="card">
+            <h2>Moduł 7 — Okulistyka genetyczna (skrócone)</h2>
+            <ul>
+                <li>Dziedziczne dystrofie siatkówki (np. retinitis pigmentosa) — heterogenność genetyczna, dziedziczenie AD/AR/XR.</li>
+                <li>Choroby mitochondrialne manifestujące się okulistycznie: LHON — nagła utrata widzenia u młodych mężczyzn.</li>
+            </ul>
+        </section>
 
-    <section id="mod8" class="content-tab" hidden>
-      <h2>Moduł 8: Diagnostyka i Terapie</h2>
-      <p>FISH: <img src="images/fish.svg" alt="FISH" style="max-width:200px;display:inline-block;margin-left:8px"></p>
-    </section>
+        <section id="mod8" class="card">
+            <h2>Moduł 8 — Diagnostyka molekularna i terapie</h2>
+            <h3>Metody diagnostyczne — co, kiedy i dlaczego</h3>
+            <ul>
+                <li>Kariotyp (GTG): wykrywa aberracje strukturalne >5–10 Mb, translokacje, aneuploidie.</li>
+                <li>Microarray (aCGH / SNP array): wykrywa CNV o rozdzielczości zależnej od platformy — standard w diagnostyce zaburzeń rozwojowych.</li>
+                <li>NGS — panele genów, WES, WGS: wykrywa SNV/indels; WES jest przydatne przy heterogenicznych zespołach monogenowych.</li>
+                <li>MLPA: precyzyjne wykrywanie delecji/duplikacji w konkretnych genach.</li>
+                <li>FISH: lokalizacja specyficznych sekwencji, używane w diagnostyce prenatalnej i hematologii.</li>
+            </ul>
 
-    <section id="matrix" class="content-tab" hidden>
-      <h2>Kompletny Matrix</h2>
-      <p>Mapa i zestawienia.</p>
-    </section>
+            <h3>Terapie i interwencje</h3>
+            <ul>
+                <li>Terapia genowa: rosnąca dziedzina — przykład: terapia dla niektórych postaci dystrofii siatkówki, SMA (nusinersen/onasemnogene abeparvovec jako obszar terapii modyfikujących przebieg choroby).</li>
+                <li>Leczenie objawowe i diagnostyka metaboliczna z szybką interwencją dietetyczną/enzymatyczną.</li>
+                <li>Poradnictwo genetyczne: kluczowe przy przekazywaniu ryzyka rodzinnego, dostępnych testów i opcji reprodukcyjnych.</li>
+            </ul>
+        </section>
 
-    <section id="flashcards" class="content-tab" hidden>
-      <h2>Fiszki</h2>
-      <p>Interaktywny moduł nauki (fiszki).</p>
-    </section>
+        <section id="acmg" class="card">
+            <h2>ACMG — krótki przewodnik po klasyfikacji wariantów</h2>
+            <ol>
+                <li>Patogeniczny (P) — mocne dowody genetyczne/funkcjonalne/segragacyjne.</li>
+                <li>Likely pathogenic (LP)</li>
+                <li>VUS — wariant o niepewnej znaczeniu; nie używać do decyzji klinicznych bez dodatkowych dowodów.</li>
+                <li>Likely benign (LB), Benign (B)</li>
+            </ol>
+            <p class="muted">Kombinacja kryteriów (Population, Computational, Functional, Segregation, De novo, Allelic data) decyduje o ostatecznej ocenie.</p>
+        </section>
 
-    <section id="examTab" class="content-tab" hidden>
-      <h2>Test</h2>
-      <p>59 pytań.</p>
-    </section>
+        <section id="exam" class="card">
+            <h2>Przykładowe pytania egzaminacyjne (z odpowiedziami)</h2>
+            <div class="qa">
+                <p><strong>P1.</strong> Które badanie jest najlepsze do wykrycia wielkoskalowych delecji i duplikacji (CNV)?</p>
+                <p><em>Odp:</em> aCGH / SNP array.</p>
+            </div>
+            <div class="qa">
+                <p><strong>P2.</strong> Mutacja powodująca stop kodon (nonsense) prawdopodobnie skutkuje:</p>
+                <p><em>Odp:</em> skróceniem łańcucha białkowego; możliwa degradacja mRNA przez NMD (nonsense‑mediated decay).</p>
+            </div>
+            <div class="qa">
+                <p><strong>P3.</strong> Dziedziczenie w zespole X‑zależnym recesywnym — u kogo objawy są najczęściej cięższe?</p>
+                <p><em>Odp:</em> u mężczyzn, ponieważ mają tylko jeden chromosom X.</p>
+            </div>
+            <div class="qa">
+                <p><strong>P4.</strong> Co oznacza termin "penetracja zmienna"?</p>
+                <p><em>Odp:</em> odsetek osób z danym wariantem genetycznym, które wykazują fenotyp choroby; zmienna penetracja oznacza, że nie wszyscy nosiciele manifestują chorobę.</p>
+            </div>
+            <div class="qa">
+                <p><strong>P5 (krótkie zadanie kliniczne).</strong> Noworodek z hipoglikemią, kwasicą metaboliczną i nietypowym zapachem: jakie badania w pierwszej kolejności zlecisz?</p>
+                <p><em>Odp:</em> badania metaboliczne — gazy krwi, glukoza, mleczany, amoniak; pobranie próbek do badań metabolicznych (MS/MS), konsultacja z oddziałem metabolicznym.</p>
+            </div>
+            <p class="muted">Więcej pytań przykładowych mogę dodać — napisz które obszary chcesz przećwiczyć (np. cytogenetyka, biochemia, dziedziczenie).</p>
+        </section>
 
-  </main>
+        <section id="refs" class="card">
+            <h2>Wybrane źródła i materiały do nauki</h2>
+            <ul>
+                <li>ACMG Standards and Guidelines for interpretation of sequence variants.</li>
+                <li>OMIM — katalog fenotypów i genów.</li>
+                <li>Genetics Home Reference / NCBI / gnomAD / ClinVar.</li>
+                <li>Review articles: "Clinical Genetics" chapters, aktualne consensus statements (np. for Lynch, BRCA testing).</li>
+            </ul>
+        </section>
 
-  <script>
-    // Simple tab switching and search filter
-    function switchTab(id){
-      document.querySelectorAll('.content-tab').forEach(el=>{ el.hidden = true; el.classList.remove('active') });
-      document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-      const target = document.getElementById(id);
-      if(target){ target.hidden = false; target.classList.add('active') }
-      const nav = document.querySelector('.nav-item[data-target="'+id+'"]');
-      if(nav) nav.classList.add('active');
-    }
-    // default open
-    switchTab('mod1');
-
-    function filterContent(){
-      const q = document.getElementById('globalSearch').value.toLowerCase();
-      if(!q){ document.querySelectorAll('.hy-card').forEach(c=>c.style.display='block'); return }
-      document.querySelectorAll('.hy-card').forEach(c=>{
-        const text = c.innerText.toLowerCase();
-        c.style.display = text.includes(q)?'block':'none';
-      });
-    }
-
-    // Register service worker (relative path)
-    if('serviceWorker' in navigator){
-      window.addEventListener('load', ()=>{
-        navigator.serviceWorker.register('sw_Version2.js').then(()=>{
-          console.log('SW registered');
-        }).catch(err=>console.warn('SW register failed',err));
-      });
-    }
-  </script>
+    </main>
 </body>
 </html>
