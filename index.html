@@ -1219,31 +1219,28 @@
         document.body.appendChild(wrapper);
     }
 
-    // 3. Dodanie stylów dla paska administratora
+      // 3. Dodanie nowych, eleganckich stylów dla panelu pływającego
     const style = document.createElement("style");
     style.innerHTML = `
-        #admin-bar { position:fixed; bottom:0; left:0; right:0; background:#111; color:#fff; padding:12px; text-align:center; z-index:999999; display:flex; justify-content:center; align-items:center; gap:10px; border-top:3px solid #007bff; font-family:sans-serif; }
-        #admin-bar input, #admin-bar button { padding:6px 10px; border-radius:4px; border:none; font-size:14px; }
-        #admin-bar button { background:#007bff; color:white; cursor:pointer; font-weight:bold; }
-        #admin-bar button:hover { background:#0056b3; }
-        #sync-status { margin-left:10px; font-weight:bold; }
+        #admin-bar { position: fixed; bottom: 20px; right: 20px; background: rgba(17, 17, 17, 0.85); backdrop-filter: blur(8px); color: #fff; padding: 8px 12px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 999999; display: flex; align-items: center; gap: 8px; font-family: sans-serif; border: 1px solid rgba(255,255,255,0.1); }
+        #admin-bar input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px 12px; border-radius: 20px; font-size: 13px; outline: none; width: 80px; transition: width 0.3s; }
+        #admin-bar input:focus { width: 120px; border-color: #007bff; }
+        #admin-bar button { background: #007bff; color: white; cursor: pointer; font-weight: bold; border: none; padding: 6px 15px; border-radius: 20px; font-size: 13px; transition: background 0.2s; }
+        #admin-bar button:hover { background: #0056b3; }
+        #sync-status { font-size: 12px; margin-left: 5px; }
     `;
     document.head.appendChild(style);
 
-    // 4. Stworzenie paska na dole strony
+    // 4. Stworzenie małego, dyskretnego panelu w rogu ekranu
     const adminBar = document.createElement("div");
     adminBar.id = "admin-bar";
     adminBar.innerHTML = `
-        <span style="color:#007bff; font-weight:bold;">Synchronizacja Baza:</span>
-        <input type="password" id="admin-pass" placeholder="Wpisz hasło">
-        <button id="zapisz-btn">Zapisz stronę online</button>
+        <span style="color:#007bff; font-weight:bold; font-size:12px; margin-right:2px;">Baza Admin:</span>
+        <input type="password" id="admin-pass" placeholder="Hasło">
+        <button id="zapisz-btn">Zapisz</button>
         <span id="sync-status"></span>
     `;
     document.body.appendChild(adminBar);
-
-    const btn = document.getElementById("zapisz-btn");
-    const passInput = document.getElementById("admin-pass");
-    const status = document.getElementById("sync-status");
 
     // 5. Odbieranie zmian na żywo u wszystkich użytkowników online
     onSnapshot(docRef, (docSnapshot) => {
