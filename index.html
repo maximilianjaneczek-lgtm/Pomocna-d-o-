@@ -1838,5 +1838,48 @@
             }
         };
     </script>
+    <script>
+        (function() {
+            // Nadpisujemy funkcję parsującą tekst bezpośrednio globalnie
+            window.processTextBaza = function(text, block) {
+                try {
+                    // Wymuszamy bezpośrednie parsowanie tekstu jako tablicy obiektów JSON
+                    const parsed = JSON.parse(text);
+                    
+                    if (Array.isArray(parsed)) {
+                        if (block === 'genetics') {
+                            // Nadpisujemy globalną tablicę genetyki nową strukturą
+                            window.geneticsQuizDB = parsed;
+                            
+                            // Wymuszamy natychmiastowe przerysowanie interfejsu testu na ekranie
+                            if (typeof renderGeneticsQuiz === 'function') {
+                                renderGeneticsQuiz();
+                            }
+                        } else {
+                            // Nadpisujemy globalną tablicę neurologii nową strukturą
+                            window.neurologyQuizDB = parsed;
+                            
+                            if (typeof renderNeurologyQuiz === 'function') {
+                                renderNeurologyQuiz();
+                            }
+                        }
+                        
+                        alert(`Sukces: System prawidłowo rozpoznał strukturę pliku! Wykryto i załadowano ${parsed.length} pytań.`);
+                        
+                        // Zmieniamy status paska administratora, dając sygnał do zapisu
+                        const status = document.getElementById("sync-status");
+                        if (status) {
+                            status.innerText = " Gotowy do Push...";
+                            status.style.color = "#10b981";
+                        }
+                        return;
+                    }
+                } catch (e) {
+                    console.error("Błąd parsowania formatu JSON: ", e);
+                }
+                alert("Błąd czytnika: Plik został przyjęty, ale jego wewnętrzna struktura nie pasuje do formatu bazy pytań. Upewnij się, że wgrywasz poprawny plik .json");
+            };
+        })();
+    </script>
 </body>
 </html>
