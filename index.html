@@ -47,8 +47,10 @@
         .nav-section-title.neu-title { color: #60a5fa; }
         .nav-item { display: flex; align-items: center; gap: 12px; padding: 11px 15px; color: #94a3b8; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
         .nav-item:hover { background-color: #334155; color: white; }
-        .nav-item.active-gen { background: linear-gradient(90deg, #0d9488, #0f766e); color: white; font-weight: 600; border-left: 4px solid #2dd4bf; }
-        .nav-item.active-neu { background: linear-gradient(90deg, #1e3a8a, #172554); color: white; font-weight: 600; border-left: 4px solid #60a5fa; }
+        
+        /* POPRAWIONE KLASY AKTYWNOŚCI MENU */
+        .nav-item.active-gen { background: linear-gradient(90deg, #0d9488, #0f766e) !important; color: white !important; font-weight: 600; border-left: 4px solid #2dd4bf; }
+        .nav-item.active-neu { background: linear-gradient(90deg, #1e3a8a, #172554) !important; color: white !important; font-weight: 600; border-left: 4px solid #60a5fa; }
         .nav-item.gold { color: #fbbf24; font-weight: 600; }
         .nav-item.gold i { color: #fbbf24; }
 
@@ -57,12 +59,22 @@
         .content-tab { display: none; padding: 40px; width: 100%; max-width: 1300px; margin: 0 auto; }
         .content-tab.active { display: block; }
 
-        .module-header { background-color: white; padding: 35px; border-radius: 16px; margin-bottom: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        .module-header { background-color: white; padding: 35px; border-radius: 16px; margin-bottom: 35px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); position: relative; }
         .module-header.gen-border { border-left: 6px solid var(--color-genetics); }
         .module-header.neu-border { border-left: 6px solid var(--color-neurology); }
         .module-header h1 { font-family: 'Rubik', sans-serif; color: var(--text-dark); font-size: 26px; font-weight: 700; margin-bottom: 8px; }
         
-        .creator-panel { background: white; border-radius: 16px; padding: 25px; margin-bottom: 35px; border: 1px solid #e2e8f0; }
+        /* SELEKTORY KONTROLI WIDOCZNOŚCI TRYBU EDYTORSKIEGO */
+        .creator-panel { display: none; background: white; border-radius: 16px; padding: 25px; margin-bottom: 35px; border: 1px solid #e2e8f0; }
+        .card-actions { display: none; padding: 10px 25px; background-color: #f8fafc; border-top: 1px solid #f1f5f9; justify-content: flex-end; }
+        .module-admin-actions { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px solid #e2e8f0; gap: 10px; }
+        #nv-gemini { display: none; }
+        
+        body.admin-mode .creator-panel { display: block; }
+        body.admin-mode .card-actions { display: flex; }
+        body.admin-mode .module-admin-actions { display: flex; }
+        body.admin-mode #nv-gemini { display: flex; }
+
         .form-control { width: 100%; padding: 11px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: inherit; font-size: 14px; outline: none; }
         
         /* WYSIWYG FORMAT BAR */
@@ -87,7 +99,6 @@
         
         .hc-body { padding: 25px 30px; font-size: 14.5px; line-height: 1.7; color: var(--text-main); }
         .hc-body ul { list-style: square; margin-left: 20px; display: flex; flex-direction: column; gap: 8px; }
-        .card-actions { padding: 10px 25px; background-color: #f8fafc; border-top: 1px solid #f1f5f9; display: flex; justify-content: flex-end; }
         .btn-inline { font-size: 13px; font-weight: 600; padding: 5px 12px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px; border: 1px solid #cbd5e1; background: white; }
 
         .table-container { background-color: white; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); border: 1px solid #e2e8f0; width: 100%; overflow-x: auto; margin-top: 15px; }
@@ -125,7 +136,7 @@
             <input type="text" id="globalSearch" oninput="filterGlobal()" placeholder="Szukaj hasła, genu, objawu..." />
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
-        <div class="nav-menu">
+        <div class="nav-menu" id="side-nav-menu-container">
             <div class="nav-section-title gen-title"><i class="fa-solid fa-dna"></i> Filar I: Genetyka Kliniczna</div>
             <div class="nav-item active-gen" id="nv-mod1" onclick="switchTab('mod1')"><i class="fa-solid fa-circle-nodes"></i>M1: Aberracje Liczbowe</div>
             <div class="nav-item" id="nv-mod2" onclick="switchTab('mod2')"><i class="fa-solid fa-fingerprint"></i>M2: Imprinting & Mikrodelecje</div>
@@ -138,7 +149,7 @@
             <div class="nav-item" id="nv-matrix" onclick="switchTab('matrix')"><i class="fa-solid fa-table-cells"></i>M9: Matrix Genetyczny</div>
             <div class="nav-item gold" id="nv-test-gen" onclick="switchTab('test-gen')"><i class="fa-solid fa-graduation-cap"></i>T1: Generator Testów - Genetyka</div>
             
-            <div class="nav-section-title neu-title"><i class="fa-solid fa-brain"></i> Filar II: Neurologia Katedralna</div>
+            <div class="nav-section-title neu-title" id="filar-neu-section-start"><i class="fa-solid fa-brain"></i> Filar II: Neurologia Katedralna</div>
             <div class="nav-item" id="nv-neu1" onclick="switchTab('neu1')"><i class="fa-solid fa-sitemap"></i>1. Symptomatologia & Pnie</div>
             <div class="nav-item" id="nv-neu2" onclick="switchTab('neu2')"><i class="fa-solid fa-droplet"></i>2. Układ Naczyniowy</div>
             <div class="nav-item" id="nv-neu3" onclick="switchTab('neu3')"><i class="fa-solid fa-ribbon"></i>3. Choroby Demielinizacyjne</div>
@@ -149,14 +160,27 @@
             <div class="nav-item gold" id="nv-test-neu" onclick="switchTab('test-neu')"><i class="fa-solid fa-graduation-cap"></i>T2: Symulator Testów - Neurologia</div>
 
             <div class="nav-section-title" style="color:#eab308;"><i class="fa-solid fa-microchip"></i> Inteligencja Skryptu</div>
-            <div class="nav-item" id="nv-gemini" onclick="switchTab('gemini-engine')"><i class="fa-solid fa-wand-magic-sparkles" style="color:#eab308;"></i>Konwerter Notatek Gemini AI</div>
+            <div class="nav-item gold" id="nv-gemini" onclick="switchTab('gemini-engine')"><i class="fa-solid fa-wand-magic-sparkles" style="color:#eab308;"></i>Konwerter Notatek Gemini AI</div>
         </div>
     </div>
 
-    <div class="main-content">
+    <div class="main-content" id="main-content-tabs-holder">
 
         <div style="padding: 30px 40px 0 40px; max-width: 1300px; margin: 0 auto; width: 100%;">
             <div class="creator-panel">
+                <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 18px; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="font-family:'Rubik',sans-serif; font-size:13px; margin-bottom:10px; color:var(--text-dark); text-transform:uppercase; letter-spacing:0.5px;"><i class="fa-solid fa-folder-plus"></i> Kreator Nowych Modułów (Rozdziałów)</h4>
+                    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:10px; align-items:center;">
+                        <input type="text" id="newModName" class="form-control" placeholder="Nazwa np. M10: Patologia Serca">
+                        <input type="text" id="newModId" class="form-control" placeholder="Unikalne ID np. mod10 lub neu8">
+                        <select id="newModFilar" class="form-control">
+                            <option value="genetics">Filar I: Genetyka Kliniczna</option>
+                            <option value="neurology">Filar II: Neurologia Katedralna</option>
+                        </select>
+                        <button class="btn" style="background: #10b981; color: white; border: none;" onclick="injectNewModule()"><i class="fa-solid fa-plus"></i> Stwórz Nowy Moduł</button>
+                    </div>
+                </div>
+
                 <h3 style="font-family:'Rubik',sans-serif; font-size:15px; margin-bottom:15px; color:var(--text-dark); display:flex; align-items:center; gap:8px;">
                     <i class="fa-solid fa-square-plus" style="color:var(--color-genetics)"></i> Centralny Kreator Skryptu Katedry
                 </h3>
@@ -187,6 +211,16 @@
                         <option value="fa-child-reaching">Ikona: Dziecko</option>
                         <option value="fa-skull">Ikona: Letalna</option>
                         <option value="fa-syringe">Ikona: Strzykawka</option>
+                        <option value="fa-heart-pulse">Ikona: Serce / Kardiologia</option>
+                        <option value="fa-pills">Ikona: Tabletki</option>
+                        <option value="fa-capsules">Ikona: Kapsułki</option>
+                        <option value="fa-stethoscope">Ikona: Stetoskop</option>
+                        <option value="fa-bacteria">Ikona: Bakteria</option>
+                        <option value="fa-virus">Ikona: Wirus</option>
+                        <option value="fa-eye">Ikona: Oko / Okulistyka</option>
+                        <option value="fa-wheelchair">Ikona: Wózek / Neurologia ruchowa</option>
+                        <option value="fa-file-medical">Ikona: Karta pacjenta</option>
+                        <option value="fa-biohazard">Ikona: Biohazard / Onkologia</option>
                     </select>
                 </div>
                 <textarea id="addContent" class="form-control" style="min-height:80px; margin-bottom:12px;" placeholder="Zawartość karty. Oddziel punkty klawiszem Enter. Tagi <strong>słowo</strong> powodują pogrubienie haseł kluczowych."></textarea>
@@ -198,6 +232,7 @@
             <div class="module-header gen-border">
                 <h1>Moduł 1: Klasyczne Aberracje Liczbowe</h1>
                 <p>Zespoły wad wrodzonych wywołane zmianami liczby chromosomów (Aneuploidie).</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('mod1')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-mod1">
                 <div class="horizontal-card" id="g1" style="border-left: 6px solid #1e3a8a;">
@@ -212,7 +247,10 @@
                             <li><strong>Powikłania:</strong> Wada serca typu <strong>AVSD (wspólny kanał przedsionkowo-komorowy)</strong>, wysokie ryzyko <strong>ostrej białaczki megakarioblastycznej (AMKL)</strong> oraz wczesny rozwój patologii Alzheimera (gen APP).</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g1')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g1')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g1')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
 
                 <div class="horizontal-card" id="g2" style="border-left: 6px solid #dc2626;">
@@ -226,7 +264,10 @@
                             <li><strong>Objawy patognomoniczne:</strong> Charakterystyczne <strong>nakładanie się palców dłoni</strong> (zaciśnięte pięści, palec II nad III oraz V nad IV), zdeformowane <strong>stopy kołyskowe</strong>, dolichocefalia, mikrognacja. Wada w pełni letalna; neonatologiczna <strong>opieka paliatywna</strong>.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g2')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g2')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g2')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
 
                 <div class="horizontal-card" id="g3" style="border-left: 6px solid #b91c1c;">
@@ -240,7 +281,10 @@
                             <li><strong>Cechy fenotypowe:</strong> <strong>Holoprozencefalia</strong> (wada podziału przodomózgowia), mikroftalmia, obustronny <strong>rozszczep wargi i podniebienia</strong> oraz <strong>polidaktilia pozaosiowa</strong>. Schorzenie letalne.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g3')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g3')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g3')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
 
                 <div class="horizontal-card" id="g4" style="border-left: 6px solid #ec4899;">
@@ -250,11 +294,14 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm patologii i dziedziczenie:</strong> Monosomia chromosomu X (45,X) lub mozaicyzm komórkowy. Brak kopii genu <strong>SHOX</strong> wywołuje niski wzrost. Najczęściej wynik utraty ojcowskiego chromosomu płciowego.</li>
+                            <li><strong>Mechanizm patologii i dziedziczenie:</strong> Monosomia chromosomu X (45,X) lub mozaicyzm komórkowy Brak kopii genu <strong>SHOX</strong> wywołuje niski wzrost. Najczęściej wynik utraty ojcowskiego chromosomu płciowego.</li>
                             <li><strong>Klinika katedralna:</strong> Niski wzrost, pierwotny brak miesiączki, <strong>jajniki pasmowate</strong>, szeroka tarcza klatki piersiowej, <strong>płetwiasta szyja</strong>, koarktacja aorty. Terapia rGH oraz HTZ. Wykrycie linii Y nakazuje gonadektomię.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g4')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g4')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g4')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
 
                 <div class="horizontal-card" id="g5" style="border-left: 6px solid #3b82f6;">
@@ -265,10 +312,13 @@
                     <div class="hc-body">
                         <ul>
                             <li><strong>Mechanizm patologii i dziedziczenie:</strong> Aneuploidia gonosomów u mężczyzn – obecność dodatkowego chromosomu X (47,XXY) wskutek nondysjunkcji mejotycznej. Włóknienie kanalików nasiennych.</li>
-                            <li><strong>Klinika:</strong> Wysoki wzrost, <strong>proporcje eunuchoidalne</strong>, ginekomastia, owłosienie typu kobiecego oraz <strong>małe, twarde jądra</strong> w badaniu palpacyjnym. Profil hormonalny: <strong>↑ LH i ↑ FSH</strong> przy niskim testosteronie. Biopsja jądra metodą mikro-TESE.</li>
+                            <li><strong>Klinika:</strong> Wysoki wzrost, <strong>proporcje eunuchoidalne</strong>, ginekomastia, owłosienie typu kobiecego oraz <strong>małe, twarde jądra</strong> w badaniu palpacyjnym. Profil hormonalny: <strong>↑ LH i ↑ FSH</strong> przy niskim testosteronie Biopsja jądra metodą mikro-TESE.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g5')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g5')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g5')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
 
                 <div class="horizontal-card" id="g6" style="border-left: 6px solid #a855f7;">
@@ -282,7 +332,10 @@
                             <li><strong>Obraz kliniczny:</strong> Noworodkowy płacz przypominający <strong>miauczenie kota</strong> (hipoplazja krtani), mikrocefalia, hiperteloryzm, głębokie opóźnienie rozwoju intelektualnego.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g6')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g6')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g6')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -291,6 +344,7 @@
             <div class="module-header gen-border">
                 <h1>Moduł 2: Mikrodelecje i Defekty Imprintingu</h1>
                 <p>Zaburzenia metylacji i submikroskopowe delecje.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('mod2')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-mod2">
                 <div class="horizontal-card" id="g7" style="border-left: 6px solid #0d9488;">
@@ -304,7 +358,10 @@
                             <li><strong>Klinika (CATCH-22):</strong> Stożkowo-pniowe wady serca, dysmorfia, <strong>aplazja grasicy (niedobór odporności T)</strong>, rozszczep podniebienia, <strong>hipokalcemia</strong> wtórna do braku przytarczyc. Obowiązuje zakaz szczepień żywych.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g7')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g7')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g7')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
 
                 <div class="horizontal-card" id="g8" style="border-left: 6px solid #10b981;">
@@ -318,7 +375,10 @@
                             <li><strong>Objawy:</strong> Twarz elfa, nadzastawkowe zwężenie ujścia aorty (<strong>SVAS</strong>), idiopatyczna hiperkalcemia niemowląt. Wymaga diety z wyłączeniem witaminy D i wapnia.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g8')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g8')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g8')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
 
                 <div class="horizontal-card" id="g9" style="border-left: 6px solid #f59e0b;">
@@ -333,7 +393,10 @@
                             <li><strong>Zespół Angelmana:</strong> Utrata ekspresji aktywnej kopii matczynej (gen <strong>UBE3A</strong>). Objawy: <strong>Happy Puppet Syndrome</strong>, niesprowokowany śmiech, ataksja chodu, brak rozwoju mowy.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g9')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g9')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g9')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
 
                 <div class="horizontal-card" id="g10" style="border-left: 6px solid #d97706;">
@@ -347,7 +410,10 @@
                             <li><strong>Klinika:</strong> Makrosomia, hemihipertrofia, przepuklina pępowinowa oraz patognomoniczna <strong>makroglosja</strong> (wielki język). Ryzyko embrionalnego <strong>guza Wilmsa</strong> nakazuje monitorowanie USG i stężenia AFP co 3 miesiące.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g10')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g10')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g10')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -356,6 +422,7 @@
             <div class="module-header gen-border">
                 <h1>Moduł 3: Skale Kliniczne w Ocenie Dysmorfologicznej</h1>
                 <p>Narzędzia obiektywizacji fenotypu pediatrycznego.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('mod3')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-mod3">
                 <div class="horizontal-card" id="g11" style="border-left: 6px solid #64748b;">
@@ -370,7 +437,10 @@
                             <li><strong>Pozostałe skale:</strong> Skala Glasgow (GCS - stopień przytomności), skala Ferrimana-Gallweya (ocena nasilenia hirsutyzmu u kobiet), skala Bishopa (dojrzałość szyjki macicy).</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g11')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g11')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g11')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -379,6 +449,7 @@
             <div class="module-header gen-border">
                 <h1>Moduł 4: Onkologia Genetyczna i Zespoły Nowotworowe</h1>
                 <p>Analiza germinalnych mutacji supresorowych i protoonkogenach.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('mod4')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-mod4">
                 <div class="horizontal-card" id="g12" style="border-left: 6px solid #be123c;">
@@ -394,7 +465,10 @@
                             <li><strong>Siatkówczak (Retinoblastoma - mutacja RB1) & Guz Wilmsa:</strong> RB1 to model dwóch uderzeń Knudsona (objaw leukokorii). Guz Wilmsa (nephroblastoma) wchodzi w skład kompleksu <strong>WAGR</strong> (locus 11p13) oraz BWS.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g12')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g12')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g12')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -403,6 +477,7 @@
             <div class="module-header gen-border">
                 <h1>Moduł 5: Neurogenetyka & Metabolizm</h1>
                 <p>Enzymopatie, wrodzone błędy metaboliczne oraz ekspansje trinukleotydowe.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('mod5')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-mod5">
                 <div class="horizontal-card" id="g13" style="border-left: 6px solid #475569;">
@@ -412,7 +487,7 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Choroba Huntingtona (HD):</strong> Mutacja dynamiczna – ekspansja CAG. Dziedziczenie <strong>autosomalne dominujące (AD)</strong> ze zjawiskiem <strong>antycypacji</strong> (szczególnie od ojca) i paradoksem Shermana.</li>
+                            <li><strong>Choroba Huntingtona (HD):</strong> Mutacja dynamiczna – ekspansja CAG Dziedziczenie <strong>autosomalne dominujące (AD)</strong> ze zjawiskiem <strong>antycypacji</strong> (szczególnie od ojca) i paradoksem Shermana.</li>
                             <li><strong>Zespół łamliwego chromosomu X (FXS):</strong> Ekspansja powtórzeń CGG (&gt;200) w genie FMR1 na chromosomie X (<strong>dziedziczenie sprzężone z X</strong>). Niepełnosprawność intelektualna, długa twarz, makroorchidyzm. Stan <strong>premutacji</strong> (55-200 powtórzeń) generuje ryzyko zespołu drżeniowo-ataktycznego FXTAS.</li>
                             <li><strong>Wrodzone wady metabolizmu (Enzymopatie - dziedziczenie AR):</strong>
                                 <br>- <strong>Fenyloketonuria:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Defekt hydroksylazy fenyloalaniny (<strong>PAH</strong>), akumulacja fenyloalaniny, mysi zapach moczu, jasna karnacja, dieta eliminacyjna.
@@ -425,11 +500,14 @@
                             <li><strong>Nerwiakowłókniakowatość typu 1 (NF1):</strong> Dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Defekt neurofibrominy (17q11.2). Plamy café au lait, guzki Lisha. Modelowa <strong>zmienna ekspresja</strong> i wysokie mutacje de novo.</li>
                             <li><strong>Zaburzenia rozwoju płciowego (DSD / Interpłciowość):</strong>
                                 <br>- <strong>Zespół Swyera:</strong> Czysta dysgenezja gonad 46,XY. Pacjentki o żeńskim fenotypie zewnętrznym, pasmowate gonady, brak wirylizacji, wysokie.
-                                <br>- <strong>Zespół niewrażliwości na androgeny (AIS / PAIS):</strong> Mutacja receptora androgenowego (AR) na chromosomie X. Męski kariotyp 46,XY przy całkowicie żeńskim fenotypie zewnętrznym i braku macicy (jądra w jamie brzusznej).
+                                <br>- <strong>Zespół niewrażliwości na androgeny (AIS / PAIS):</strong> Mutacja receptora androgenowego (AR) na chromosomie X Męski kariotyp 46,XY przy całkowicie żeńskim fenotypie zewnętrznym i braku macicy (jądra w jamie brzusznej).
                             </li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g13')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g13')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g13')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -438,6 +516,7 @@
             <div class="module-header gen-border">
                 <h1>Moduł 6: Patologie Tkanki Łącznej</h1>
                 <p>Mutacje białek strukturalnych i wrodzone kraniosynostozy.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('mod6')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-mod6">
                 <div class="horizontal-card" id="g14" style="border-left: 6px solid #b45309;">
@@ -449,10 +528,13 @@
                         <ul>
                             <li><strong>Zespół Marfana:</strong> Defekt genu fibryliny-1 (<strong>FBN1</strong>), dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Modelowa <strong>plejotropia</strong> (jeden defekt genowy daje objawy w wielu odległych układach). Sylwetka marfanoidalna, arachnodaktilia, ectopia lentis (podwichnięcie soczewki), tętniak i rozwarstwienie aorty wstępującej.</li>
                             <li><strong>Zespół Crouzona:</strong> Kraniosynostoza szwów, mutacja genu receptora czynnika wzrostu fibroblastów 2 (<strong>FGFR2</strong>), dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Wytrzeszcz oczu (exophthalmus), hipoplazja szczęki.</li>
-                            <li><strong>Zespół Bardeta-Biedla:</strong> Ciliopatia, dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Dystrofia pręcikowo-czopkowa siatkówki, otyłość centralna, polidaktilia, wady nerek.</li>
+                            <li><strong>Zespół Bardeta-Biedla:</strong> Ciliopatia, dziedziczenie <strong>autosomalne recesywne (AR)</strong> Dystrofia pręcikowo-czopkowa siatkówki, otyłość centralna, polidaktilia, wady nerek.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g14')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g14')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g14')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -461,6 +543,7 @@
             <div class="module-header gen-border">
                 <h1>Moduł 7: Patologie Zmysłów</h1>
                 <p>Genetyczne schorzenia narządu wzroku i słuchu.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('mod7')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-mod7">
                 <div class="horizontal-card" id="g15" style="border-left: 6px solid #06b6d4;">
@@ -471,11 +554,14 @@
                     <div class="hc-body">
                         <ul>
                             <li><strong>Dziedziczna Neuropatia Wzrokowa Lebera (LHON):</strong> Modelowy przykład <strong>dziedziczenia mitochondrialnego</strong> (matczynego). Mutacje w genach mtDNA kompleksu I (ND1, ND4, ND6), zjawisko <strong>heteroplazmii</strong>. Nagła, bezbolesna utrata wzroku u młodych mężczyzn.</li>
-                            <li><strong>Wrodzona Ślepota Lebera (LCA):</strong> Dystrofia siatkówki, ślepota od urodzenia. Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Typ 2 (mutacja <strong>RPE65</strong>) podlega innowacyjnej terapii genowej Luxturna.</li>
+                            <li><strong>Wrodzona Ślepota Lebera (LCA):</strong> Dystrofia siatkówki, ślepota od urodzenia Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Typ 2 (mutacja <strong>RPE65</strong>) podlega innowacyjnej terapii genowej Luxturna.</li>
                             <li><strong>Zespół Ushera:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Łączy postępujące zwyrodnienie barwnikowe siatkówki (retinitis pigmentosa) z odbiorczym niedosłuchem lub głuchotą.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g15')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g15')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g15')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -484,6 +570,7 @@
             <div class="module-header gen-border">
                 <h1>Moduł 8: Diagnostyka & Terapie</h1>
                 <p>Narzędzia laboratoryjne współczesnej genetyki oraz wektory wirusowe.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('mod8')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-mod8">
                 <div class="horizontal-card" id="g16" style="border-left: 6px solid #0d9488;">
@@ -494,12 +581,15 @@
                     <div class="hc-body">
                         <ul>
                             <li><strong>WES (Whole Exome Sequencing):</strong> NGS regionów kodujących (eksony). <strong>Kluczowy dogmat:</strong> WES <strong>NIE WYKRYWA dobrze mutacji dynamicznych</strong> ( Huntington) oraz rozległych rearanżacji strukturalnych.</li>
-                            <li><strong>aCGH (Mikromacierz Porównawcza):</strong> Wykrywanie submikroskopowych zmian liczby kopii DNA (CNV). Nie identyfikuje zrównoważonych translokacji i inwersji. Doskonałe do zespołów mikrodelecyjnych.</li>
+                            <li><strong>aCGH (Mikromacierz Porównawcza):</strong> Wykrywanie submikroskopowych zmian liczby kopii DNA (CNV). Nie identyfikuje zrównoważonych translokacji i inwersji Doskonałe do zespołów mikrodelecyjnych.</li>
                             <li><strong>FISH (Fluorescence In Situ Hybridization):</strong> Sondy znakowane fluorescencyjnie. Złoty standard detekcji zespołu DiGeorge'a (22q11.2).</li>
                             <li><strong>Terapie Genowe:</strong> Luxturna (wektor AAV pod siatkówkę w LCA2 z mutacją RPE65); Zolgensma (wektor AAV9 z genem SMN1 w rdzeniowym zaniku mięśni SMA1 przed 18. miesiącem życia).</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g16')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('g16')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('g16')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -536,6 +626,7 @@
             <div class="module-header neu-border">
                 <h1>1. Symptomatologia & Pnie Mózgu</h1>
                 <p>Różnicowanie uszkodzeń nerwów czaszkowych i pniowych.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('neu1')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-neu1">
                 <div class="horizontal-card" id="n1" style="border-left: 6px solid #1e3a8a;">
@@ -545,7 +636,7 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Ośrodkowe uszkodzenie nerwu VII (nadjądrowe):</strong> Uszkodzenie kory lub dróg korowo-jądrowych (np. udar). Niedowład mięśni mimicznych <strong>wyłącznie dolnej połowy twarzy kontralateralnie</strong>. Pacjent potrafi zmarszczyć czoło i zamknąć oko (górne piętro ma obustronne korowe unerwienie).</li>
+                            <li><strong>Ośrodkowe uszkodzenie nerwu VII (nadjądrowe):</strong> Uszkodzenie kory lub dróg korowo-jądrowych (np udar). Niedowład mięśni mimicznych <strong>wyłącznie dolnej połowy twarzy kontralateralnie</strong>. Pacjent potrafi zmarszczyć czoło i zamknąć oko (górne piętro ma obustronne korowe unerwienie).</li>
                             <li><strong>Obwodowe porażenie nerwu VII (Porażenie Bella):</strong> Uszkodzenie jądra w moście lub pnia nerwu na obwodzie. Paraliż <strong>całej połowy twarzy ipsilateralnie</strong>. Pacjent nie potrafi zmarszczyć czoła ani zamknąć oka (dodatni <strong>objaw Bella</strong> – rotacja gałki do góry i na zewnątrz), utrata smaku na przednich 2/3 języka, hiperakuzja.</li>
                             <li><strong>Zespół Opuszkowy vs Rzekomoopuszkowy:</strong> Opuszkowy to uszkodzenie dolnego motoneuronu (IX, X, XII) w rdzeniu przedłużonym – dysfagia, dyzartria, wiotkie porażenie podniebienia, odruch żuchwowy zniesiony. <strong>Kryterium katedralne: Na języku widoczne są głębokie zaniki mięśniowe oraz aktywne fascykulacje (drżenia pęczkowe).</strong> Rzekomoopuszkowy to uszkodzenie obustronne dróg korowo-jądrowych – język sztywny, spastyczny bez zaników i bez fascykulacji, odruch żuchwowy <strong>wybitnie wygórowany</strong>, afekt rzekomoopuszkowy (przymusowy śmiech/płacz).</li>
                         </ul>
@@ -553,7 +644,10 @@
 [ MILLARD-GUBLER ] Most brzuszny dolny: Ipsilateralnie obwodowe porażenie n. VII i n. VI (zez zbieżny); kontralateralnie niedowład spastyczny.
 [ WALLENBERG ] Opuszka boczna (zamknięcie tętnicy PICA): Ipsilateralnie Horner (ptosis, miosis, enophthalmus), niedoczulica twarzy (n. V), chrypka, dysfagia, ataksja móżdżkowa; kontralateralnie zniesienie czucia bólu i temperatury (czucie rozszczepienne). DROGA PIRAMIDOWA OSZCZĘDZONA – BRAK NIEDOWŁADU KOŃCZYN!</div>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n1')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('n1')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('n1')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -562,6 +656,7 @@
             <div class="module-header neu-border">
                 <h1>2. Układ Naczyniowy</h1>
                 <p>Udarologia, terytoria MCA/ACA/PCA i protokoły trombolityczne.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('neu2')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-neu2">
                 <div class="horizontal-card" id="n2" style="border-left: 6px solid #be123c;">
@@ -572,14 +667,17 @@
                     <div class="hc-body">
                         <ul>
                             <li><strong>Terytoria unaczynienia tętniczego:</strong> MCA (kontralateralny niedowład i niedoczulica z przewagą <strong>twarzy i kończyny górnej</strong>, afazja, zbaczanie oczu na ognisko); ACA (niedowład z przewagą <strong>kończyny dolnej - nogi</strong>, objawy czołowe, nietrzymanie moczu); PCA (kontralateralne niedowidzenie połowicze jednoimienne z <strong>zaoszczędzeniem widzenia plamkowego</strong>, przy obustronnym zespole – zespół Antona).</li>
-                            <li><strong>Tromboliza Dożylna (rt-PA) – Okno terapeutyczne do 4,5h:</strong> Dawkowanie <span class="drug-tag">Alteplaza</span>: <strong>0,9 mg/kg m.c.</strong> (max 90 mg). 10% w szybkim bolusie i.v. w ciągu 1 min, reszta we wlewie ciągłym przez 60 min. Kwalifikacja RR: ciśnienie musi wynosić <strong>&lt; 185/110 mmHg</strong>. Dożylny <span class="drug-tag">Urapidyl</span> lub labetalol do obniżenia. Alternatywa: <span class="drug-tag">Tenekteplaza (TNK)</span> w pojedynczym bolusie 0,25 mg/kg m.c.</li>
+                            <li><strong>Tromboliza Dożylna (rt-PA) – Okno terapeutyczne do 4,5h:</strong> Dawkowanie <span class="drug-tag">Alteplaza</span>: <strong>0,9 mg/kg m.c.</strong> (max 90 mg). 10% w szybkim bolusie i.v. w ciągu 1 min, reszta we wlewie ciągłym przez 60 min. Kwalifikacja RR: ciśnienie musi wynosić <strong>&lt; 185/110 mmHg</strong>. Dożylny <span class="drug-tag">Urapidyl</span> lub labetalol do obniżenia Alternatywa: <span class="drug-tag">Tenekteplaza (TNK)</span> w pojedynczym bolusie 0,25 mg/kg m.c.</li>
                             <li><strong>Odwracanie działania NOAC przed rt-PA:</strong> Dabigatran <i class="fa-solid fa-arrow-right"></i> <span class="drug-tag">Idarucyzumab</span> (5 g i.v.). Rywaroksaban/Apiksaban <i class="fa-solid fa-arrow-right"></i> Koncentrat czynników zespołu protrombiny (PCC) lub Andexanet alfa.</li>
                             <li><strong>Udar Lakunarny:</strong> Przyczyną jest <strong>lipohialinoza</strong> (zwyrodnienie tłuszczowo-szkliste) małych tętnic przeszywających związana z nadciśnieniem (brak etiologii zatorowej).</li>
-                            <li><strong>SAH (Krwawienie Podpajęczynówkowe):</strong> Pęknięcie tętniaka. Piorunujący ból głowy, objawy oponowe. Skala Hunt-Hess (kliniczna) i Fishera (TK). Profilaktyka skurczu naczyń: bloker kanałów wapniowych <span class="drug-tag">Nimodypina</span> doustnie 60 mg co 4 godziny przez 21 dni.</li>
+                            <li><strong>SAH (Krwawienie Podpajęczynówkowe):</strong> Pęknięcie tętniaka Piorunujący ból głowy, objawy oponowe. Skala Hunt-Hess (kliniczna) i Fishera (TK). Profilaktyka skurczu naczyń: bloker kanałów wapniowych <span class="drug-tag">Nimodypina</span> doustnie 60 mg co 4 godziny przez 21 dni.</li>
                             <li><strong>Krwotoki nietypowe:</strong> Płatowe krwotoki śródmózgowe u starszych pacjentów bez nadciśnienia wywoływane są przez <strong>Cerebralną Angiopatię Amyloidową (CAA)</strong> (odkładanie beta-amyloidu w naczyniach korowych). Krwotoki typowe (jądra podstawy) wywołane są pęknięciem mikrotętniaków Charcota-Boucharda wskutek nadciśnienia.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n2')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('n2')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('n2')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -588,6 +686,7 @@
             <div class="module-header neu-border">
                 <h1>3. Choroby Demielinizacyjne</h1>
                 <p>Stwardnienie rozsiane oraz spektrum chorób NMOSD.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('neu3')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-neu3">
                 <div class="horizontal-card" id="n3" style="border-left: 6px solid #8b5cf6;">
@@ -599,10 +698,13 @@
                         <ul>
                             <li><strong>Stwardnienie Rozsiane (SM):</strong> Autoimmunologiczny proces powiązany z allelem HLA-DRB1*1501. Pozagałkowe zapalenie n. wzrokowego (RBN) z mroczkiem i bólem przy ruchach gałki, <strong>zjawisko Uhthoffa</strong> (nasilenie objawów w cieple). Kryteria McDonalda 2017 wymagają rozsiania w przestrzeni (DIS - plaki tworzące <strong>Palce Dawsona</strong>) i czasie (DIT). <strong>Wykrycie prążków oligoklonalnych (OCB) w płynie mózgowo-rdzeniowym pozwala zastąpić kryterium rozsiania w czasie (DIT)</strong>. Rzut leczy się metylprednizolonem i.v. 1,0 g przez 3-5 dni.</li>
                             <li><strong>Toksyczności DMT w SM:</strong> Fingolimod (bradykardia, blok AV, wymaga 6h nadzoru EKG przy 1. dawce). Natalizumab (ryzyko PML - postępującej wieloogniskowej leukoencefalopatii wywołanej reaktywacją <strong>wirusa JC</strong>).</li>
-                            <li><strong>Spektrum NMOSD (Choroba Devica):</strong> Akwaporynopatia, autoprzeciwciała <strong>anty-AQP4</strong> niszczące astrocyty za pośrednictwem dopełniacza. Rozległe poprzeczne zapalenie rdzenia (<strong>LETM – ognisko ≥3 segmenty kręgów</strong>). Prążki oligoklonalne (OCB) są <strong>ZAZWYCZAJ NIEOBECNE</strong>. Leki pierwszego rzutu z SM are przeciwwskazane, bo nasilają rzuty!</li>
+                            <li><strong>Spektrum NMOSD (Choroba Devica):</strong> Akwaporynopatia, autoprzeciwciała <strong>anty-AQP4</strong> niszczące astrocyty za pośrednictwem dopełniacza. Rozległe poprzeczne zapalenie rdzenia (<strong>LETM – ognisko ≥3 segmenty kręgów</strong>). Prążki oligoklonalne (OCB) są <strong>ZAZWYCZAJ NIEOBECNE</strong> Leki pierwszego rzutu z SM są w NMOSD przeciwwskazane, bo nasilają rzuty!</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n3')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('n3')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('n3')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -611,6 +713,7 @@
             <div class="module-header neu-border">
                 <h1>4. Epileptologia & Status</h1>
                 <p>Protokoły ratunkowe leczenia stanu padaczkowego i profil AED.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('neu4')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-neu4">
                 <div class="horizontal-card" id="n4" style="border-left: 6px solid #eab308;">
@@ -631,12 +734,15 @@
                             <li><strong>Toksyczności AED:</strong>
                                 <br>- <strong>Kwas walproinowy (VPA):</strong> Najwyższa teratogenność (wady cewy, bezwzględny zakaz u kobiet w wieku rozrodczym), przyrost masy ciała, hepatotoksyczność, **hiperamonemia** (splątanie przy prawidłowych wartościach transaminaz AspAT/AlAT), PCOS.
                                 <br>- <strong>Karbamazepina (CBZ):</strong> Ogniskowe i neuralgia n. V. **Skutek uboczny: hiponatremia z rozcieńczenia (SIADH-like)**. Ryzyko SJS (HLA-B*1502). Silny induktor CYP3A4 (osłabia antykoncepcję).
-                                <br>- <strong>Lamotrygina (LTG):</strong> Najbezpieczniejsza w ciąży. Wymaga powolnej titracji ze względu na ryzyko SJS.
+                                <br>- <strong>Lamotrygina (LTG):</strong> Najbezpieczniejsza w ciąży Wymaga powolnej titracji ze względu na ryzyko SJS.
                                 <br>- <strong>Etosuksymid:</strong> Wybór w napadach nieświadomości u dzieci. EEG: uogólniony **zapis iglica-fala o częstotliwości 3 Hz** podczas hiperwentylacji.
                             </li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n4')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('n4')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('n4')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -645,6 +751,7 @@
             <div class="module-header neu-border">
                 <h1>5. Neurozwyrodnienia & Otępienia</h1>
                 <p>Diagnostyka różnicowa i kryteria alzheimerowskie.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('neu5')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-neu5">
                 <div class="horizontal-card" id="n5" style="border-left: 6px solid #fbbf24;">
@@ -663,7 +770,10 @@
                             <li><strong>Wodogłowie Normotensyjne (NPH / Zespół Hakima-Adamsa):</strong> **Triada Hakima**: 1. Zaburzenia chodu (magnetyczny - stopy przyklejone do podłogi), 2. Nietrzymanie moczu, 3. Otępienie podkorowe. Poprawa chodu po upuście płynu M-R (Tap-Test). Zastawka komorowo-otrzewnowej (VP shunt).</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n5')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('n5')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('n5')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -672,6 +782,7 @@
             <div class="module-header neu-border">
                 <h1>6. Neuromuskularne & Rdzeń</h1>
                 <p>Zespoły postsynaptyczne, miopatie i dystrofie.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('neu6')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-neu6">
                 <div class="horizontal-card" id="n6" style="border-left: 6px solid #10b981;">
@@ -682,14 +793,17 @@
                     <div class="hc-body">
                         <ul>
                             <li><strong>Zespół Guillaina-Barrégo (GBS):</strong> Ostra poliradikuloneuropatia demielinizacyjna po infekcji *Campylobacter jejuni*. **Wstępujący**, symetryczny niedowład wiotki z **bezwzględną arefleksją**. PMR w 2. tygodniu: **rozszczepienie cytoalbuminowe (wysokie białko przy prawidłowej cytozie)**. Sterydy w ostrym GBS są nieskuteczne i stanowią błąd. Leczenie: IVIG lub plazmafereza.</li>
-                            <li><strong>Miastenia Gravis (MG):</strong> Patologia <strong>postsynaptyczna</strong>. Autoprzeciwciała <strong>anty-AChR</strong>. Powiązana z hiperplazją grasicy lub <strong>grasiczakiem (Thymoma)</strong> – bezwzględne wskazanie do TK klatki! Patologiczna nużliwość mięśni, ptoza, diplopia. Odruchy ścięgniste zachowane. EMG: **zjawisko dekrementu amplitudy (spadek o &gt;10%)**. Leczenie: <span class="drug-tag">Pirydostygmina</span> (Mestinon).</li>
-                            <li><strong>Zespół Lamberta-Eatona (LEMS):</strong> Patologia <strong>presynaptyczna</strong>. Autoprzeciwciała <strong>anty-VGCC</strong> (zablokowany wyrzut ACh). Zespół paranowotworowy współistniejący z <strong>rakiem drobnokomórkowym płuca (SCLC)</strong>. Osłabienie mięśni obręczy biodrowej, suchość w jamie ustnej. Odruchy głębokie zniesione w spoczynku, poprawiają się po wysiłku. EMG: **zjawisko potężnego inkrementu amplitudy (torowanie o &gt;100%)**. Leczenie: <span class="drug-tag">Amifamfrydyna</span>.</li>
+                            <li><strong>Miastenia Gravis (MG):</strong> Patologia <strong>postsynaptyczna</strong> Autoimmunologiczna przeciwciała <strong>anty-AChR</strong>. Powiązana z hiperplazją grasicy lub <strong>grasiczakiem (Thymoma)</strong> – bezwzględne wskazanie do TK klatki! Patologiczna nużliwość mięśni, ptoza, diplopia. Odruchy ścięgniste zachowane. EMG: **zjawisko dekrementu amplitudy (spadek o &gt;10%)**. Leczenie: <span class="drug-tag">Pirydostygmina</span> (Mestinon).</li>
+                            <li><strong>Zespół Lamberta-Eatona (LEMS):</strong> Patologia <strong>presynaptyczna</strong>. Autoprzeciwciała <strong>anty-VGCC</strong> (zablokowany wyrzut ACh). Zespół paranowotworowy współistniejący z <strong>rakiem drobnokomórkowym płuca (SCLC)</strong> Osłabienie mięśni obręczy biodrowej, suchość w jamie ustnej Odruchy głębokie zniesione w spoczynku, poprawiają się po wysiłku. EMG: **zjawisko potężnego inkrementu amplitudy (torowanie o &gt;100%)**. Leczenie: <span class="drug-tag">Amifamfrydyna</span>.</li>
                             <li><strong>Dystrofia Mięśniowa Duchenne'a (DMD):</strong> Sprzężona z X. Brak **dystrofiny**. Chód kaczkowaty, **objaw Gowersa**, **rzekomy przerost mięśni łydek (pseudohipertrofia)**. Laboratorium: **kinaza fosfokreatynowa (CK / CPK) 50- do 200-krotnie podwyższona (10 000 – 50 000 U/l)** od urodzenia.</li>
                             <li><strong>Dystrofia Emery'ego-Dreifussa (EDMD):</strong> Defekt emeryny/laminy. **Klasyczna Triada Objawów**: 1. Wczesne przykurcze, 2. Niedowład ramieniowo-strzałkowy, 3. **Kardiomiopatia z ciężkimi blokami przewodzenia AV II/III stopnia** (ryzyko nagłego zgonu sercowego). **Postępowanie ratunkowe: natychmiastowa, profilaktyczna implantacja stymulatora serca (pacemaker) lub ICD.**</li>
                             <li><strong>Zwyrodnienie Sznurowe Rdzenia (SCD):</strong> Niedobór witaminy B12. Degeneracja **sznurów tylnych** (utrata czucia głębokiego, wibracji, ataksja czuciowa) oraz **dróg piramidowych bocznych** (niedowład spastyczny, objaw Babińskiego).</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n6')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('n6')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('n6')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -698,6 +812,7 @@
             <div class="module-header neu-border">
                 <h1>7. Zespoły Bólowe & PMR</h1>
                 <p>Zapalenia tętnic, bóle klasterowe i diagnostyka różnicowa płynu mózgowo-rdzeniowego.</p>
+                <div class="module-admin-actions"><button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('neu7')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button></div>
             </div>
             <div class="list-layout" id="lay-neu7">
                 <div class="horizontal-card" id="n7" style="border-left: 6px solid #e11d48;">
@@ -766,7 +881,10 @@
                         </div>
                         <p style="margin-top: 12px; font-size: 13px; color: #9ca3af;">* <i>Haczyk gruźliczy:</i> Profil składający się ze skrajnie wysokiego białka, niskiej glukozy oraz wybitnie obniżonych chlorków (&lt;115 mmol/l) jest patognomoniczny dla Mycobacterium tuberculosis.</p>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n7')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('n7')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('n7')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -792,7 +910,7 @@
         <div id="test-neu" class="content-tab">
             <div class="module-header neu-border">
                 <h1>Symulator Testów: Neurologia Katedralna</h1>
-                <p>Baza egzaminacyjna wyekstrahowana z plików źródłowych. Próg: 65%.</p>
+                <p>Baza egzaminacyjna wyekstrahowana z plików źródłowych Próg: 65%.</p>
             </div>
             <div class="filter-panel" style="background:white; padding:20px; border-radius:12px; margin-bottom:25px; border:1px solid #e2e8f0; display:flex; gap:20px; align-items:center;">
                 <div>
@@ -866,9 +984,31 @@
         let genStats = { total: 0, correct: 0 };
         let neuStats = { total: 0, correct: 0 };
 
+        // CAŁKOWICIE NAPRAWIONA I ZOPTYMALIZOWANA FUNKCJA PRZEŁĄCZANIA ZAKŁADEK I KOLORÓW MENU
         function switchTab(id) {
             document.querySelectorAll('.content-tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            const targetTab = document.getElementById(id);
+            if (targetTab) targetTab.classList.add('active');
+            
+            // Czyszczenie wszystkich aktywnych klas kolorystycznych z menu bocznego
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active-gen', 'active-neu');
+            });
+            
+            // Mapowanie specyficznego ID Gemini Engine
+            let navId = 'nv-' + id;
+            if (id === 'gemini-engine') navId = 'nv-gemini';
+            
+            const activeNav = document.getElementById(navId);
+            if (activeNav) {
+                // Warunki logiczne determinujące Filar i kolorystykę menu
+                if (id.startsWith('mod') || id === 'matrix' || id === 'test-gen' || id === 'gemini-engine') {
+                    activeNav.classList.add('active-gen');
+                } else if (id.startsWith('neu') || id === 'test-neu') {
+                    activeNav.classList.add('active-neu');
+                }
+            }
+            
             if(id === 'test-gen') renderGeneticsQuiz();
             if(id === 'test-neu') renderNeurologyQuiz();
         }
@@ -878,6 +1018,92 @@
             document.querySelectorAll('.horizontal-card').forEach(card => {
                 card.style.display = card.textContent.toLowerCase().includes(val) ? 'flex' : 'none';
             });
+        }
+
+        function deleteCard(cardId) {
+            if (confirm("Czy na pewno chcesz usunąć tę całą tabliczkę kliniczną z widoku?")) {
+                const element = document.getElementById(cardId);
+                if (element) element.remove();
+            }
+        }
+
+        // FUNKCJA CAŁKOWITEGO USUWANIA MODUŁÓW (ROZDZIAŁÓW)
+        function deleteEntireModule(modId) {
+            if (confirm(`KATEGORYCZNE OSTRZEŻENIE:\nCzy na pewno chcesz usunąć cały moduł [${modId}] wraz ze wszystkimi zawartymi w nim kartami chorób?`)) {
+                const tabElement = document.getElementById(modId);
+                if (tabElement) tabElement.remove();
+                
+                let navId = 'nv-' + modId;
+                if (modId === 'gemini-engine') navId = 'nv-gemini';
+                const navElement = document.getElementById(navId);
+                if (navElement) navElement.remove();
+                
+                // Przełączenie na pierwszy domyślny moduł po usunięciu
+                switchTab('mod1');
+            }
+        }
+
+        // FUNKCJA DYNAMICZNEGO DODAWANIA CAŁYCH MODUŁÓW (ROZDZIAŁÓW) DO STRONY
+        function injectNewModule() {
+            const name = document.getElementById('newModName').value.trim();
+            const id = document.getElementById('newModId').value.trim().toLowerCase();
+            const filar = document.getElementById('newModFilar').value;
+
+            if(!name || !id) {
+                alert("Uzupełnij nazwę oraz unikalne ID modułu!");
+                return;
+            }
+
+            if(document.getElementById(id)) {
+                alert("Moduł o takim ID już istnieje na tej stronie!");
+                return;
+            }
+
+            // 1. Tworzenie i wstrzykiwanie nowego przycisku nawigacyjnego do menu bocznego
+            const newNavItem = document.createElement('div');
+            newNavItem.className = 'nav-item';
+            newNavItem.id = 'nv-' + id;
+            newNavItem.setAttribute('onclick', `switchTab('${id}')`);
+            newNavItem.innerHTML = `<i class="fa-solid ${filar === 'genetics' ? 'fa-circle-nodes' : 'fa-sitemap'}"></i> ${name}`;
+            
+            if (filar === 'genetics') {
+                const testGenNode = document.getElementById('nv-test-gen');
+                testGenNode.parentNode.insertBefore(newNavItem, testGenNode);
+            } else {
+                const testNeuNode = document.getElementById('nv-test-neu');
+                testNeuNode.parentNode.insertBefore(newNavItem, testNeuNode);
+            }
+
+            // 2. Dodawanie opcji wyboru nowego modułu do selektorów kreatorów treści
+            const selectTarget = document.getElementById('addTarget');
+            const selectAiTarget = document.getElementById('aiCardTarget');
+            const optionText = `${name} [${filar === 'genetics' ? 'G' : 'N'}]`;
+            
+            selectTarget.add(new Option(optionText, id));
+            selectAiTarget.add(new Option(optionText, id));
+
+            // 3. Tworzenie i wstrzykiwanie nowej przestrzeni roboczej (karty tabu) w strukturę główną
+            const newTabContent = document.createElement('div');
+            newTabContent.className = 'content-tab';
+            newTabContent.id = id;
+            newTabContent.innerHTML = `
+                <div class="module-header ${filar === 'genetics' ? 'gen-border' : 'neu-border'}">
+                    <h1>${name}</h1>
+                    <p>Nowo utworzony rozdział akademicki.</p>
+                    <div class="module-admin-actions">
+                        <button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('${id}')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button>
+                    </div>
+                </div>
+                <div class="list-layout" id="lay-${id}">
+                    </div>
+            `;
+            document.getElementById('main-content-tabs-holder').appendChild(newTabContent);
+
+            // Czyszczenie pól tekstowych i przejście do nowego modułu
+            document.getElementById('newModName').value = '';
+            document.getElementById('newModId').value = '';
+            alert(`Moduł ${name} został pomyślnie skompilowany i dodany do struktury strony.`);
+            switchTab(id);
         }
 
         // ZAAWANSOWANY STANOWY AUTOMAT PARSERUJĄCY TEKST (DETEKCJA 100% PYTAŃ Z DOKUMENTÓW)
@@ -1009,7 +1235,10 @@
         function saveVisualEditor(cardId) {
             const card = document.getElementById(cardId);
             card.querySelector('.hc-body').innerHTML = document.getElementById(`ta-${cardId}`).value;
-            card.querySelector('.card-actions').innerHTML = `<button class="btn-inline" onclick="openVisualEditor('${cardId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>`;
+            card.querySelector('.card-actions').innerHTML = `
+                <button class="btn-inline" onclick="openVisualEditor('${cardId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('${cardId}')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+            `;
         }
 
         function injectNewCard() {
@@ -1024,7 +1253,7 @@
             listHTML += '</ul>';
 
             const uId = 'c-' + Date.now();
-            const isGen = target.startsWith('mod');
+            const isGen = target.startsWith('mod') || target === 'matrix';
             const cardHTML = `
                 <div class="horizontal-card" id="${uId}" style="border-left: 6px solid ${borderCol};">
                     <div class="hc-header">
@@ -1032,7 +1261,10 @@
                         <div><span class="card-badge ${isGen ? 'badge-gen' : 'badge-neuro'}">Wpis własny</span></div>
                     </div>
                     <div class="hc-body">${listHTML}</div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('${uId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('${uId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('${uId}')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             `;
             document.getElementById(`lay-${target}`).insertAdjacentHTML('beforeend', cardHTML);
@@ -1059,7 +1291,7 @@
             listHTML += '</ul>';
 
             const uId = 'ai-' + Date.now();
-            const isGen = target.startsWith('mod');
+            const isGen = target.startsWith('mod') || target === 'matrix';
             const cardHTML = `
                 <div class="horizontal-card" id="${uId}" style="border-left: 6px solid ${isGen ? '#0d9488' : '#1e3a8a'};">
                     <div class="hc-header">
@@ -1067,7 +1299,10 @@
                         <div><span class="card-badge ${isGen ? 'badge-success' : 'badge-warn'}">AI Konstrukt</span></div>
                     </div>
                     <div class="hc-body">${listHTML}</div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('${uId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
+                    <div class="card-actions">
+                        <button class="btn-inline" onclick="openVisualEditor('${uId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
+                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('${uId}')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
+                    </div>
                 </div>
             `;
             document.getElementById(`lay-${target}`).insertAdjacentHTML('beforeend', cardHTML);
@@ -1123,7 +1358,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, onSnapshot, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBZmrhKXYnZlYVsUpDtcizCrpiO2_qTErw",
@@ -1138,7 +1373,8 @@
         const db = getFirestore(app);
         const docRef = doc(db, "strony", "glowna");
 
-        // Automatyczne opakowanie całej Twojej strony, by nie uszkodzić kodu dynamicznego
+        let stanKoduHistoria = null;
+
         let wrapper = document.getElementById("live-wrapper");
         if (!wrapper) {
             wrapper = document.createElement("div");
@@ -1149,7 +1385,6 @@
             document.body.appendChild(wrapper);
         }
 
-        // Eleganckie style dla panelu pływającego (Cyber-Slate Clean)
         const style = document.createElement("style");
         style.innerHTML = `
             #admin-bar { 
@@ -1162,7 +1397,7 @@
                 border-radius: 30px; 
                 box-shadow: 0 10px 30px rgba(15, 23, 42, 0.3); 
                 z-index: 999999; 
-                display: none; /* Domyślnie schowany, Ctrl+Shift+A aktywuje */
+                display: none; 
                 align-items: center; 
                 gap: 12px; 
                 font-family: 'Poppins', sans-serif; 
@@ -1190,16 +1425,23 @@
                 cursor: pointer; 
                 font-weight: 600; 
                 border: none; 
-                padding: 8px 20px; 
+                padding: 8px 18px; 
                 border-radius: 20px; 
                 font-size: 13px; 
                 letter-spacing: 0.5px;
                 box-shadow: 0 2px 8px rgba(13, 148, 136, 0.2);
                 transition: all 0.2s; 
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
             }
             #admin-bar button:hover { 
                 transform: translateY(-1px);
                 box-shadow: 0 4px 12px rgba(13, 148, 136, 0.4);
+            }
+            #admin-bar .btn-undo {
+                background: linear-gradient(135deg, #64748b, #475569);
+                box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
             }
             #sync-status { 
                 font-size: 12px; 
@@ -1209,23 +1451,23 @@
         `;
         document.head.appendChild(style);
 
-        // Stworzenie małego, dyskretnego panelu w rogu ekranu
         const adminBar = document.createElement("div");
         adminBar.id = "admin-bar";
         adminBar.innerHTML = `
-            <span style="color:#2dd4bf; font-weight:bold; font-size:12px; letter-spacing: 0.5px;">Centrala Cloud:</span>
+            <span style="color:#2dd4bf; font-weight:bold; font-size:12px;">Centrala Cloud:</span>
             <input type="password" id="admin-pass" placeholder="Klucz dostępu">
-            <button id="zapisz-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Push do bazy</button>
+            <button id="zapisz-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Push</button>
+            <button id="cofnij-btn" class="btn-undo"><i class="fa-solid fa-rotate-left"></i> Cofnij</button>
             <span id="sync-status"></span>
         `;
         document.body.appendChild(adminBar);
 
-        // Pobieranie brakujących referencji z drzewa DOM (Tutaj leżał problem!)
-        const btn = document.getElementById("zapisz-btn");
+        const btnZapisz = document.getElementById("zapisz-btn");
+        const btnCofnij = document.getElementById("cofnij-btn");
         const passInput = document.getElementById("admin-pass");
         const status = document.getElementById("sync-status");
 
-        // Odbieranie zmian na żywo u wszystkich użytkowników online
+        // Odbieranie i ciągła synchronizacja live z chmury Firebase
         onSnapshot(docRef, (docSnapshot) => {
             if (docSnapshot.exists()) {
                 const dane = docSnapshot.data();
@@ -1235,36 +1477,68 @@
             }
         });
 
-        // Zapisywanie zmian (tylko z poprawnym hasłem "baza2026")
-        btn.addEventListener("click", () => {
+        // Wysłanie skompilowanej struktury do chmury wraz z automatyczną migawką historyczną
+        btnZapisz.addEventListener("click", async () => {
             if (passInput.value !== "baza2026") {
-                alert("Błędne hasło admina!");
+                alert("Błędne hasło administratora katedralnego!");
                 return;
             }
-            status.innerText = "Zapisywanie...";
+            status.innerText = "Synchronizacja...";
             status.style.color = "#ffc107";
 
-            setDoc(docRef, {
-                kodHTML: wrapper.innerHTML // Zapisuje tylko zawartość strony (bez paska admina!)
-            }, { merge: true })
-            .then(() => {
-                status.innerText = " Zapisano pomyślnie!";
+            try {
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    stanKoduHistoria = docSnap.data().kodHTML;
+                }
+
+                await setDoc(docRef, { kodHTML: wrapper.innerHTML }, { merge: true });
+                status.innerText = " Done!";
                 status.style.color = "#10b981";
-                setTimeout(() => {
-                    status.innerText = "";
-                }, 3000);
-            })
-            .catch((err) => {
+                setTimeout(() => { status.innerText = ""; }, 3000);
+            } catch (err) {
                 console.error("Błąd zapisu:", err);
-                status.innerText = " Błąd zapisu!";
-                status.style.color = "#dc3545";
-            });
+                status.innerText = " Error Cloud!";
+                status.style.color = "#be123c";
+            }
         });
 
-        // Ukrywanie i pokazywanie panelu skrótem Ctrl + Shift + A
+        // Funkcja natychmiastowego rollbacku chmury do poprzedniego stanu (Undo / Cofnij)
+        btnCofnij.addEventListener("click", async () => {
+            if (passInput.value !== "baza2026") {
+                alert("Błędne hasło administratora katedralnego!");
+                return;
+            }
+            if (!stanKoduHistoria) {
+                alert("Brak zapisanego punktu w cache historii do wycofania zmian!");
+                return;
+            }
+            if (!confirm("Czy na pewno chcesz cofnąć ostatni push chmurowy i przywrócić stan poprzedni?")) {
+                return;
+            }
+
+            status.innerText = "Przywracanie...";
+            status.style.color = "#fbbf24";
+
+            try {
+                await setDoc(docRef, { kodHTML: stanKoduHistoria }, { merge: true });
+                stanKoduHistoria = null; // Czyszczenie punktu przywracania po udanym rollbacku
+                status.innerText = " Cofnięto zmianę!";
+                status.style.color = "#10b981";
+                setTimeout(() => { status.innerText = ""; }, 3000);
+            } catch (err) {
+                console.error("Błąd krytyczny rollbacku:", err);
+                status.innerText = " Error Rollback!";
+                status.style.color = "#be123c";
+            }
+        });
+
+        // Skrót klawiszowy Ctrl + Shift + A sterujący widocznością paska admina oraz wstrzykujący stan edytora na całe body
         window.addEventListener("keydown", (e) => {
             if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
                 e.preventDefault();
+                document.body.classList.toggle('admin-mode');
+                
                 const bar = document.getElementById("admin-bar");
                 if (bar) {
                     const isHidden = window.getComputedStyle(bar).display === "none";
