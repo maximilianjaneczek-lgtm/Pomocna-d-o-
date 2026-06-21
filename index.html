@@ -1640,6 +1640,7 @@
             }
         });
 
+        // Rejestracja skrótu Ctrl + Shift + A dla administratora
         window.addEventListener("keydown", (e) => {
             if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
                 e.preventDefault();
@@ -1653,82 +1654,15 @@
             }
         });
     </script>
-<script>
-        (function() {
-            // Bezpieczne wstrzyknięcie przycisku czyszczenia do bazy Genetyki
-            const genBox = document.querySelector('#test-gen .wgraj-box');
-            if (genBox) {
-                const genBtn = document.createElement('div');
-                genBtn.style.marginTop = '15px';
-                genBtn.className = 'creator-panel-admin-only'; // Pokazuje się tylko w trybie admin-mode
-                genBtn.innerHTML = `<button class="btn" style="color:var(--color-danger); border-color:var(--color-danger); font-size:12px; cursor:pointer;" onclick="clearTestDatabase('genetics')"><i class="fa-solid fa-trash-can"></i> Wyczyść całą aktualną bazę pytań z Genetyki</button>`;
-                genBox.appendChild(genBtn);
-            }
 
-            // Bezpieczne wstrzyknięcie przycisku czyszczenia do bazy Neurologii
-            const neuBox = document.querySelector('#test-neu .wgraj-box');
-            if (neuBox) {
-                const neuBtn = document.createElement('div');
-                neuBtn.style.marginTop = '15px';
-                neuBtn.className = 'creator-panel-admin-only'; // Pokazuje się tylko w trybie admin-mode
-                neuBtn.innerHTML = `<button class="btn" style="color:var(--color-danger); border-color:var(--color-danger); font-size:12px; cursor:pointer;" onclick="clearTestDatabase('neurology')"><i class="fa-solid fa-trash-can"></i> Wyczyść całą aktualną bazę pytań z Neurologii</button>`;
-                neuBox.appendChild(neuBtn);
-            }
-<script>
-        (function() {
-            // 1. Definicja funkcji usuwającej (okno ostrzegawcze + czyszczenie tablicy)
-            window.clearAllQuestionsFromDatabase = function(block) {
-                const blockName = block === 'genetics' ? 'Genetyki' : 'Neurologii';
-                
-                if (confirm(`KATEDRALNE OSTRZEŻENIE:\nCzy na pewno chcesz bezpowrotnie usunąć WSZYSTKIE dotychczasowe pytania z bloku: ${blockName}?`)) {
-                    if (block === 'genetics') {
-                        window.geneticsQuizDB = [];
-                        if (typeof renderGeneticsQuiz === 'function') renderGeneticsQuiz();
-                    } else if (block === 'neurology') {
-                        window.neurologyQuizDB = [];
-                        if (typeof renderNeurologyQuiz === 'function') renderNeurologyQuiz();
-                    }
-                    alert(`Baza pytań z ${blockName} została opróżniona w pamięci roboczej strony. Kliknij "Push" w panelu administratora, aby usunąć je z chmury Firebase na stałe.`);
-                }
-            };
-
-            // 2. Automatyczne przypięcie przycisku do Generatora Genetyki
-            const genBox = document.querySelector('#test-gen .wgraj-box');
-            if (genBox) {
-                const genBtnDiv = document.createElement('div');
-                genBtnDiv.style.marginTop = '12px';
-                genBtnDiv.className = 'editor-only-action';
-                genBtnDiv.innerHTML = `<button class="btn" style="color:var(--color-danger); border-color:var(--color-danger); font-size:12px; cursor:pointer; width:100%;" onclick="clearAllQuestionsFromDatabase('genetics')"><i class="fa-solid fa-trash-can"></i> Usuń wszystkie pytania z Genetyki</button>`;
-                genBox.appendChild(genBtnDiv);
-            }
-
-            // 3. Automatyczne przypięcie przycisku do Generatora Neurologii
-            const neuBox = document.querySelector('#test-neu .wgraj-box');
-            if (neuBox) {
-                const neuBtnDiv = document.createElement('div');
-                neuBtnDiv.style.marginTop = '12px';
-                neuBtnDiv.className = 'editor-only-action';
-                neuBtnDiv.innerHTML = `<button class="btn" style="color:var(--color-danger); border-color:var(--color-danger); font-size:12px; cursor:pointer; width:100%;" onclick="clearAllQuestionsFromDatabase('neurology')"><i class="fa-solid fa-trash-can"></i> Usuń wszystkie pytania z Neurologii</button>`;
-                neuBox.appendChild(neuBtnDiv);
-            }
-
-            // 4. Ukrywanie przycisków przed zwykłymi użytkownikami (widoczne tylko przy aktywnym body.admin-mode)
-            const style = document.createElement("style");
-            style.innerHTML = `
-                .editor-only-action { display: none !important; }
-                body.admin-mode .editor-only-action { display: block !important; }
-            `;
-            document.head.appendChild(style);
-        })();
-    </script>
     <script>
         (function() {
-            // Czekamy chwilę na utworzenie paska przez główny skrypt
+            // 1. Przypięcie przycisków resetu bezpośrednio do paska Centrali Cloud
             setTimeout(() => {
                 const adminBar = document.getElementById("admin-bar");
-                if (adminBar) {
-                    // Tworzymy kontener na przyciski czyszczące
+                if (adminBar && !document.getElementById("katedra-resety")) {
                     const czyszczenieContainer = document.createElement("div");
+                    czyszczenieContainer.id = "katedra-resety";
                     czyszczenieContainer.style.display = "flex";
                     czyszczenieContainer.style.gap = "6px";
                     czyszczenieContainer.style.marginLeft = "10px";
@@ -1736,30 +1670,25 @@
                     czyszczenieContainer.style.paddingLeft = "10px";
                     
                     czyszczenieContainer.innerHTML = `
-                        <button onclick="clearAllQuestionsFromDatabase('genetics')" style="background: linear-gradient(135deg, #be123c, #9f1239); padding: 6px 12px; font-size: 11px;"><i class="fa-solid fa-dna"></i> Reset Genetyki</button>
-                        <button onclick="clearAllQuestionsFromDatabase('neurology')" style="background: linear-gradient(135deg, #be123c, #9f1239); padding: 6px 12px; font-size: 11px;"><i class="fa-solid fa-brain"></i> Reset Neurologii</button>
+                        <button onclick="clearAllQuestionsFromDatabase('genetics')" style="background: linear-gradient(135deg, #be123c, #9f1239); padding: 6px 12px; font-size: 11px; border: none; border-radius: 20px; color: white; cursor: pointer; font-family: inherit; font-weight: 600;"><i class="fa-solid fa-dna"></i> Reset Genetyki</button>
+                        <button onclick="clearAllQuestionsFromDatabase('neurology')" style="background: linear-gradient(135deg, #be123c, #9f1239); padding: 6px 12px; font-size: 11px; border: none; border-radius: 20px; color: white; cursor: pointer; font-family: inherit; font-weight: 600;"><i class="fa-solid fa-brain"></i> Reset Neurologii</button>
                     `;
-                    
-                    // Wstrzykujemy przyciski prosto do paska admina przed statusem synchronicznym
                     const statusSpan = document.getElementById("sync-status");
                     adminBar.insertBefore(czyszczenieContainer, statusSpan);
                 }
-            }, 500);
+            }, 600);
 
-            // Definicja globalnej funkcji czyszczącej tablice w pamięci RAM strony
+            // 2. Globalna funkcja czyszcząca tablice w pamięci RAM przed nowym importem
             window.clearAllQuestionsFromDatabase = function(block) {
                 const blockName = block === 'genetics' ? 'Genetyki' : 'Neurologii';
-                
                 if (confirm(`KATEDRALNE OSTRZEŻENIE:\nCzy na pewno chcesz całkowicie WYCZYŚCIĆ bazę pytań z: ${blockName}?\n\nZmiana zostanie wysłana do chmury po kliknięciu przycisku 'Push'.`)) {
                     if (block === 'genetics') {
                         window.geneticsQuizDB = [];
                         if (typeof renderGeneticsQuiz === 'function') renderGeneticsQuiz();
-                    } else if (block === 'neurology') {
+                    } else {
                         window.neurologyQuizDB = [];
                         if (typeof renderNeurologyQuiz === 'function') renderNeurologyQuiz();
                     }
-                    
-                    // Automatyczna zmiana statusu paska, informująca o gotowości do wypchnięcia zmian
                     const status = document.getElementById("sync-status");
                     if (status) {
                         status.innerText = " Oczekuje na Push...";
@@ -1767,106 +1696,24 @@
                     }
                 }
             };
-        })();
-    </script>
-    <script>
-        // 1. Nadpisujemy funkcję przetwarzającą pliki, aby natychmiast rozpoznawała format JSON
-        window.processTextBaza = function(text, block) {
-            try {
-                // Próba odczytania pliku jako czystej struktury JSON
-                const parsed = JSON.parse(text);
-                if (Array.isArray(parsed)) {
-                    // Czyścimy dotychczasową tablicę przed nowym importem, aby zapobiec duplikatom
-                    if (block === 'genetics') {
-                        window.geneticsQuizDB = parsed;
-                        if (typeof renderGeneticsQuiz === 'function') renderGeneticsQuiz();
-                    } else {
-                        window.neurologyQuizDB = parsed;
-                        if (typeof renderNeurologyQuiz === 'function') renderNeurologyQuiz();
-                    }
-                    
-                    alert(`Sukces! Czytnik pomyślnie załadował ${parsed.length} pytań z pliku JSON.`);
-                    
-                    // Informujemy pasek administratora o gotowości do synchronizacji
-                    const status = document.getElementById("sync-status");
-                    if (status) {
-                        status.innerText = " Oczekuje na Push...";
-                        status.style.color = "#fbbf24";
-                    }
-                    return; // Koniec operacji dla JSON
-                }
-            } catch (e) {
-                // Jeśli plik nie jest JSON-em, aktywuje się awaryjny, standardowy parser tekstowy
-            }
 
-            // Awaryjny parser tekstowy (gdybyś wgrywał plik TXT/DOCX)
-            const wyekstrahowanePytania = [];
-            const linie = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-            let obecnePytanie = null;
-
-            linie.forEach(linia => {
-                const czyNowePytanie = linia.match(/^\d+[\.\)]/) || linia.endsWith('?');
-                const czyOpcja = linia.match(/^[A-Ea-e][\.\)\-]/);
-
-                if (czyNowePytanie && !czyOpcja) {
-                    if (obecnePytanie && obecnePytanie.opts.length >= 2) wyekstrahowanePytania.push(obecnePytanie);
-                    obecnePytanie = {
-                        id: Date.now() + Math.random(),
-                        year: "2026",
-                        q: linia.replace(/^\d+[\.\)]/, '').trim(),
-                        opts: [],
-                        ans: 0,
-                        rat: "Ekstrakcja automatyczna."
-                    };
-                } else if (czyOpcja && obecnePytanie) {
-                    obecnePytanie.opts.push(linia.replace(/^[A-Ea-e][\.\)\-]/, '').trim());
-                }
-            });
-            if (obecnePytanie && obecnePytanie.opts.length >= 2) wyekstrahowanePytania.push(obecnePytanie);
-
-            if (wyekstrahowanePytania.length > 0) {
-                if (block === 'genetics') {
-                    window.geneticsQuizDB = wyekstrahowanePytania;
-                    if (typeof renderGeneticsQuiz === 'function') renderGeneticsQuiz();
-                } else {
-                    window.neurologyQuizDB = wyekstrahowanePytania;
-                    if (typeof renderNeurologyQuiz === 'function') renderNeurologyQuiz();
-                }
-                alert(`Pomyślnie przetworzono tekst i wyodrębniono ${wyekstrahowanePytania.length} pytań.`);
-            } else {
-                alert("Błąd krytyczny struktury: Czytnik nie był w stanie dopasować formatu danych. Upewnij się, że wgrywasz poprawny plik.");
-            }
-        };
-    </script>
-    <script>
-        (function() {
-            // Nadpisujemy funkcję parsującą tekst bezpośrednio globalnie
+            // 3. Super-odporny czytnik plików (Eliminuje ukryte znaki formatowania Windows/BOM i obsługuje JSON)
             window.processTextBaza = function(text, block) {
                 try {
-                    // Wymuszamy bezpośrednie parsowanie tekstu jako tablicy obiektów JSON
-                    const parsed = JSON.parse(text);
+                    // Oczyszczanie tekstu z ukrytych znaczników kodowania Notatnika/Windows (BOM)
+                    const cleanedText = text.replace(/^\uFEFF/, '').trim();
+                    const parsed = JSON.parse(cleanedText);
                     
                     if (Array.isArray(parsed)) {
                         if (block === 'genetics') {
-                            // Nadpisujemy globalną tablicę genetyki nową strukturą
                             window.geneticsQuizDB = parsed;
-                            
-                            // Wymuszamy natychmiastowe przerysowanie interfejsu testu na ekranie
-                            if (typeof renderGeneticsQuiz === 'function') {
-                                renderGeneticsQuiz();
-                            }
+                            if (typeof renderGeneticsQuiz === 'function') renderGeneticsQuiz();
                         } else {
-                            // Nadpisujemy globalną tablicę neurologii nową strukturą
                             window.neurologyQuizDB = parsed;
-                            
-                            if (typeof renderNeurologyQuiz === 'function') {
-                                renderNeurologyQuiz();
-                            }
+                            if (typeof renderNeurologyQuiz === 'function') renderNeurologyQuiz();
                         }
                         
-                        alert(`Sukces: System prawidłowo rozpoznał strukturę pliku! Wykryto i załadowano ${parsed.length} pytań.`);
-                        
-                        // Zmieniamy status paska administratora, dając sygnał do zapisu
+                        alert(`Sukces katedralny! Czytnik rozpoznał strukturę i załadował ${parsed.length} pytań.`);
                         const status = document.getElementById("sync-status");
                         if (status) {
                             status.innerText = " Gotowy do Push...";
@@ -1875,11 +1722,47 @@
                         return;
                     }
                 } catch (e) {
-                    console.error("Błąd parsowania formatu JSON: ", e);
+                    // Jeśli to nie był czysty JSON, uruchamia się awaryjny parser dla surowego tekstu (.txt / .docx)
+                    const wyekstrahowanePytania = [];
+                    const linie = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                    let obecnePytanie = null;
+
+                    linie.forEach(linia => {
+                        const czyNowePytanie = linia.match(/^\d+[\.\)]/) || linia.endsWith('?');
+                        const czyOpcja = linia.match(/^[A-Ea-e][\.\)\-]/);
+
+                        if (czyNowePytanie && !czyOpcja) {
+                            if (obecnePytanie && obecnePytanie.opts.length >= 2) wyekstrahowanePytania.push(obecnePytanie);
+                            obecnePytanie = {
+                                id: Date.now() + Math.random(),
+                                year: "2026",
+                                q: linia.replace(/^\d+[\.\)]/, '').trim(),
+                                opts: [],
+                                ans: 0,
+                                rat: "Ekstrakcja automatyczna."
+                            };
+                        } else if (czyOpcja && obecnePytanie) {
+                            obecnePytanie.opts.push(linia.replace(/^[A-Ea-e][\.\)\-]/, '').trim());
+                        }
+                    });
+                    if (obecnePytanie && obecnePytanie.opts.length >= 2) wyekstrahowanePytania.push(obecnePytanie);
+
+                    if (wyekstrahowanePytania.length > 0) {
+                        if (block === 'genetics') {
+                            window.geneticsQuizDB = wyekstrahowanePytania;
+                            if (typeof renderGeneticsQuiz === 'function') renderGeneticsQuiz();
+                        } else {
+                            window.neurologyQuizDB = wyekstrahowanePytania;
+                            if (typeof renderNeurologyQuiz === 'function') renderNeurologyQuiz();
+                        }
+                        alert(`Pomyślnie przetworzono tekst i wyodrębniono ${wyekstrahowanePytania.length} pytań.`);
+                        return;
+                    }
                 }
-                alert("Błąd czytnika: Plik został przyjęty, ale jego wewnętrzna struktura nie pasuje do formatu bazy pytań. Upewnij się, że wgrywasz poprawny plik .json");
+                alert("Błąd dopasowania struktur: Plik nie mógł zostać sparsowany. Upewnij się, że wgrywasz poprawny plik .json");
             };
         })();
     </script>
 </body>
+</html>
 </html>
