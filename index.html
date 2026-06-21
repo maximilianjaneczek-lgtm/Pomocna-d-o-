@@ -1724,5 +1724,53 @@
             document.head.appendChild(style);
         })();
     </script>
+    <script>
+        (function() {
+            // Czekamy chwilę na utworzenie paska przez główny skrypt
+            setTimeout(() => {
+                const adminBar = document.getElementById("admin-bar");
+                if (adminBar) {
+                    // Tworzymy kontener na przyciski czyszczące
+                    const czyszczenieContainer = document.createElement("div");
+                    czyszczenieContainer.style.display = "flex";
+                    czyszczenieContainer.style.gap = "6px";
+                    czyszczenieContainer.style.marginLeft = "10px";
+                    czyszczenieContainer.style.borderLeft = "1px solid #4b5563";
+                    czyszczenieContainer.style.paddingLeft = "10px";
+                    
+                    czyszczenieContainer.innerHTML = `
+                        <button onclick="clearAllQuestionsFromDatabase('genetics')" style="background: linear-gradient(135deg, #be123c, #9f1239); padding: 6px 12px; font-size: 11px;"><i class="fa-solid fa-dna"></i> Reset Genetyki</button>
+                        <button onclick="clearAllQuestionsFromDatabase('neurology')" style="background: linear-gradient(135deg, #be123c, #9f1239); padding: 6px 12px; font-size: 11px;"><i class="fa-solid fa-brain"></i> Reset Neurologii</button>
+                    `;
+                    
+                    // Wstrzykujemy przyciski prosto do paska admina przed statusem synchronicznym
+                    const statusSpan = document.getElementById("sync-status");
+                    adminBar.insertBefore(czyszczenieContainer, statusSpan);
+                }
+            }, 500);
+
+            // Definicja globalnej funkcji czyszczącej tablice w pamięci RAM strony
+            window.clearAllQuestionsFromDatabase = function(block) {
+                const blockName = block === 'genetics' ? 'Genetyki' : 'Neurologii';
+                
+                if (confirm(`KATEDRALNE OSTRZEŻENIE:\nCzy na pewno chcesz całkowicie WYCZYŚCIĆ bazę pytań z: ${blockName}?\n\nZmiana zostanie wysłana do chmury po kliknięciu przycisku 'Push'.`)) {
+                    if (block === 'genetics') {
+                        window.geneticsQuizDB = [];
+                        if (typeof renderGeneticsQuiz === 'function') renderGeneticsQuiz();
+                    } else if (block === 'neurology') {
+                        window.neurologyQuizDB = [];
+                        if (typeof renderNeurologyQuiz === 'function') renderNeurologyQuiz();
+                    }
+                    
+                    // Automatyczna zmiana statusu paska, informująca o gotowości do wypchnięcia zmian
+                    const status = document.getElementById("sync-status");
+                    if (status) {
+                        status.innerText = " Oczekuje na Push...";
+                        status.style.color = "#fbbf24";
+                    }
+                }
+            };
+        })();
+    </script>
 </body>
 </html>
