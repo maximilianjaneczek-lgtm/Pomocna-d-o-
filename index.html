@@ -147,6 +147,41 @@
   });
 </script>
 </head>
+    <script type="module">
+  // Import modułów Firebase bezpośrednio z oficjalnego CDN (v10)
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  // Twoja dedykowana konfiguracja Firebase dla projektu Baza
+  const firebaseConfig = {
+    apiKey: "AIzaSyBZmrhKXYnZlYVsUpDtcizCrpiO2_qTErw", // Wpisz swój pełny klucz API
+    authDomain: "baza-fc9ef.firebaseapp.com",
+    projectId: "baza-fc9ef",
+    storageBucket: "baza-fc9ef.firebasestorage.app",
+    messagingSenderId: "148935839867",
+    appId: "1:148935839867:web:b6bf1bcfb1ed79f252d2de" // Wpisz swoje appId z ustawień projektu
+  };
+
+  // Inicjalizacja aplikacji Firebase oraz bazy danych Firestore
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Funkcja testowa zapisująca prosty dokument do bazy danych
+  async function testConnection() {
+    try {
+      await setDoc(doc(db, "test_polaczenia", "status_strony"), {
+        dziala: true,
+        czas_testu: new Date().toISOString()
+      });
+      console.log("Połączenie z Firestore zakończone sukcesem!");
+    } catch (e) {
+      console.error("Błąd połączenia:", e);
+    }
+  }
+
+  testConnection();
+</script>
+
 <body>
 
     <div class="sidebar">
