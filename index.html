@@ -52,6 +52,7 @@
         .nav-item.gold { color: #fbbf24; font-weight: 600; }
         .nav-item.gold i { color: #fbbf24; }
 
+        /* CONTENT AREA */
         .main-content { flex: 1; margin-left: 340px; background-color: var(--content-bg); height: 100vh; overflow-y: auto; display: flex; flex-direction: column; position: relative; scroll-behavior: smooth; }
         .content-tab { display: none; padding: 40px; width: 100%; max-width: 1300px; margin: 0 auto; }
         .content-tab.active { display: block; }
@@ -99,13 +100,9 @@
         
         .question-card { background: white; border-radius: 12px; padding: 25px; border: 1px solid #e2e8f0; margin-bottom: 20px; }
         .option-item { padding: 12px 18px; border-radius: 8px; border: 1px solid #e2e8f0; cursor: pointer; transition: 0.15s; font-size: 14px; display: flex; gap: 10px; background: white; margin-top: 8px; }
-        .option-item:hover { background-color: #f8fafc; }
         .option-item.correct { background-color: #ecfdf5; border-color: var(--color-success); color: #065f46; font-weight: 600; }
         .option-item.wrong { background-color: #fff1f2; border-color: var(--color-danger); color: #9f1239; font-weight: 600; }
         .rationale-box { margin-top: 12px; padding: 14px; background-color: #fffbeb; border-left: 4px solid #fbbf24; color: #92400e; border-radius: 0 8px 8px 0; font-size: 13.5px; display: none; }
-        
-        .schema-block { background-color: #030712; color: #38bdf8; padding: 15px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px; white-space: pre-wrap; margin-top: 6px; border: 1px solid #374151; }
-        .wgraj-box { border: 2px dashed #3b82f6; border-radius: 8px; padding: 20px; text-align: center; background-color: rgba(59, 130, 246, 0.03); margin-bottom: 24px; }
     </style>
 </head>
 <body>
@@ -149,6 +146,45 @@
 
     <div class="main-content">
 
+        <div style="padding: 30px 40px 0 40px; max-width: 1300px; margin: 0 auto; width: 100%;">
+            <div class="creator-panel">
+                <h3 style="font-family:'Rubik',sans-serif; font-size:15px; margin-bottom:15px; color:var(--text-dark); display:flex; align-items:center; gap:8px;">
+                    <i class="fa-solid fa-square-plus" style="color:var(--color-genetics)"></i> Centralny Kreator Skryptu Katedry
+                </h3>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:12px; margin-bottom:12px;">
+                    <input type="text" id="addTitle" class="form-control" placeholder="Tytuł zagadnienia">
+                    <select id="addTarget" class="form-control">
+                        <option value="mod1">M1: Aberracje Liczbowe [G]</option>
+                        <option value="mod2">M2: Imprinting & Mikrodelecje [G]</option>
+                        <option value="mod3">M3: Skale Pediatryczne [G]</option>
+                        <option value="mod4">M4: Onkologia Genetyczna [G]</option>
+                        <option value="mod5">M5: Neurogenetyka & Metabolizm [G]</option>
+                        <option value="mod6">M6: Patologie Tkanki Łącznej [G]</option>
+                        <option value="mod7">M7: Patologie Zmysłów [G]</option>
+                        <option value="mod8">M8: Diagnostyka & Terapie [G]</option>
+                        <option value="neu1">1. Symptomatologia & Pnie [N]</option>
+                        <option value="neu2">2. Układ Naczyniowy [N]</option>
+                        <option value="neu3">3. Choroby Demielinizacyjne [N]</option>
+                        <option value="neu4">4. Epileptologia & Status [N]</option>
+                        <option value="neu5">5. Neurozwyrodnienia & Otępienia [N]</option>
+                        <option value="neu6">6. Neuromuskularne & Rdzeń [N]</option>
+                        <option value="neu7">7. Zespoły Bólowe & PMR [N]</option>
+                    </select>
+                    <input type="text" id="addBadge" class="form-control" placeholder="Tag / Locus / Kod">
+                    <input type="color" id="addBorderColor" class="form-control" value="#1e3a8a" title="Kolor krawędzi baneru">
+                    <select id="addIconSelect" class="form-control">
+                        <option value="fa-dna">Ikona: DNA</option>
+                        <option value="fa-brain">Ikona: Mózg</option>
+                        <option value="fa-child-reaching">Ikona: Dziecko</option>
+                        <option value="fa-skull">Ikona: Letalna</option>
+                        <option value="fa-syringe">Ikona: Strzykawka</option>
+                    </select>
+                </div>
+                <textarea id="addContent" class="form-control" style="min-height:80px; margin-bottom:12px;" placeholder="Zawartość karty. Oddziel punkty klawiszem Enter. Tagi <strong>słowo</strong> powodują pogrubienie haseł kluczowych."></textarea>
+                <div style="display:flex; justify-content:flex-end;"><button class="btn primary" onclick="injectNewCard()"><i class="fa-solid fa-bolt"></i> Wstrzyknij Treść</button></div>
+            </div>
+        </div>
+
         <div id="mod1" class="content-tab active">
             <div class="module-header gen-border">
                 <h1>Moduł 1: Klasyczne Aberracje Liczbowe</h1>
@@ -162,12 +198,12 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm patologii:</strong> <strong>Nondysjunkcja w mejozie I matki</strong> (95%), translokacja robertsonowska lub mozaicyzm somatyczny powstały na wczesnym etapie bruzdkowania.</li>
-                            <li><strong>Cechy kliniczne i objawy:</strong> Płaski profil twarzy, skośne szpary powiekowe, <strong>fałd nakątny (epicanthus)</strong>, <strong>plamki Brushfielda</strong> na tęczówce, makroglosja, pojedyncza bruzda dłoniowa, hipotonia mięśniowa oraz opóźnienie psychomotoryczne.</li>
-                            <li><strong>Wady narządowe i onkologia:</strong> Wysoka predyspozycja do <strong>AVSD (wspólnego kanał przedsionkowo-komorowego)</strong>, <strong>ostrej białaczki megakarioblastycznej (AMKL)</strong> oraz przedwczesnej <strong>choroby Alzheimera</strong> ze względu na potrójną dawkę genu APP.</li>
+                            <li><strong>Mechanizm dziedziczenia:</strong> Aberracja liczbowa spowodowana głównie przez <strong>nondysjunkcję w mejozie I matki</strong> (95%), rzadziej translokację robertsonowską de novo lub dziedziczoną (np. 14;21) oraz mozaicyzm postzygotyczny.</li>
+                            <li><strong>Cechy kliniczne i objawy:</strong> Skośne szpary powiekowe, <strong>fałd nakątny (epicanthus)</strong>, plamki Brushfielda na tęczówce, płaski profil twarzy, makroglosja, pojedyncza bruzda dłoniowa, hipotonia mięśniowa oraz opóźnienie rozwoju.</li>
+                            <li><strong>Powikłania:</strong> Wada serca typu **AVSD (wspólny kanał przedsionkowo-komorowy)**, wysokie ryzyko <strong>ostrej białaczki megakarioblastycznej (AMKL)</strong> oraz wczesny rozwój patologii Alzheimera (gen APP).</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g1')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g1')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
 
                 <div class="horizontal-card" id="g2" style="border-left: 6px solid #dc2626;">
@@ -177,11 +213,11 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm patologii:</strong> Trisomia chromosomu 18 wywołująca letalne, wewnątrzmaciczne zahamowanie wzrostu płodu (IUGR).</li>
-                            <li><strong>Objawy patognomoniczne:</strong> Charakterystyczne <strong>nakładanie się palców dłoni</strong> (zaciśnięte pięści, palec II nad III oraz V nad IV), zdeformowane <strong>stopy kołyskowe</strong>, dolichocefalia, mikrognacja. Terapia wyłącznie <strong>paliatywna</strong>.</li>
+                            <li><strong>Mechanizm dziedziczenia:</strong> Aberracja liczbowa – trisomia chromosomu 18 powstała wskutek barier nondysjunkcji mejotycznej u rodziców. Wywołuje głębokie wewnątrzmaciczne zahamowanie wzrostu (IUGR).</li>
+                            <li><strong>Objawy patognomoniczne:</strong> Charakterystyczne <strong>nakładanie się palców dłoni</strong> (palec II nad III i V nad IV), zaciśnięte pięści, deformacja stóp o typie <strong>stopy kołyskowej</strong>, mikrognacja, dolichocefalia. Wada w pełni letalna; neonatologiczna <strong>opieka paliatywna</strong>.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g2')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g2')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
 
                 <div class="horizontal-card" id="g3" style="border-left: 6px solid #b91c1c;">
@@ -191,11 +227,11 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Patomechanizm:</strong> Trisomia chromosomu 13 powodująca zaburzenie różnicowania struktur <strong>linii pośrodkowej ciała</strong>.</li>
-                            <li><strong>Cechy fenotypowe:</strong> <strong>Holoprozencefalia</strong> (niedorozwój przodomózgowia), mikroftalmia, obustronny <strong>rozszczep wargi i podniebienia</strong> oraz <strong>polidaktilia pozaosiowa</strong>. Schorzenie letalne.</li>
+                            <li><strong>Mechanizm dziedziczenia:</strong> Trisomia chromosomu 13 wywołana błędną segregacją mejotyczną, prowadząca do zaburzeń rozwoju struktur <strong>linii pośrodkowej ciała</strong>.</li>
+                            <li><strong>Cechy fenotypowe:</strong> <strong>Holoprozencefalia</strong> (wada podziału przodomózgowia), mikroftalmia, obustronny <strong>rozszczep wargi i podniebienia</strong> oraz <strong>polidaktilia pozaosiowa</strong>. Rokowanie letalne.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g3')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g3')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
 
                 <div class="horizontal-card" id="g4" style="border-left: 6px solid #ec4899;">
@@ -205,11 +241,11 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Podłoże genetyczne:</strong> Monosomia chromosomu X lub mozaicyzm. Utrata genu <strong>SHOX</strong> determinuje niski wzrost.</li>
-                            <li><strong>Klinika katedralna:</strong> <strong>Płetwiasta szyja</strong>, szeroka tarcza klatki piersiowej, <strong>jajniki pasmowate</strong>, obrzęki limfatyczne noworodków, koarktacja aorty. Terapia: rGH, HTZ, oraz profilaktyczna gonadektomia w mozaikach z linią Y.</li>
+                            <li><strong>Mechanizm dziedziczenia:</strong> Monosomia chromosomu X (45,X) lub mozaicyzm somatyczny. Brak kopii genu <strong>SHOX</strong> wywołuje niski wzrost. Najczęściej skutek utraty ojcowskiego chromosomu płciowego.</li>
+                            <li><strong>Klinika:</strong> Niski wzrost, pierwotny brak miesiączki, <strong>jajniki pasmowate</strong>, szeroka tarcza klatki piersiowej, <strong>płetwiasta szyja</strong>, koarktacja aorty. Terapia rGH oraz HTZ.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g4')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g4')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
 
                 <div class="horizontal-card" id="g5" style="border-left: 6px solid #3b82f6;">
@@ -219,11 +255,11 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Etiopatogeneza:</strong> Dodatkowy chromosom X u mężczyzn prowadzący do zwłóknienia kanalików nasiennych.</li>
-                            <li><strong>Fenotyp:</strong> <strong>Proporcje eunuchoidalne</strong> (długie kończyny), wysoki wzrost, małe i twarde jądra, ginekomastia. Badania: <strong>↑ LH, ↑ FSH</strong> przy niskim testosteronie. Biopsja jądra metodą mikro-TESE.</li>
+                            <li><strong>Mechanizm dziedziczenia:</strong> Aneuploidia gonosomów u mężczyzn – obecność dodatkowego chromosomu X (47,XXY) wskutek nondysjunkcji mejotycznej.</li>
+                            <li><strong>Klinika:</strong> Wysoki wzrost, <strong>proporcje eunuchoidalne</strong>, ginekomastia, owłosienie typu kobiecego oraz <strong>małe, twarde jądra</strong> w badaniu palpacyjnym. Badania: profil wykazuje <strong>↑ LH i ↑ FSH</strong> przy obniżonym testosteronie.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g5')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g5')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
 
                 <div class="horizontal-card" id="g6" style="border-left: 6px solid #a855f7;">
@@ -233,11 +269,11 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Patomechanizm:</strong> Częściowa delecja krótkiego ramienia chromosomu 5 (<strong>5p-</strong>).</li>
-                            <li><strong>Obraz kliniczny:</strong> Charakterystyczny płacz noworodka przypominający <strong>miauczenie kota</strong> (hipoplazja krtani), mikrocefalia, hiperteloryzm, głębokie opóźnienie rozwoju intelektualnego.</li>
+                            <li><strong>Mechanizm dziedziczenia:</strong> Strukturalna aberracja chromosomowa – delecja ramienia krótkiego chromosomu 5 (<strong>5p-</strong>), najczęściej powstająca de novo.</li>
+                            <li><strong>Obraz kliniczny:</strong> Noworodkowy płacz przypominający <strong>miauczenie kota</strong> (hipoplazja krtani), mikrocefalia, głębokie opóźnienie umysłowe.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g6')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g6')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -245,21 +281,21 @@
         <div id="mod2" class="content-tab">
             <div class="module-header gen-border">
                 <h1>Moduł 2: Mikrodelecje i Defekty Imprintingu</h1>
-                <p>Zaburzenia metylacji i mikroubytki strukturalne.</p>
+                <p>Zaburzenia metylacji i submikroskopowe delecje.</p>
             </div>
             <div class="list-layout" id="lay-mod2">
                 <div class="horizontal-card" id="g7" style="border-left: 6px solid #0d9488;">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid fa-heart-crack"></i> Zespół DiGeorge'a</div>
-                        <div><span class="card-badge badge-gen">del 22q11.2 / TBX1</span></div>
+                        <div><span class="card-badge badge-gen">del 22q11.2</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Etiologia:</strong> Mikrodelecja 22q11.2 eliminująca gen <strong>TBX1</strong>; brak prawidłowego rozwoju 3. i 4. kieszonki skrzelowej.</li>
-                            <li><strong>Cechy CATCH-22:</strong> <strong>C</strong>ardiac defects (wady stożkowo-pniowe, np. tetralogia Fallota), <strong>A</strong>bnormal facies, <strong>T</strong>hymic aplasia (brak grasicy - głęboki niedobór limfocytów T), <strong>C</strong>left palate, <strong>H</strong>ypocalcemia (brak przytarczyc). Bezwzględny zakaz szczepień żywych.</li>
+                            <li><strong>Mechanizm dziedziczenia:</strong> Mikrodelecja regionu 22q11.2, dziedziczona w sposób <strong>autosomalny dominujący (AD)</strong> z wysokim odsetkiem mutacji de novo. Eliminuje gen <strong>TBX1</strong>.</li>
+                            <li><strong>Klinika (CATCH-22):</strong> Stożkowo-pniowe wady serca, dysmorfia, <strong>aplazja grasicy (niedobór odporności T)</strong>, rozszczep podniebienia, <strong>hipokalcemia</strong> wtórna do braku przytarczyc. Obowiązuje zakaz szczepień żywych.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g7')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g7')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
 
                 <div class="horizontal-card" id="g8" style="border-left: 6px solid #10b981;">
@@ -269,11 +305,11 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Podłoże:</strong> Mikrodelecja regionu 7q11.23 obejmująca gen elastyny (<strong>ELN</strong>).</li>
-                            <li><strong>Klinika:</strong> Dysmorfia <strong>twarz elfa</strong>, profil koktajlowy (towarzyskość, gadatliwość), <strong>nadzastawkowe zwężenie ujścia aorty (SVAS)</strong>, idiopatyczna hiperkalcemia. Obowiązuje ograniczenie witaminy D i wapnia.</li>
+                            <li><strong>Mechanizm dziedziczenia:</strong> Submikroskopowa delecja regionu 7q11.23 (gen elastyny <strong>ELN</strong>), dziedziczenie typu <strong>autosomalnego dominującego (AD)</strong>, zwykle de novo.</li>
+                            <li><strong>Objawy:</strong> Twarz elfa, nadzastawkowe zwężenie ujścia aorty (<strong>SVAS</strong>), idiopatyczna hiperkalcemia niemowląt. Wymaga diety z wyłączeniem witaminy D i wapnia.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g8')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g8')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
 
                 <div class="horizontal-card" id="g9" style="border-left: 6px solid #f59e0b;">
@@ -283,72 +319,73 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Prader-Willego:</strong> Utrata ekspresji ojcowskiego genu <strong>SNRPN</strong>. Noworodkowa hipotonia (<strong>"floppy infant"</strong>), a w dzieciństwie brak sytości, <strong>hiperfagia i skrajna otyłość</strong>. Leczenie hormonem wzrostu (rGH).</li>
-                            <li><strong>Angelman:</strong> Utrata aktywnej matczynej kopii genu <strong>UBE3A</strong>. <strong>Happy Puppet Syndrome</strong>, ataksja chodu, niesprowokowane napady śmiechu, brak rozwoju mowy.</li>
+                            <li><strong>Zjawisko epigenetyczne:</strong> Przykłady <strong>imprintingu genomowego (piętnowania)</strong> w rejonie 15q11-q13.</li>
+                            <li><strong>Zespół Pradera-Willego:</strong> Utrata ekspresji aktywnej kopii ojcowskiej (gen <strong>SNRPN</strong>) wskutek delecji lub disomii jednorodzicielskiej matczynej. Noworodkowa wiotkość (<strong>"floppy infant"</strong>), a później patologiczna <strong>hiperfagia i otyłość</strong>.</li>
+                            <li><strong>Zespół Angelmana:</strong> Utrata ekspresji aktywnej kopii matczynej (gen <strong>UBE3A</strong>). Objawy: <strong>Happy Puppet Syndrome</strong>, niesprowokowany śmiech, ataksja, brak rozwoju mowy.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g9')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g9')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
 
                 <div class="horizontal-card" id="g10" style="border-left: 6px solid #d97706;">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid fa-arrows-up-to-line"></i> Zespół Beckwitha-Wiedemanna</div>
-                        <div><span class="card-badge badge-warn">11p15.5 / IGF2</span></div>
+                        <div><span class="card-badge badge-warn">11p15.5</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Etiologia:</strong> Zaburzenie piętnowania w locus 11p15.5 powodujące patologiczną nadekspresję ojcowskiego genu <strong>IGF2</strong>.</li>
-                            <li><strong>Cechy:</strong> Makrosomia, hemihipertrofia, przepuklina pępowinowa oraz patognomoniczna <strong>makroglosja</strong> (wielki język). Obowiązkowe badanie USG jamy brzusznej i oznaczanie stężenia AFP co 3 miesiące w kierunku guza Wilmsa i hepatoblastomy.</li>
+                            <li><strong>Mechanizm dziedziczenia/epigenetyki:</strong> Zaburzenie metylacji w locus 11p15.5 leading do nadekspresji ojcowskiego onkogenu czynnika wzrostu <strong>IGF2</strong>.</li>
+                            <li><strong>Klinika:</strong> Makrosomia, asymetryczny połowiczy przerost ciała (hemihipertrofia) oraz <strong>makroglosja</strong>. Ryzyko embrionalnego <strong>guza Wilmsa</strong> nakazuje monitorowanie USG i stężenia AFP co 3 miesiące.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g10')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g10')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
 
         <div id="mod3" class="content-tab">
             <div class="module-header gen-border">
-                <h1>Moduł 3: Skale Pediatryczne</h1>
-                <p>Ocena stanu ogólnego i dojrzałości.</p>
+                <h1>Moduł 3: Skale Kliniczne w Ocenie Dysmorfologicznej</h1>
+                <p>Narzędzia obiektywizacji fenotypu pediatrycznego.</p>
             </div>
             <div class="list-layout" id="lay-mod3">
                 <div class="horizontal-card" id="g11" style="border-left: 6px solid #64748b;">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid fa-baby"></i> Klasyfikacja Skal Medycznych</div>
-                        <div><span class="card-badge badge-gen">Pediatria</span></div>
+                        <div><span class="card-badge badge-gen">Skale</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Skala Tannera:</strong> Ocena stadium dojrzałości płciowej (stadia I-V) na podstawie rozwoju owłosienia łonowego, narządów płciowych i piersi. Kluczowa w diagnostyce zespołów Turnera i Klinefeltera.</li>
-                            <li><strong>Skala Apgar:</strong> Ocena noworodka w 1., 3., 5. i 10. minucie (tętno, oddech, napięcie mięśni, reakcja na bodźce, barwa skóry).</li>
-                            <li><strong>Inne skale:</strong> Skala Glasgow (GCS) do oceny zaburzeń przytomności; skala Bishopa; skala Ferrimana-Gallweya (hirsutyzm).</li>
+                            <li><strong>Skala Tannera:</strong> Ocena dojrzałości płciowej (stadia I-V). Kluczowa przy opóźnionym dojrzewaniu płciowym w zespole Turnera.</li>
+                            <li><strong>Skala Apgar:</strong> Ocena noworodka w 1., 3., 5. i 10. minucie życia.</li>
+                            <li><strong>Pozostałe skale:</strong> Skala Glasgow (GCS - stopień przytomności), skala Ferrimana-Gallweya (ocena nasilenia hirsutyzmu u kobiet).</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g11')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g11')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
 
         <div id="mod4" class="content-tab">
             <div class="module-header gen-border">
-                <h1>Moduł 4: Onkologia Genetyczna</h1>
-                <p>Mutacje germinalne w genach supresorowych i protoonkogenach.</p>
+                <h1>Moduł 4: Onkologia Genetyczna i Zespoły Nowotworowe</h1>
+                <p>Analiza germinalnych mutacji supresorowych i protoonkogenów.</p>
             </div>
             <div class="list-layout" id="lay-mod4">
                 <div class="horizontal-card" id="g12" style="border-left: 6px solid #be123c;">
                     <div class="hc-header">
-                        <div class="hc-title"><i class="fa-solid fa-biohazard"></i> Zespoły Nowotworowe i Supresory</div>
-                        <div><span class="card-badge badge-danger">Supresory</span></div>
+                        <div class="hc-title"><i class="fa-solid fa-biohazard"></i> Zespoły Nowotworowe i Supresory DNA</div>
+                        <div><span class="card-badge badge-danger">Onko-Supresory</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Zespoły HBOC (BRCA1/BRCA2):</strong> Germinalne mutacje w genach supresorowych naprawy dsDNA drogą homologicznej rekombinacji. Wysokie ryzyko raka piersi i jajnika.</li>
-                            <li><strong>Zespół Li-Fraumeni (TP53):</strong> Mutacja genu supresorowego 'strażnika genomu'. Rozwój mięsaków, raka piersi, guzów mózgu w młodym wieku.</li>
-                            <li><strong>Rodzinna Polipowatość Gruczolakowata (FAP - mutacja APC):</strong> Tysiące polipów w jelicie grubym. Ryzyko raka wynosi 100% przed 40. r.ż. Wytyczna: całkowita proktokolektomia.</li>
-                            <li><strong>Siatkówczak (RB1) & Guz Wilmsa (WAGR):</strong> RB1 to model dwóch uderzeń Knudsona (objaw leukokorii). Guz Wilmsa (nephroblastoma) skojarzony z kompleksem WAGR (locus 11p13) oraz zespołem Beckwitha-Wiedemanna.</li>
+                            <li><strong>Zespoły HBOC (BRCA1/BRCA2):</strong> Germinalne mutacje w genach supresorowych naprawy dsDNA drogą homologicznej rekombinacji. Dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Profilaktyczna adneksotomia i mastektomia.</li>
+                            <li><strong>Zespół Li-Fraumeni (mutacja TP53):</strong> Dziedziczona <strong>autosomalnie dominująco (AD)</strong> mutacja germinalna 'strażnika genomu' TP53. Powoduje mięsaki, raki piersi i mózgu w młodym wieku.</li>
+                            <li><strong>Rodzinna Polipowatość Gruczolakowata (FAP - mutacja APC):</strong> Dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Tysiące polipów jelita z 100% ryzykiem transformacji złośliwej przed 40. r.ż. Nakaz totalnej proktokolektomii.</li>
+                            <li><strong>Siatkówczak (Retinoblastoma - mutacja RB1) & Guz Wilmsa:</strong> Model dwóch uderzeń Knudsona (leukokoria źrenicy). Guz Wilmsa (nephroblastoma) wchodzi w skład kompleksu <strong>WAGR</strong> oraz BWS.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g12')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g12')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -356,28 +393,34 @@
         <div id="mod5" class="content-tab">
             <div class="module-header gen-border">
                 <h1>Moduł 5: Neurogenetyka & Metabolizm</h1>
-                <p>Wady metaboliczne oraz mutacje dynamiczne.</p>
+                <p>Enzymopatie, wrodzone błędy metaboliczne oraz ekspansje trinukleotydowe.</p>
             </div>
             <div class="list-layout" id="lay-mod5">
                 <div class="horizontal-card" id="g13" style="border-left: 6px solid #475569;">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid fa-brain"></i> Mutacje Dynamiczne, Bloki Metaboliczne i DSD</div>
-                        <div><span class="card-badge badge-warn">Metabolizm</span></div>
+                        <div><span class="card-badge badge-warn">Geny / Metabolizm</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Choroba Huntingtona (HD):</strong> Ekspansja powtórzeń CAG w genie huntingtyny. Obecne zjawisko <strong>antycypacji</strong> i paradoks Shermana.</li>
-                            <li><strong>Zespół łamliwego chromosomu X (FXS):</strong> Ekspansja CGG (&gt;200) w genie FMR1, metylacja i wyciszenie. Niepełnosprawność intelektualna, długa twarz, makroorchidyzm. Stan premutacji (55-200 powtórzeń) predysponuje do zespołu FXTAS.</li>
-                            <li><strong>Bloki metaboliczne (PKU / Galaktozemia / Alkaptonuria / Pompe):</strong>
-                                <br>- Fenyloketonuria (defekt PAH, mysi zapach, jasna karnacja, dieta);
-                                <br>- Galaktozemia (defekt GALT, zaćma, uszkodzenie wątroby po mleku);
-                                <br>- Alkaptonuria (ciemnienie moczu, ochronoza stawów);
-                                <br>- Choroba Pompego (glikogenoza typu II, niedobór kwaśnej alfa-glukozydazy, kardiomiopatia).
+                            <li><strong>Choroba Huntingtona (HD):</strong> Mutacja dynamiczna – ekspansja CAG. Dziedziczenie <strong>autosomalne dominujące (AD)</strong> ze zjawiskiem <strong>antycypacji</strong> i paradoksem Shermana.</li>
+                            <li><strong>Zespół łamliwego chromosomu X (FXS):</strong> Ekspansja powtórzeń CGG (&gt;200) w genie FMR1 na chromosomie X (<strong>dziedziczenie sprzężone z X</strong>). Niepełnosprawność intelektualna, długa twarz, makroorchidyzm. Stan <strong>premutacji</strong> (55-200 powtórzeń) generuje ryzyko zespołu drżeniowo-ataktycznego FXTAS.</li>
+                            <li><strong>Wrodzone wady metabolizmu (Enzymopatie):</strong>
+                                <br>- <strong>Fenyloketonuria:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Defekt hydroksylazy fenyloalaniny (<strong>PAH</strong>), akumulacja fenyloalaniny, mysi zapach, jasna karnacja, dieta eliminacyjna.
+                                <br>- <strong>Galaktozemia:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>, niedobór GALT, zaćma i uszkodzenie wątroby po ekspozycji na laktozę/galaktozę.
+                                <br>- <strong>Alkaptonuria:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>, defekt dioksygenazy homogentyzynowej, ciemnienie moczu, ochronoza stawowa.
+                                <br>- <strong>Mukowiscydoza (CF):</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>, mutacja w kanale chlorkowym <strong>CFTR</strong> (najczęściej deltaF508), gęsty śluz w układzie oddechowym i trzustce.
+                                <br>- <strong>Choroba Pompego:</strong> Glikogenoza typu II, dziedziczenie <strong>autosomalne recesywne (AR)</strong>, niedobór kwaśnej alfa-glukozydazy (GAA), ciężka kardiomiopatia i miopatia.
+                                <br>- <strong>Leukodystrofia metachromatyczna:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>, niedobór arylosulfatazy A (ARSA), demielinizacja OUN.
                             </li>
-                            <li><strong>Zaburzenia rozwoju płciowego (DSD):</strong> Zespół Swyera (czysta dysgenezja gonad 46,XY, fenotyp żeński, pasmowate gonady); Zespół niewrażliwości na androgeny (AIS, mutacja AR na chromosomie X, męski kariotyp przy żeńskim fenotypie zewnętrznym).</li>
+                            <li><strong>Nerwiakowłókniakowatość typu 1 (NF1):</strong> Dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Defekt neurofibrominy (17q11.2). Plamy café au lait, guzki Lisha. Modelowa **zmienna ekspresja** i wysokie mutacje de novo.</li>
+                            <li><strong>Zaburzenia rozwoju płciowego (DSD / Interpłciowość):</strong>
+                                <br>- <strong>Zespół Swyera:</strong> Czysta dysgenezja gonad 46,XY. Pacjentki o żeńskim fenotypie zewnętrznym, pasmowate gonady, brak wirylizacji.
+                                <br>- <strong>Zespół niewrażliwości na androgeny (AIS / PAIS):</strong> Mutacja receptora androgenowego (AR) na chromosomie X. Męski kariotyp 46,XY przy całkowicie żeńskim fenotypie zewnętrznym.
+                            </li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g13')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g13')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -385,7 +428,7 @@
         <div id="mod6" class="content-tab">
             <div class="module-header gen-border">
                 <h1>Moduł 6: Patologie Tkanki Łącznej</h1>
-                <p>Zespoły tkanki łącznej macierzy zewnątrzkomórkowej.</p>
+                <p>Mutacje białek strukturalnych i wrodzone kraniosynostozy.</p>
             </div>
             <div class="list-layout" id="lay-mod6">
                 <div class="horizontal-card" id="g14" style="border-left: 6px solid #b45309;">
@@ -395,12 +438,12 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Zespół Marfana:</strong> Mutacja fibryliny-1 (<strong>FBN1</strong>), dziedziczenie AD. Plejotropia. Sylwetka marfanoidalna, arachnodaktilia, ectopia lentis (podwichnięcie soczewki), tętniak i rozwarstwienie aorty wstępującej.</li>
-                            <li><strong>Zespół Crouzona:</strong> Kraniosynostoza szwów czaszkowych, mutacja <strong>FGFR2</strong>. Wytrzeszcz gałek ocznych (exophthalmus), hiperteloryzm, hipoplazja szczęki.</li>
-                            <li><strong>Zespół Bardeta-Biedla:</strong> Ciliopatia dziedziczona AR. Dystrofia pręcikowo-czopkowa, otyłość centralna, polidaktilia, wady nerek.</li>
+                            <li><strong>Zespół Marfana:</strong> Defekt genu fibryliny-1 (<strong>FBN1</strong>), dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Modelowa <strong>plejotropia</strong>. Sylwetka marfanoidalna, dolichostenomelia, arachnodaktilia, <strong>podwichnięcie soczewki oka (ectopia lentis)</strong> oraz <strong>tętniak aorty wstępującej</strong> grożący rozwarstwieniem.</li>
+                            <li><strong>Zespół Crouzona:</strong> Kraniosynostoza szwów, mutacja genu receptora czynnika wzrostu fibroblastów 2 (<strong>FGFR2</strong>), dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Wytrzeszcz oczu (exophthalmus), hipoplazja szczęki.</li>
+                            <li><strong>Zespół Bardeta-Biedla:</strong> Ciliopatia, dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Dystrofia pręcikowo-czopkowa siatkówki, otyłość centralna, polidaktilia, wady nerek.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g14')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g14')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -408,22 +451,23 @@
         <div id="mod7" class="content-tab">
             <div class="module-header gen-border">
                 <h1>Moduł 7: Patologie Zmysłów</h1>
-                <p>Dystrofie siatkówki oraz neuropatie mitochondrialne.</p>
+                <p>Genetyczne schorzenia narządu wzroku i słuchu.</p>
             </div>
             <div class="list-layout" id="lay-mod7">
                 <div class="horizontal-card" id="g15" style="border-left: 6px solid #06b6d4;">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid fa-eye"></i> LHON, Wrodzona Ślepota Lebera oraz Zespół Ushera</div>
-                        <div><span class="card-badge badge-success">Zmysły</span></div>
+                        <div><span class="card-badge badge-success">Narządy Zmysłów</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>LHON (Neuropatia Lebera):</strong> Dziedziczenie mitochondrialne (matczyne), mutacje punktowe kompleksu I (ND1, ND4, ND6). Obecne zjawisko <strong>heteroplazmii</strong>. Nagła, bezbolesna utrata wzroku u młodych mężczyzn.</li>
-                            <li><strong>Wrodzona Ślepota Lebera (LCA):</strong> Dystrofia siatkówki, ślepota od urodzenia, oczopląs. Typ 2 (<strong>RPE65</strong>) podlega innowacyjnej terapii genowej Luxturna.</li>
-                            <li><strong>Zespół Ushera:</strong> Postępujące zwyrodnienie barwnikowe siatkówki (retinitis pigmentosa) połączone z wrodzonym odbiorczym niedosłuchem lub głuchotą.</li>
+                            <li><strong>Dziedziczna Neuropatia Wzrokowa Lebera (LHON):</strong> Modelowy przykład <strong>dziedziczenia mitochondrialnego</strong> (matczynego). Mutacje w genach mtDNA kompleksu I (ND1, ND4, ND6), zjawisko <strong>heteroplazmii</strong>. Nagła, bezbolesna utrata wzroku u młodych mężczyzn.</li>
+                            <li><strong>Wrodzona Ślepota Lebera (LCA):</strong> Dystrofia siatkówki, ślepota od urodzenia. Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Typ 2 (mutacja <strong>RPE65</strong>) podlega terapii genowej Luxturna.</li>
+                            <li><strong>Zespół Ushera:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Łączy postępujące zwyrodnienie barwnikowe siatkówki (retinitis pigmentosa) z odbiorczym niedosłuchem.</li>
+                            <li><strong>Inne schorzenia siatkówki:</strong> Choroba Besta (dystrofia żółtkowata), choroba Stargardta (mutacja ABCA4), albinizm oczny oraz jaskra wrodzona.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g15')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g15')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -431,7 +475,7 @@
         <div id="mod8" class="content-tab">
             <div class="module-header gen-border">
                 <h1>Moduł 8: Diagnostyka & Terapie</h1>
-                <p>Metodologia sekwencjonowania WES, aCGH oraz FISH.</p>
+                <p>Narzędzia laboratoryjne współczesnej genetyki oraz wektory wirusowe.</p>
             </div>
             <div class="list-layout" id="lay-mod8">
                 <div class="horizontal-card" id="g16" style="border-left: 6px solid #0d9488;">
@@ -441,12 +485,12 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>WES (Whole Exome Sequencing):</strong> NGS regionów kodujących. <strong>Pułapka egzaminacyjna:</strong> WES NIE WYKRYWA dobrze mutacji dynamicznych oraz rozległych rearanżacji strukturalnych.</li>
+                            <li><strong>WES (Whole Exome Sequencing):</strong> NGS regionów kodujących. <strong>Kluczowy dogmat:</strong> WES <strong>NIE WYKRYWA dobrze mutacji dynamicznych</strong> ( Huntington) oraz rozległych strukturalnych zmian liczby kopii.</li>
                             <li><strong>aCGH (Mikromacierz Porównawcza):</strong> Wykrywanie submikroskopowych zmian liczby kopii DNA (CNV). Nie identyfikuje zrównoważonych translokacji i inwersji.</li>
-                            <li><strong>Terapie Genowe:</strong> Luxturna (wektor AAV pod siatkówkę w LCA2 z mutacją RPE65); Zolgensma (wektor AAV9 z genem SMN1 w SMA1 przed 18. miesiącem życia).</li>
+                            <li><strong>Terapie Genowe:</strong> Luxturna (wektor AAV dostarczający gen RPE65 w LCA2); Zolgensma (wektor AAV9 wprowadzający gen SMN1 w rdzeniowym zaniku mięśni SMA1 przed 18. miesiącem życia).</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g16')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g16')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -462,15 +506,15 @@
                         <tr>
                             <th>Jednostka Chorobowa</th>
                             <th>Gen / Locus</th>
-                            <th>Mechanizm</th>
+                            <th>Dziedziczenie / Mechanizm</th>
                             <th>Kluczowe Cechy Fenotypowe</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr><td><strong>Zespół Downa</strong></td><td>Chromosom 21</td><td>Trisomia (Nondysjunkcja 95%)</td><td>Upośledzenie umysłowe, fałd nakątny, plamki Brushfielda, AVSD, ryzyko AMKL.</td></tr>
-                        <tr><td><strong>Zespół Edwardsa</strong></td><td>Chromosom 18</td><td>Trisomia (Letalna)</td><td>Zaciśnięte pięści, nakładanie się palców (II nad III), stopy kołyskowe, dolichocefalia.</td></tr>
-                        <tr><td><strong>Zespół DiGeorge'a</strong></td><td>del 22q11.2 (TBX1)</td><td>Mikrodelecja</td><td>Wady stożkowo-pniowe serca, aplazja grasicy (brak limfocytów T), rozszczep, hipokalcemia.</td></tr>
-                        <tr><td><strong>Zespół Marfana</strong></td><td>FBN1 (15q21.1)</td><td>Autosomalne Dominujące</td><td>Arachnodaktilia, dolichostenomelia, ectopia lentis, tętniak i rozwarstwienie aorty.</td></tr>
+                        <tr><td><strong>Zespół Edwardsa</strong></td><td>Chromosom 18</td><td>Trisomia (Pełna aneuploidia)</td><td>Zaciśnięte pięści, nakładanie się palców (II nad III), stopy kołyskowe, dolichocefalia.</td></tr>
+                        <tr><td><strong>Zespół DiGeorge'a</strong></td><td>del 22q11.2 (TBX1)</td><td>Mikrodelecja / AD</td><td>Wady stożkowo-pniowe serca, aplazja grasicy (brak komórek T), rozszczep, hipokalcemia.</td></tr>
+                        <tr><td><strong>Zespół Marfana</strong></td><td>FBN1 (15q21.1)</td><td>Autosomalne Dominujące (AD)</td><td>Arachnodaktilia, dolichostenomelia, ectopia lentis, tętniak i rozwarstwienie aorty.</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -480,7 +524,7 @@
         <div id="neu1" class="content-tab">
             <div class="module-header neu-border">
                 <h1>1. Symptomatologia & Pnie Mózgu</h1>
-                <p>Różnicowanie uszkodzeń nerwów czaszkowych i pniowych.</p>
+                <p>Różnicowanie uschodzeń nerwów czaszkowych i pniowych.</p>
             </div>
             <div class="list-layout" id="lay-neu1">
                 <div class="horizontal-card" id="n1" style="border-left: 6px solid #1e3a8a;">
@@ -490,12 +534,12 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Ośrodkowe uszkodzenie nerwu VII (nadjądrowe):</strong> Uszkodzenie kory lub dróg korowo-jądrowych. Niedowład mięśni mimicznych <strong>wyłącznie dolnej połowy twarzy kontralateralnie</strong>. Pacjent potrafi zmarszczyć czoło i zamknąć oko.</li>
-                            <li><strong>Obwodowe porażenie nerwu VII (Porażenie Bella):</strong> Uszkodzenie jądra w moście lub pnia nerwu. Paraliż <strong>całej połowy twarzy ipsilateralnie</strong>. Dodatni objaw Bella (rotacja gałki ocznej ku górze przy próbie zamknięcia oka).</li>
+                            <li><strong>Ośrodkowe uszkodzenie nerwu VII (nadjądrowe):</strong> Uszkodzenie kory lub dróg korowo-jądrowych (np. udar). Niedowład mięśni mimicznych <strong>wyłącznie dolnej połowy twarzy kontralateralnie</strong>. Pacjent potrafi zmarszczyć czoło i zamknąć oko.</li>
+                            <li><strong>Obwodowe porażenie nerwu VII (Porażenie Bella):</strong> Uszkodzenie jądra w moście lub pnia nerwu na obwodzie. Paraliż <strong>całej połowy twarzy ipsilateralnie</strong>. Dodatni objaw Bella (rotacja gałki ocznej ku górze przy próbie zamknięcia oka).</li>
                             <li><strong>Zespół Opuszkowy vs Rzekomoopuszkowy:</strong> Opuszkowy to uszkodzenie dolnego motoneuronu (IX, X, XII) – <strong>głębokie zaniki i fascykulacje języka</strong>, odruch żuchwowy zniesiony. Rzekomoopuszkowy to uszkodzenie obustronne dróg korowo-jądrowych – język sztywny, spastyczny bez zaników i bez fascykulacji, odruch żuchwowy <strong>wybitnie wygórowany</strong>.</li>
                         </ul>
-                        <div class="schema-block">[ WEBER ] Śródmózgowie: Ipsilateralnie porażenie n. III; kontralateralnie niedowład połowiczy spastyczny.
-[ MILLARD-GUBLER ] Most: Ipsilateralnie obwodowe porażenie n. VII i n. VI; kontralateralnie niedowład spastyczny.
+                        <div class="schema-block">[ WEBER ] Śródmózgowie: Ipsilateralnie porażenie n. III (szeroka sztywna źrenica, zez rozbieżny, opadanie powieki); kontralateralnie niedowład połowiczy spastyczny kończyn.
+[ MILLARD-GUBLER ] Most: Ipsilateralnie obwodowe porażenie n. VII i n. VI (zez zbieżny); kontralateralnie niedowład spastyczny.
 [ WALLENBERG ] Opuszka boczna (PICA): Ipsilateralnie Horner, n. V (twarz), chrypka, dysfagia, ataksja; kontralateralnie zniesienie czucia bólu/temp. DROGA PIRAMIDOWA OSZCZĘDZONA – BRAK NIEDOWŁADU KOŃCZYN!</div>
                     </div>
                     <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n1')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
@@ -516,7 +560,7 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Terytoria unaczynienia tętniczego:</strong> MCA (niedowład z przewagą twarzy i ręki, afazja); ACA (niedowład z przewagą nogi, objawy czołowe, nietrzymanie moczu); PCA (niedowidzenie połowicze z zaoszczędzeniem widzenia plamkowego).</li>
+                            <li><strong>Terytoria unaczynienia tętniczego:</strong> MCA (niedowład z przewagą twarzy i ręki, afazja, zwrot oczu na ognisko); ACA (niedowład z przewagą nogi, objawy czołowe, nietrzymanie moczu); PCA (niedowidzenie połowicze z zaoszczędzeniem widzenia plamkowego).</li>
                             <li><strong>Tromboliza Dożylna (rt-PA) – Okno do 4,5h:</strong> Wytyczna dawkowania Alteplazy: <strong>0,9 mg/kg m.c.</strong> (max 90 mg). 10% w szybkim bolusie i.v. w ciągu 1 min, reszta we wlewie ciągłym przez 60 min. RR przed podaniem musi wynosić stabilnie <strong>&lt; 185/110 mmHg</strong>.</li>
                             <li><strong>Udar Lakunarny:</strong> Wywołany procesem <strong>lipohialinozy</strong> małych tętnic przeszywających w przebiegu nadciśnienia (brak etiologii zatorowej).</li>
                             <li><strong>SAH (Krwawienie Podpajęczynówkowe):</strong> Piorunujący ból głowy. Zapobieganie skurczowi naczyń: <span class="drug-tag">Nimodypina</span> doustnie 60 mg co 4 godziny przez 21 dni.</li>
@@ -540,7 +584,7 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Stwardnienie Rozsiane (SM):</strong> Autoimmunologiczny proces demielinizacji powiązany z allelem HLA-DRB1*1501. Zjawisko Uhthoffa. Kryteria McDonalda 2017 wymagają wykazania rozsiania w przestrzeni (DIS) i czasie (DIT). <strong>Wykrycie prążków oligoklonalnych (OCB) w płynie mózgowo-rdzeniowym pozwala zastąpić kryterium rozsiania w czasie (DIT)</strong>.</li>
+                            <li><strong>Stwardnienie Rozsiane (SM):</strong> Autoimmunologiczny proces demielinizacji powiązany z allelem HLA-DRB1*1501. Zjawisko Uhthoffa. Rozsianie w przestrzeni (DIS) i czasie (DIT). <strong>Wykrycie prążków oligoklonalnych (OCB) w płynie mózgowo-rdzeniowym pozwala zastąpić kryterium rozsiania w czasie (DIT)</strong>.</li>
                             <li><strong>Spektrum NMOSD (Choroba Devica):</strong> Akwaporynopatia, obecność przeciwciał <strong>anty-AQP4</strong>. Rozległe poprzeczne zapalenie rdzenia (LETM ≥3 segmenty). OCB zazwyczaj nieobecne. Leki pierwszego rzutu z SM są w NMOSD przeciwwskazane.</li>
                         </ul>
                     </div>
@@ -557,7 +601,7 @@
             <div class="list-layout" id="lay-neu4">
                 <div class="horizontal-card" id="n4" style="border-left: 6px solid #eab308;">
                     <div class="hc-header">
-                        <div class="hc-title"><i class="fa-solid fa-bolt"></i> Protokół Stanu Padaczkowego i Alkohol</div>
+                        <div class="hc-title"><i class="fa-solid fa-bolt"></i> Stan Padaczkowy i Toksykodynamika Leków</div>
                         <div><span class="card-badge badge-warn">Status</span></div>
                     </div>
                     <div class="hc-body">
@@ -574,7 +618,7 @@
 
         <div id="neu5" class="content-tab">
             <div class="module-header neu-border">
-                <h1>5. Neurozwyrodnienia & Otępienia</h1>
+                <h1>5. Zespoły Otępienne i Neurodegeneracje</h1>
                 <p>Diagnostyka różnicowa i kryteria alzheimerowskie.</p>
             </div>
             <div class="list-layout" id="lay-neu5">
@@ -621,7 +665,7 @@
         <div id="neu7" class="content-tab">
             <div class="module-header neu-border">
                 <h1>7. Zespoły Bólowe & PMR</h1>
-                <p>Zapalenia tętnic, bóle klasterowe i diagnostyka płynu.</p>
+                <p>Diagnostyka różnicowa płynu mózgowo-rdzeniowego.</p>
             </div>
             <div class="list-layout" id="lay-neu7">
                 <div class="horizontal-card" id="n7" style="border-left: 6px solid #e11d48;">
@@ -652,12 +696,17 @@
         <div id="test-gen" class="content-tab">
             <div class="module-header gen-border">
                 <h1>Bank Pytań Egzaminacyjnych: Genetyka Kliniczna</h1>
-                <p>Oficjalne pytania katedralne z progiem zaliczeniowym 65%.</p>
+                <p>Ewaluacja z uniwersalnym parserem plików PDF, DOCX oraz struktur JSON.</p>
+            </div>
+            <div class="wgraj-box">
+                <h4><i class="fa-solid fa-file-pdf" style="color:var(--color-genetics)"></i> Zaawansowany Parser Genetyki (Wgraj PDF / DOCX / JSON)</h4>
+                <p>Pliki zostaną natychmiastowo przekompilowane i dodane do quizu.</p>
+                <input type="file" id="fileInputGen" onchange="parseIncomingFile('genetics')" class="form-control" accept=".txt,.json,.pdf,.docx">
             </div>
             <div class="exam-stats">
                 <div class="stat-box"><div class="stat-val" id="g-total">0</div><div class="stat-label">Rozwiązane</div></div>
                 <div class="stat-box"><div class="stat-val" id="g-correct" style="color:var(--color-success)">0</div><div class="stat-label">Poprawne</div></div>
-                <div class="stat-box"><div class="stat-val" id="g-percent" style="color:var(--color-genetics)">0%</div><div class="stat-label">Wynik (Próg 65%)</div></div>
+                <div class="stat-box"><div class="stat-val" id="g-percent" style="color:var(--color-genetics)">0%</div><div class="stat-label">Bieżący Wynik (Próg 65%)</div></div>
             </div>
             <div id="container-test-gen" class="exam-layout"></div>
         </div>
@@ -665,17 +714,21 @@
         <div id="test-neu" class="content-tab">
             <div class="module-header neu-border">
                 <h1>Symulator Testów: Neurologia Katedralna</h1>
-                <p>Baza egzaminacyjna wyekstrahowana z plików źródłowych. Próg: 65%.</p>
+                <p>Bezbłędne katedralne bazy pytań pogrupowane według roczników. Próg: 65%.</p>
             </div>
             <div class="filter-panel" style="background:white; padding:20px; border-radius:12px; margin-bottom:25px; border:1px solid #e2e8f0; display:flex; gap:20px; align-items:center;">
                 <div>
                     <label style="font-weight:700; font-size:11px; display:block; margin-bottom:5px; text-transform:uppercase;">Wybierz Rocznik Egzaminacyjny:</label>
                     <select id="yearSelectNeu" class="form-control" onchange="renderNeurologyQuiz()" style="min-width:250px;">
-                        <option value="all">Wszystkie roczniki (Pełna baza zbiorcza)</option>
+                        <option value="all">Wszystkie roczniki</option>
                         <option value="2026">Rocznik 2026 (Bieżący katedralny)</option>
                         <option value="2025">Rocznik 2025 (Archiwalny)</option>
                     </select>
                 </div>
+            </div>
+            <div class="wgraj-box" style="border-color: var(--color-neurology);">
+                <h4><i class="fa-solid fa-file-word" style="color:var(--color-neurology)"></i> Zaawansowany Parser Neurologii (Wgraj PDF / DOCX / JSON)</h4>
+                <input type="file" id="fileInputNeu" onchange="parseIncomingFile('neurology')" class="form-control" accept=".txt,.json,.pdf,.docx">
             </div>
             <div class="exam-stats">
                 <div class="stat-box"><div class="stat-val" id="n-total">0</div><div class="stat-label">Rozwiązane</div></div>
@@ -688,7 +741,7 @@
         <div id="gemini-engine" class="content-tab">
             <div class="module-header" style="border-left: 6px solid #eab308;">
                 <h1>Konwerter Notatek Gemini AI z Funkcją Autoiniekcji</h1>
-                <p>Wklej tutaj surowe notatki z wykładów. Silnik AI sparsuje treść, pogrubi hasła kluczowe i automatycznie doda nową kartę do odpowiedniego modułu na stronie!</p>
+                <p>Wklej tutaj surowe notatki z wykładów. Silnik AI sparsuje treść, pogrubi hasła kluczowe i automatycznie doda nową kartę bezpośrednio do wybranego modułu na stronie!</p>
             </div>
             <div class="creator-panel">
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-bottom:12px;">
@@ -720,6 +773,9 @@
     </div>
 
     <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+
+        // OFICJALNE BAZY PYTAŃ (ZINTEGROWANE ZE SKRYPTEM)
         let geneticsQuizDB = [
             { id: 1001, q: "Wskaż cechę dysmorficzną oraz powikłanie narządowe będące kluczowym kryterium rozpoznania Zespołu Downa (Trisomia 21):", opts: ["Wąskie szpary powiekowe oraz koarktacja aorty", "Fałd nakątny (epicanthus) oraz wspólny kanał przedsionkowo-komorowy (AVSD)", "Długogłowie (dolichocefalia) oraz wielotorbielowatość nerek", "Stopy kołyskowe oraz wrodzony brak grasicy"], ans: 1, rat: "Zgodnie z wytycznymi, dla trisomii 21 patognomoniczne są skośne szpary powiekowe z fałdem nakątnym oraz wspólny kanał przedsionkowo-komorowy (AVSD)." }
         ];
@@ -731,9 +787,6 @@
             { id: 2004, year: "2025", q: "Objawem ruchowym bezwzględnie koniecznym do postawienia klinicznego rozpoznania idiopatycznej choroby Parkinsona jest:", opts: ["Sztywność mięśniowa o charakterze plastycznym", "Drżenie spoczynkowe czterotaktowe", "Spowolnienie ruchowe (bradykineza)", "Zaburzenia odruchów posturalnych z upadkami"], ans: 2, rat: "Kryteria rozpoznania choroby Parkinsona wymagają obecności spowolnienia ruchowego (bradykinezy) jako objawu osiowego I TERMIN.docx]." }
         ];
 
-        let genStats = { total: 0, correct: 0 };
-        let neuStats = { total: 0, correct: 0 };
-
         function switchTab(id) {
             document.querySelectorAll('.content-tab').forEach(t => t.classList.remove('active'));
             document.getElementById(id).classList.add('active');
@@ -741,11 +794,87 @@
             if(id === 'test-neu') renderNeurologyQuiz();
         }
 
+        // SYSTEM GLOBALNEGO WYSZUKIWANIA
         function filterGlobal() {
             const val = document.getElementById('globalSearch').value.toLowerCase().trim();
             document.querySelectorAll('.horizontal-card').forEach(card => {
                 card.style.display = card.textContent.toLowerCase().includes(val) ? 'flex' : 'none';
             });
+        }
+
+        // UNIWERSALNY CZYTNIK PLIKÓW EGZAMINACYJNYCH (PDF/DOCX/JSON)
+        async function parseIncomingFile(targetBlock) {
+            const input = targetBlock === 'genetics' ? document.getElementById('fileInputGen') : document.getElementById('fileInputNeu');
+            const file = input.files[0];
+            if (!file) return;
+            const ext = file.name.split('.').pop().toLowerCase();
+
+            if (ext === 'json' || ext === 'txt') {
+                const reader = new FileReader();
+                reader.onload = function(e) { processTextBaza(e.target.result, targetBlock); };
+                reader.readAsText(file);
+            } 
+            else if (ext === 'pdf') {
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    const typedarray = new Uint8Array(e.target.result);
+                    const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                    let fullText = "";
+                    for(let i=1; i<=pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const txtObj = await page.getTextContent();
+                        fullText += txtObj.items.map(item => item.str).join(" ") + "\n";
+                    }
+                    processTextBaza(fullText, targetBlock);
+                };
+                reader.readAsArrayBuffer(file);
+            } 
+            else if (ext === 'docx') {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    mammoth.extractRawText({arrayBuffer: e.target.result})
+                        .then(function(result){ processTextBaza(result.value, targetBlock); });
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        }
+
+        function processTextBaza(text, block) {
+            try {
+                const parsed = JSON.parse(text);
+                if(Array.isArray(parsed)) {
+                    parsed.forEach(q => {
+                        q.id = Date.now() + Math.random();
+                        if(!q.year) q.year = "2026";
+                        if(block === 'genetics') geneticsQuizDB.push(q); else neurologyQuizDB.push(q);
+                    });
+                    alert(`Zaimportowano pomyślnie ${parsed.length} zadań.`);
+                    if(block === 'genetics') renderGeneticsQuiz(); else renderNeurologyQuiz();
+                    return;
+                }
+            } catch(e) {}
+
+            const pytania = [];
+            const linie = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            let aktualneP = null;
+            
+            linie.forEach(l => {
+                if (l.match(/^\d+\./) || l.endsWith('?')) {
+                    if (aktualneP && aktualneP.opts.length >= 2) pytania.push(aktualneP);
+                    aktualneP = { id: Date.now() + Math.random(), year: "2026", q: l.replace(/^\d+\./, '').trim(), opts: [], ans: 0, rat: "Zaimportowano z pliku zewnętrznego." };
+                } else if (l.match(/^[A-D]\)/) || l.match(/^[A-D]\./)) {
+                    if (aktualneP) aktualneP.opts.push(l.replace(/^[A-D][\)\.]/, '').trim());
+                }
+            });
+            if (aktualneP && aktualneP.opts.length >= 2) pytania.push(aktualneP);
+
+            if (pytania.length > 0) {
+                pytania.forEach(q => { if(block === 'genetics') geneticsQuizDB.push(q); else neurologyQuizDB.push(q); });
+                alert(`Wyekstrahowano ${pytania.length} pytań z dokumentu.`);
+                if(block === 'genetics') renderGeneticsQuiz(); else renderNeurologyQuiz();
+            } else {
+                alert("Nie wyodrębniono pytań. Upewnij się, że struktura opcji opiera się o format A), B), C), D).");
+            }
         }
 
         function openVisualEditor(cardId) {
@@ -795,7 +924,7 @@
                 <div class="horizontal-card" id="${uId}" style="border-left: 6px solid ${borderCol};">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid ${icon}"></i> ${title}</div>
-                        <div><span class="card-badge ${isGen ? 'badge-gen' : 'badge-neuro'}">Nowy wpis</span></div>
+                        <div><span class="card-badge ${isGen ? 'badge-gen' : 'badge-neuro'}">Modyfikacja</span></div>
                     </div>
                     <div class="hc-body">${listHTML}</div>
                     <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('${uId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
@@ -830,7 +959,7 @@
                 <div class="horizontal-card" id="${uId}" style="border-left: 6px solid ${isGen ? '#0d9488' : '#1e3a8a'};">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid ${isGen ? 'fa-dna' : 'fa-brain'}"></i> ${title}</div>
-                        <div><span class="card-badge ${isGen ? 'badge-success' : 'badge-warn'}">AI Generowany</span></div>
+                        <div><span class="card-badge ${isGen ? 'badge-success' : 'badge-warn'}">AI Konstrukt</span></div>
                     </div>
                     <div class="hc-body">${listHTML}</div>
                     <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('${uId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
