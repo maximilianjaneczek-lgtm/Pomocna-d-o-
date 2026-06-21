@@ -1677,27 +1677,51 @@
                 neuBtn.innerHTML = `<button class="btn" style="color:var(--color-danger); border-color:var(--color-danger); font-size:12px; cursor:pointer;" onclick="clearTestDatabase('neurology')"><i class="fa-solid fa-trash-can"></i> Wyczyść całą aktualną bazę pytań z Neurologii</button>`;
                 neuBox.appendChild(neuBtn);
             }
-
-            // Globalna funkcja czyszcząca wywoływana przez nowe przyciski
-            window.clearTestDatabase = function(block) {
-                if (confirm("Czy na pewno chcesz całkowicie opróżnić listę pytań dla tego bloku? Zmiana wejdzie w życie globalnie po kliknięciu 'Push'.")) {
+<script>
+        (function() {
+            // 1. Definicja funkcji usuwającej (okno ostrzegawcze + czyszczenie tablicy)
+            window.clearAllQuestionsFromDatabase = function(block) {
+                const blockName = block === 'genetics' ? 'Genetyki' : 'Neurologii';
+                
+                if (confirm(`KATEDRALNE OSTRZEŻENIE:\nCzy na pewno chcesz bezpowrotnie usunąć WSZYSTKIE dotychczasowe pytania z bloku: ${blockName}?`)) {
                     if (block === 'genetics') {
                         window.geneticsQuizDB = [];
                         if (typeof renderGeneticsQuiz === 'function') renderGeneticsQuiz();
-                    } else {
+                    } else if (block === 'neurology') {
                         window.neurologyQuizDB = [];
                         if (typeof renderNeurologyQuiz === 'function') renderNeurologyQuiz();
                     }
+                    alert(`Baza pytań z ${blockName} została opróżniona w pamięci roboczej strony. Kliknij "Push" w panelu administratora, aby usunąć je z chmury Firebase na stałe.`);
                 }
             };
 
-            // Dynamiczne sterowanie widocznością nowych przycisków na bazie klasy body
-            const styleFix = document.createElement("style");
-            styleFix.innerHTML = `
-                .creator-panel-admin-only { display: none; }
-                body.admin-mode .creator-panel-admin-only { display: block !important; }
+            // 2. Automatyczne przypięcie przycisku do Generatora Genetyki
+            const genBox = document.querySelector('#test-gen .wgraj-box');
+            if (genBox) {
+                const genBtnDiv = document.createElement('div');
+                genBtnDiv.style.marginTop = '12px';
+                genBtnDiv.className = 'editor-only-action';
+                genBtnDiv.innerHTML = `<button class="btn" style="color:var(--color-danger); border-color:var(--color-danger); font-size:12px; cursor:pointer; width:100%;" onclick="clearAllQuestionsFromDatabase('genetics')"><i class="fa-solid fa-trash-can"></i> Usuń wszystkie pytania z Genetyki</button>`;
+                genBox.appendChild(genBtnDiv);
+            }
+
+            // 3. Automatyczne przypięcie przycisku do Generatora Neurologii
+            const neuBox = document.querySelector('#test-neu .wgraj-box');
+            if (neuBox) {
+                const neuBtnDiv = document.createElement('div');
+                neuBtnDiv.style.marginTop = '12px';
+                neuBtnDiv.className = 'editor-only-action';
+                neuBtnDiv.innerHTML = `<button class="btn" style="color:var(--color-danger); border-color:var(--color-danger); font-size:12px; cursor:pointer; width:100%;" onclick="clearAllQuestionsFromDatabase('neurology')"><i class="fa-solid fa-trash-can"></i> Usuń wszystkie pytania z Neurologii</button>`;
+                neuBox.appendChild(neuBtnDiv);
+            }
+
+            // 4. Ukrywanie przycisków przed zwykłymi użytkownikami (widoczne tylko przy aktywnym body.admin-mode)
+            const style = document.createElement("style");
+            style.innerHTML = `
+                .editor-only-action { display: none !important; }
+                body.admin-mode .editor-only-action { display: block !important; }
             `;
-            document.head.appendChild(styleFix);
+            document.head.appendChild(style);
         })();
     </script>
 </body>
