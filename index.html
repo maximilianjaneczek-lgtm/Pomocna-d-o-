@@ -113,75 +113,7 @@
         .btn.primary { background: #1e293b; color: white; border: none; }
         .wgraj-box { border: 2px dashed #3b82f6; border-radius: 8px; padding: 20px; text-align: center; background-color: rgba(59, 130, 246, 0.03); margin-bottom: 24px; }
     </style>
-    <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-  // Wklej tutaj dane skopiowane z Firebase (podmień poniższe wartości)
-  const firebaseConfig = {
-      apiKey: "AIzaSyBZmrhKXYnZlYVsUpDtcizCrpiO2_qTErw",
-    authDomain: "baza-fc9ef.firebaseapp.com",
-    projectId: "baza-fc9ef",
-    storageBucket: "baza-fc9ef.firebasestorage.app",
-    messagingSenderId: "148935839867",
-    appId: "1:148935839867:web:b6bf1bcfb1ed79f252d2de",
-    measurementId: "G-DT8PDH2VVM"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  // Funkcja zapisująca dane do chmury
-  window.saveToCloud = async (data) => {
-    await addDoc(collection(db, "notatki"), data);
-  };
-
-  // Nasłuchiwanie zmian w bazie na żywo
-  onSnapshot(collection(db, "notatki"), (snapshot) => {
-    snapshot.docChanges().forEach((change) => {
-      if (change.type === "added") {
-        // Funkcja renderująca - upewnij się, że masz ją w swoim skrypcie!
-        renderSingleCard(change.doc.data());
-      }
-    });
-  });
-</script>
 </head>
-    <script type="module">
-  // Import modułów Firebase bezpośrednio z oficjalnego CDN (v10)
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-  // Twoja dedykowana konfiguracja Firebase dla projektu Baza
-  const firebaseConfig = {
-    apiKey: "AIzaSyBZmrhKXYnZlYVsUpDtcizCrpiO2_qTErw", // Wpisz swój pełny klucz API
-    authDomain: "baza-fc9ef.firebaseapp.com",
-    projectId: "baza-fc9ef",
-    storageBucket: "baza-fc9ef.firebasestorage.app",
-    messagingSenderId: "148935839867",
-    appId: "1:148935839867:web:b6bf1bcfb1ed79f252d2de" // Wpisz swoje appId z ustawień projektu
-  };
-
-  // Inicjalizacja aplikacji Firebase oraz bazy danych Firestore
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  // Funkcja testowa zapisująca prosty dokument do bazy danych
-  async function testConnection() {
-    try {
-      await setDoc(doc(db, "test_polaczenia", "status_strony"), {
-        dziala: true,
-        czas_testu: new Date().toISOString()
-      });
-      console.log("Połączenie z Firestore zakończone sukcesem!");
-    } catch (e) {
-      console.error("Błąd połączenia:", e);
-    }
-  }
-
-  testConnection();
-</script>
-
 <body>
 
     <div class="sidebar">
@@ -667,7 +599,7 @@
                         <ul>
                             <li><strong>Stwardnienie Rozsiane (SM):</strong> Autoimmunologiczny proces powiązany z allelem HLA-DRB1*1501. Pozagałkowe zapalenie n. wzrokowego (RBN) z mroczkiem i bólem przy ruchach gałki, <strong>zjawisko Uhthoffa</strong> (nasilenie objawów w cieple). Kryteria McDonalda 2017 wymagają rozsiania w przestrzeni (DIS - plaki tworzące <strong>Palce Dawsona</strong>) i czasie (DIT). <strong>Wykrycie prążków oligoklonalnych (OCB) w płynie mózgowo-rdzeniowym pozwala zastąpić kryterium rozsiania w czasie (DIT)</strong>. Rzut leczy się metylprednizolonem i.v. 1,0 g przez 3-5 dni.</li>
                             <li><strong>Toksyczności DMT w SM:</strong> Fingolimod (bradykardia, blok AV, wymaga 6h nadzoru EKG przy 1. dawce). Natalizumab (ryzyko PML - postępującej wieloogniskowej leukoencefalopatii wywołanej reaktywacją <strong>wirusa JC</strong>).</li>
-                            <li><strong>Spektrum NMOSD (Choroba Devica):</strong> Akwaporynopatia, autoprzeciwciała <strong>anty-AQP4</strong> niszczące astrocyty za pośrednictwem dopełniacza. Rozległe poprzeczne zapalenie rdzenia (<strong>LETM – ognisko ≥3 segmenty kręgów</strong>). Prążki oligoklonalne (OCB) są <strong>ZAZWYCZAJ NIEOBECNE</strong>. Leki pierwszego rzutu z SM są w NMOSD przeciwwskazane, bo nasilają rzuty!</li>
+                            <li><strong>Spektrum NMOSD (Choroba Devica):</strong> Akwaporynopatia, autoprzeciwciała <strong>anty-AQP4</strong> niszczące astrocyty za pośrednictwem dopełniacza. Rozległe poprzeczne zapalenie rdzenia (<strong>LETM – ognisko ≥3 segmenty kręgów</strong>). Prążki oligoklonalne (OCB) są <strong>ZAZWYCZAJ NIEOBECNE</strong>. Leki pierwszego rzutu z SM are przeciwwskazane, bo nasilają rzuty!</li>
                         </ul>
                     </div>
                     <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n3')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
@@ -1188,110 +1120,159 @@
             el.style.color = sc >= 65 ? 'var(--color-success)' : 'var(--color-danger)';
         }
     </script>
-   <!-- Wklej na samym dole pliku index.html, tuż przed </body> -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // 1. Twoja konfiguracja Firebase (uzupełnij apiKey i appId)
-    const firebaseConfig = {
-        apiKey: "AIzaSyBZmrhKXYnZlYVsUpDtcizCrpiO2_qTErw",
-        authDomain: "baza-fc9ef.firebaseapp.com",
-        projectId: "baza-fc9ef",
-        storageBucket: "baza-fc9ef.appspot.com",
-        messagingSenderId: "148935839867",
-        appId: "1:148935839867:web:b6bf1bcfb1ed79f252d2de"
-    };
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const docRef = doc(db, "strony", "glowna");
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZmrhKXYnZlYVsUpDtcizCrpiO2_qTErw",
+            authDomain: "baza-fc9ef.firebaseapp.com",
+            projectId: "baza-fc9ef",
+            storageBucket: "baza-fc9ef.appspot.com",
+            messagingSenderId: "148935839867",
+            appId: "1:148935839867:web:b6bf1bcfb1ed79f252d2de"
+        };
 
-    // 2. Automatyczne opakowanie całej Twojej strony, by nie uszkodzić kodu
-    let wrapper = document.getElementById("live-wrapper");
-    if (!wrapper) {
-        wrapper = document.createElement("div");
-        wrapper.id = "live-wrapper";
-        wrapper.style.paddingBottom = "0px";
-        while (document.body.firstChild) {
-            wrapper.appendChild(document.body.firstChild);
-        }
-        document.body.appendChild(wrapper);
-    }
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const docRef = doc(db, "strony", "glowna");
 
-      // 3. Dodanie nowych, eleganckich stylów dla panelu pływającego
-    const style = document.createElement("style");
-    style.innerHTML = `
-        #admin-bar {display: none; position: fixed; bottom: 20px; right: 20px; background: rgba(17, 17, 17, 0.85); backdrop-filter: blur(8px); color: #fff; padding: 8px 12px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 999999; display: flex; align-items: center; gap: 8px; font-family: sans-serif; border: 1px solid rgba(255,255,255,0.1); }
-        #admin-bar input { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px 12px; border-radius: 20px; font-size: 13px; outline: none; width: 80px; transition: width 0.3s; }
-        #admin-bar input:focus { width: 120px; border-color: #007bff; }
-        #admin-bar button { background: #007bff; color: white; cursor: pointer; font-weight: bold; border: none; padding: 6px 15px; border-radius: 20px; font-size: 13px; transition: background 0.2s; }
-        #admin-bar button:hover { background: #0056b3; }
-        #sync-status { font-size: 12px; margin-left: 5px; }
-    `;
-    document.head.appendChild(style);
-
-    // 4. Stworzenie małego, dyskretnego panelu w rogu ekranu
-    const adminBar = document.createElement("div");
-    adminBar.id = "admin-bar";
-    adminBar.innerHTML = `
-        <span style="color:#007bff; font-weight:bold; font-size:12px; margin-right:2px;">Baza Admin:</span>
-        <input type="password" id="admin-pass" placeholder="Hasło">
-        <button id="zapisz-btn">Zapisz</button>
-        <span id="sync-status"></span>
-    `;
-    document.body.appendChild(adminBar);
-
-    // 5. Odbieranie zmian na żywo u wszystkich użytkowników online
-    onSnapshot(docRef, (docSnapshot) => {
-        if (docSnapshot.exists()) {
-            const dane = docSnapshot.data();
-            wrapper.innerHTML = dane.kodHTML || "";
-        }
-    });
-
-    // 6. Zapisywanie zmian (tylko z poprawnym hasłem "baza2026")
-    btn.addEventListener("click", () => {
-        if (passInput.value !== "baza2026") {
-            alert("Błędne hasło admina!");
-            return;
-        }
-        status.innerText = "Zapisywanie...";
-        status.style.color = "#ffc107";
-
-        setDoc(docRef, {
-            kodHTML: wrapper.innerHTML // Zapisuje tylko zawartość strony (bez paska admina!)
-        }, { merge: true })
-               .then(() => {
-            status.innerText = " Zapisano pomyślnie!";
-            status.style.color = "#28a745";
-            setTimeout(() => {
-                status.innerText = "";
-            }, 3000);
-        })
-        .catch((err) => {
-            console.error("Błąd zapisu:", err);
-            status.innerText = " Błąd zapisu!";
-            status.style.color = "#dc3545";
-        });
-    });
-        // 7. Ukrywanie i pokazywanie panelu skrótem Ctrl + Shift + A
-    window.addEventListener("keydown", (e) => {
-        // Sprawdza, czy wciśnięto jednocześnie Ctrl + Shift + A
-        if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
-            e.preventDefault(); // Zapobiega domyślnym akcjom przeglądarki
-            const bar = document.getElementById("admin-bar");
-            if (bar) {
-                // Przełączanie widoczności
-                const isHidden = window.getComputedStyle(bar).display === "none";
-                bar.style.display = isHidden ? "flex" : "none";
+        // Automatyczne opakowanie całej Twojej strony, by nie uszkodzić kodu dynamicznego
+        let wrapper = document.getElementById("live-wrapper");
+        if (!wrapper) {
+            wrapper = document.createElement("div");
+            wrapper.id = "live-wrapper";
+            while (document.body.firstChild) {
+                wrapper.appendChild(document.body.firstChild);
             }
+            document.body.appendChild(wrapper);
         }
-    });
 
-</script>
+        // Eleganckie style dla panelu pływającego (Cyber-Slate Clean)
+        const style = document.createElement("style");
+        style.innerHTML = `
+            #admin-bar { 
+                position: fixed; 
+                bottom: 25px; 
+                right: 25px; 
+                background: #1e293b; 
+                color: #f8fafc; 
+                padding: 10px 18px; 
+                border-radius: 30px; 
+                box-shadow: 0 10px 30px rgba(15, 23, 42, 0.3); 
+                z-index: 999999; 
+                display: none; /* Domyślnie schowany, Ctrl+Shift+A aktywuje */
+                align-items: center; 
+                gap: 12px; 
+                font-family: 'Poppins', sans-serif; 
+                border: 1px solid #334155;
+                transition: all 0.3s ease;
+            }
+            #admin-bar input { 
+                background: #0f172a; 
+                border: 1px solid #4b5563; 
+                color: #f8fafc; 
+                padding: 8px 16px; 
+                border-radius: 20px; 
+                font-size: 13px; 
+                outline: none; 
+                width: 110px; 
+                transition: all 0.2s; 
+            }
+            #admin-bar input:focus { 
+                width: 140px; 
+                border-color: #0d9488; 
+            }
+            #admin-bar button { 
+                background: linear-gradient(135deg, #0d9488, #0f766e); 
+                color: white; 
+                cursor: pointer; 
+                font-weight: 600; 
+                border: none; 
+                padding: 8px 20px; 
+                border-radius: 20px; 
+                font-size: 13px; 
+                letter-spacing: 0.5px;
+                box-shadow: 0 2px 8px rgba(13, 148, 136, 0.2);
+                transition: all 0.2s; 
+            }
+            #admin-bar button:hover { 
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(13, 148, 136, 0.4);
+            }
+            #sync-status { 
+                font-size: 12px; 
+                font-weight: 500;
+                font-family: 'Roboto Mono', monospace;
+            }
+        `;
+        document.head.appendChild(style);
 
+        // Stworzenie małego, dyskretnego panelu w rogu ekranu
+        const adminBar = document.createElement("div");
+        adminBar.id = "admin-bar";
+        adminBar.innerHTML = `
+            <span style="color:#2dd4bf; font-weight:bold; font-size:12px; letter-spacing: 0.5px;">Centrala Cloud:</span>
+            <input type="password" id="admin-pass" placeholder="Klucz dostępu">
+            <button id="zapisz-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Push do bazy</button>
+            <span id="sync-status"></span>
+        `;
+        document.body.appendChild(adminBar);
 
+        // Pobieranie brakujących referencji z drzewa DOM (Tutaj leżał problem!)
+        const btn = document.getElementById("zapisz-btn");
+        const passInput = document.getElementById("admin-pass");
+        const status = document.getElementById("sync-status");
+
+        // Odbieranie zmian na żywo u wszystkich użytkowników online
+        onSnapshot(docRef, (docSnapshot) => {
+            if (docSnapshot.exists()) {
+                const dane = docSnapshot.data();
+                if (document.activeElement !== passInput) {
+                    wrapper.innerHTML = dane.kodHTML || "";
+                }
+            }
+        });
+
+        // Zapisywanie zmian (tylko z poprawnym hasłem "baza2026")
+        btn.addEventListener("click", () => {
+            if (passInput.value !== "baza2026") {
+                alert("Błędne hasło admina!");
+                return;
+            }
+            status.innerText = "Zapisywanie...";
+            status.style.color = "#ffc107";
+
+            setDoc(docRef, {
+                kodHTML: wrapper.innerHTML // Zapisuje tylko zawartość strony (bez paska admina!)
+            }, { merge: true })
+            .then(() => {
+                status.innerText = " Zapisano pomyślnie!";
+                status.style.color = "#10b981";
+                setTimeout(() => {
+                    status.innerText = "";
+                }, 3000);
+            })
+            .catch((err) => {
+                console.error("Błąd zapisu:", err);
+                status.innerText = " Błąd zapisu!";
+                status.style.color = "#dc3545";
+            });
+        });
+
+        // Ukrywanie i pokazywanie panelu skrótem Ctrl + Shift + A
+        window.addEventListener("keydown", (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
+                e.preventDefault();
+                const bar = document.getElementById("admin-bar");
+                if (bar) {
+                    const isHidden = window.getComputedStyle(bar).display === "none";
+                    bar.style.display = isHidden ? "flex" : "none";
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
