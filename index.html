@@ -1188,13 +1188,12 @@
             el.style.color = sc >= 65 ? 'var(--color-success)' : 'var(--color-danger)';
         }
     </script>
-
- <!-- Wklej na samym dole pliku, tuż przed </body> -->
+   <!-- Wklej na samym dole pliku index.html, tuż przed </body> -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // 1. Twoja konfiguracja Firebase (Uzupełnij apiKey oraz appId!)
+    // 1. Twoja konfiguracja Firebase (uzupełnij apiKey i appId)
     const firebaseConfig = {
         apiKey: "AIzaSyBZmrhKXYnZlYVsUpDtcizCrpiO2_qTErw",
         authDomain: "baza-fc9ef.firebaseapp.com",
@@ -1208,21 +1207,80 @@
     const db = getFirestore(app);
     const docRef = doc(db, "strony", "glowna");
 
-    // 2. Bezpieczne opakowanie całej Twojej strony bez niszczenia skryptów
-    const wrapper = document.createElement("div");
-    wrapper.id = "live-page-wrapper";
-    wrapper.style.paddingBottom = "90px"; // Miejsce na panel na dole
-
-    while (document.body.firstChild) {
-        wrapper.appendChild(document.body.firstChild);
+    // 2. Automatyczne opakowanie całej Twojej strony, by nie uszkodzić kodu
+    let wrapper = document.getElementById("live-wrapper");
+    if (!wrapper) {
+        wrapper = document.createElement("div");
+        wrapper.id = "live-wrapper";
+        wrapper.style.paddingBottom = "80px";
+        while (document.body.firstChild) {
+            wrapper.appendChild(document.body.firstChild);
+        }
+        document.body.appendChild(wrapper);
     }
-    document.body.appendChild(wrapper);
 
-    // 3. Dodanie paska zapisu na samym dole strony
+    // 3. Dodanie stylów dla paska administratora
+    const style = document.createElement("style");
+    style.innerHTML = `
+        #admin-bar { position:fixed; bottom:0; left:0; right:0; background:#111; color:#fff; padding:12px; text-align:center; z-index:999999; display:flex; justify-content:center; align-items:center; gap:10px; border-top:3px solid #007bff; font-family:sans-serif; }
+        #admin-bar input, #admin-bar button { padding:6px 10px; border-radius:4px; border:none; font-size:14px; }
+        #admin-bar button { background:#007bff; color:white; cursor:pointer; font-weight:bold; }
+        #admin-bar button:hover { background:#0056b3; }
+        #sync-status { margin-left:10px; font-weight:bold; }
+    `;
+    document.head.appendChild(style);
+
+    // 4. Stworzenie paska na dole strony
     const adminBar = document.createElement("div");
-    adminBar.style.cssText = "position:fixed; bottom:0; left:0; right:0; background:#111; color:#fff; padding:15px; text-align:center; font-family:sans-serif; z-index:999999; border-top:3px solid #007bff; display:flex; justify-content:center; align-items:center; gap:10px; box-shadow: 0 -3px 10px rgba(0,0,0,0.5);";
+    adminBar.id = "admin-bar";
     adminBar.innerHTML = `
-        <span style="font-size:14px; font-weight:boldNo response
+        <span style="color:#007bff; font-weight:bold;">Synchronizacja Baza:</span>
+        <input type="password" id="admin-pass" placeholder="Wpisz hasło">
+        <button id="zapisz-btn">Zapisz stronę online</button>
+        <span id="sync-status"></span>
+    `;
+    document.body.appendChild(adminBar);
+
+    const btn = document.getElementById("zapisz-btn");
+    const passInput = document.getElementById("admin-pass");
+    const status = document.getElementById("sync-status");
+
+    // 5. Odbieranie zmian na żywo u wszystkich użytkowników online
+    onSnapshot(docRef, (docSnapshot) => {
+        if (docSnapshot.exists()) {
+            const dane = docSnapshot.data();
+            wrapper.innerHTML = dane.kodHTML || "";
+        }
+    });
+
+    // 6. Zapisywanie zmian (tylko z poprawnym hasłem "baza2026")
+    btn.addEventListener("click", () => {
+        if (passInput.value !== "baza2026") {
+            alert("Błędne hasło admina!");
+            return;
+        }
+        status.innerText = "Zapisywanie...";
+        status.style.color = "#ffc107";
+
+        setDoc(docRef, {
+            kodHTML: wrapper.innerHTML // Zapisuje tylko zawartość strony (bez paska admina!)
+        }, { merge: true })
+               .then(() => {
+            status.innerText = " Zapisano pomyślnie!";
+            status.style.color = "#28a745";
+            setTimeout(() => {
+                status.innerText = "";
+            }, 3000);
+        })
+        .catch((err) => {
+            console.error("Błąd zapisu:", err);
+            status.innerText = " Błąd zapisu!";
+            status.style.color = "#dc3545";
+        });
+    });
+</script>
+
+
 
 </body>
 </html>
