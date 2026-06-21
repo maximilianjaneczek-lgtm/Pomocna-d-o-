@@ -65,7 +65,7 @@
         .creator-panel { background: white; border-radius: 16px; padding: 25px; margin-bottom: 35px; border: 1px solid #e2e8f0; }
         .form-control { width: 100%; padding: 11px 14px; border-radius: 8px; border: 1px solid #cbd5e1; font-family: inherit; font-size: 14px; outline: none; }
         
-        /* ROZBUDOWANY WIZUALNY PASEK EDYCJI WYSIWYG */
+        /* WYSIWYG FORMAT BAR */
         .format-bar { background-color: #f1f5f9; padding: 10px 14px; border-radius: 8px 8px 0 0; border: 1px solid #cbd5e1; border-bottom: none; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
         .format-btn { background: white; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: 0.15s; }
         .format-btn:hover { background-color: #e2e8f0; border-color: #94a3b8; }
@@ -76,7 +76,7 @@
         .hc-header { padding: 18px 25px; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; background-color: #f8fafc; }
         .hc-title { font-family: 'Rubik', sans-serif; font-size: 19px; font-weight: 700; color: var(--text-dark); display: flex; align-items: center; gap: 10px; }
         
-        /* KATEDRALNE KOLOROWE TAGI */
+        /* KOLOROWE TAGI KATEDRALNE */
         .card-badge { font-size: 11px; font-weight: 700; padding: 6px 14px; border-radius: 20px; text-transform: uppercase; border: 1px solid transparent; font-family: 'Roboto Mono', monospace; margin-left: 6px; display: inline-block; }
         .badge-gen { background-color: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
         .badge-neuro { background-color: #f3e8ff; color: #6b21a8; border-color: #e9d5ff; }
@@ -148,7 +148,7 @@
             <div class="nav-item" id="nv-neu7" onclick="switchTab('neu7')"><i class="fa-solid fa-head-side-virus"></i>7. Zespoły Bólowe & PMR</div>
             <div class="nav-item gold" id="nv-test-neu" onclick="switchTab('test-neu')"><i class="fa-solid fa-graduation-cap"></i>T2: Symulator Testów - Neurologia</div>
 
-            <div class="nav-section-title" style="color:#eab308;"><i class="fa-solid fa-microchip"></i> Systemy Pomocnicze</div>
+            <div class="nav-section-title" style="color:#eab308;"><i class="fa-solid fa-microchip"></i> Inteligencja Skryptu</div>
             <div class="nav-item" id="nv-gemini" onclick="switchTab('gemini-engine')"><i class="fa-solid fa-wand-magic-sparkles" style="color:#eab308;"></i>Konwerter Notatek Gemini AI</div>
         </div>
     </div>
@@ -158,10 +158,10 @@
         <div style="padding: 30px 40px 0 40px; max-width: 1300px; margin: 0 auto; width: 100%;">
             <div class="creator-panel">
                 <h3 style="font-family:'Rubik',sans-serif; font-size:15px; margin-bottom:15px; color:var(--text-dark); display:flex; align-items:center; gap:8px;">
-                    <i class="fa-solid fa-square-plus" style="color:var(--color-genetics)"></i> Kreator Struktur Wiedzy Katedry
+                    <i class="fa-solid fa-square-plus" style="color:var(--color-genetics)"></i> Centralny Kreator Skryptu Katedry
                 </h3>
                 <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:12px; margin-bottom:12px;">
-                    <input type="text" id="addTitle" class="form-control" placeholder="Tytuł jednostki chorobowej">
+                    <input type="text" id="addTitle" class="form-control" placeholder="Tytuł zagadnienia">
                     <select id="addTarget" class="form-control">
                         <option value="mod1">M1: Aberracje Liczbowe [G]</option>
                         <option value="mod2">M2: Imprinting & Mikrodelecje [G]</option>
@@ -179,18 +179,18 @@
                         <option value="neu6">6. Neuromuskularne & Rdzeń [N]</option>
                         <option value="neu7">7. Zespoły Bólowe & PMR [N]</option>
                     </select>
-                    <input type="text" id="addBadge" class="form-control" placeholder="Tag / Locus / Mechanizm">
+                    <input type="text" id="addBadge" class="form-control" placeholder="Tag / Locus / Kod">
                     <input type="color" id="addBorderColor" class="form-control" value="#1e3a8a" title="Kolor paska krawędziowego">
                     <select id="addIconSelect" class="form-control">
                         <option value="fa-dna">Ikona: DNA</option>
                         <option value="fa-brain">Ikona: Mózg</option>
                         <option value="fa-child-reaching">Ikona: Dziecko</option>
-                        <option value="fa-skull">Ikona: Letalna / Śmierć</option>
+                        <option value="fa-skull">Ikona: Letalna</option>
                         <option value="fa-syringe">Ikona: Strzykawka</option>
                     </select>
                 </div>
                 <textarea id="addContent" class="form-control" style="min-height:80px; margin-bottom:12px;" placeholder="Zawartość karty. Oddziel punkty klawiszem Enter. Tagi <strong>słowo</strong> powodują pogrubienie haseł kluczowych."></textarea>
-                <div style="display:flex; justify-content:flex-end;"><button class="btn primary" onclick="injectNewCard()"><i class="fa-solid fa-bolt"></i> Dodaj do skryptu</button></div>
+                <div style="display:flex; justify-content:flex-end;"><button class="btn primary" onclick="injectNewCard()"><i class="fa-solid fa-bolt"></i> Wstrzyknij Treść</button></div>
             </div>
         </div>
 
@@ -207,7 +207,7 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm dziedziczenia:</strong> Aberracja liczbowa spowodowana głównie przez <strong>nondysjunkcję w mejozie I matki</strong> (95%), rzadziej translokację robertsonowską de novo lub dziedziczoną (np. 14;21) oraz mozaicyzm postzygotyczny.</li>
+                            <li><strong>Mechanizm patologii i dziedziczenie:</strong> Aberracja liczbowa spowodowana głównie przez <strong>nondysjunkcję w mejozie I matki</strong> (95%), rzadziej translokację robertsonowską de novo lub dziedziczoną (np. 14;21) oraz mozaicyzm postzygotyczny.</li>
                             <li><strong>Cechy kliniczne i objawy:</strong> Skośne szpary powiekowe, <strong>fałd nakątny (epicanthus)</strong>, plamki Brushfielda na tęczówce, płaski profil twarzy, makroglosja, pojedyncza bruzda dłoniowa, hipotonia mięśniowa oraz opóźnienie rozwoju.</li>
                             <li><strong>Powikłania:</strong> Wada serca typu <strong>AVSD (wspólny kanał przedsionkowo-komorowy)</strong>, wysokie ryzyko <strong>ostrej białaczki megakarioblastycznej (AMKL)</strong> oraz wczesny rozwój patologii Alzheimera (gen APP).</li>
                         </ul>
@@ -222,7 +222,7 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm dziedziczenia:</strong> Aberracja liczbowa – trisomia chromosomu 18 powstała wskutek barier nondysjunkcji mejotycznej u rodziców. Wywołuje głębokie wewnątrzmaciczne zahamowanie wzrostu (IUGR).</li>
+                            <li><strong>Mechanizm patologii i dziedziczenie:</strong> Aberracja liczbowa – trisomia chromosomu 18 powstała wskutek barier nondysjunkcji mejotycznej u rodziców. Wywołuje letalne, wewnątrzmaciczne zahamowanie wzrostu płodu (IUGR).</li>
                             <li><strong>Objawy patognomoniczne:</strong> Charakterystyczne <strong>nakładanie się palców dłoni</strong> (zaciśnięte pięści, palec II nad III oraz V nad IV), zdeformowane <strong>stopy kołyskowe</strong>, dolichocefalia, mikrognacja. Wada w pełni letalna; neonatologiczna <strong>opieka paliatywna</strong>.</li>
                         </ul>
                     </div>
@@ -236,8 +236,8 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm dziedziczenia:</strong> Trisomia chromosomu 13 wywołana błędną segregacją mejotyczną, prowadząca do zaburzeń rozwoju struktur <strong>linii pośrodkowej ciała</strong>.</li>
-                            <li><strong>Cechy fenotypowe:</strong> <strong>Holoprozencefalia</strong> (wada podziału przodomózgowia), mikroftalmia, obustronny <strong>rozszczep wargi i podniebienia</strong> oraz <strong>polidaktilia pozaosiowa</strong>. Rokowanie letalne.</li>
+                            <li><strong>Mechanizm patologii i dziedziczenie:</strong> Trisomia chromosomu 13 wywołana błędną segregacją mejotyczną, prowadząca do zaburzeń rozwoju struktur <strong>linii pośrodkowej ciała</strong>.</li>
+                            <li><strong>Cechy fenotypowe:</strong> <strong>Holoprozencefalia</strong> (wada podziału przodomózgowia), mikroftalmia, obustronny <strong>rozszczep wargi i podniebienia</strong> oraz <strong>polidaktilia pozaosiowa</strong>. Schorzenie letalne.</li>
                         </ul>
                     </div>
                     <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g3')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
@@ -250,8 +250,8 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm dziedziczenia:</strong> Monosomia chromosomu X (45,X) lub mozaicyzm somatyczny. Brak kopii genu <strong>SHOX</strong> wywołuje niski wzrost.</li>
-                            <li><strong>Klinika:</strong> Niski wzrost, pierwotny brak miesiączki, <strong>jajniki pasmowate</strong>, szeroka tarcza klatki piersiowej, <strong>płetwiastą szyję</strong>, koarktacja aorty. Terapia rGH oraz HTZ.</li>
+                            <li><strong>Mechanizm patologii i dziedziczenie:</strong> Monosomia chromosomu X (45,X) lub mozaicyzm komórkowy. Brak kopii genu <strong>SHOX</strong> wywołuje niski wzrost. Najczęściej wynik utraty ojcowskiego chromosomu płciowego.</li>
+                            <li><strong>Klinika katedralna:</strong> Niski wzrost, pierwotny brak miesiączki, <strong>jajniki pasmowate</strong>, szeroka tarcza klatki piersiowej, <strong>płetwiasta szyja</strong>, koarktacja aorty. Terapia rGH oraz HTZ. Wykrycie linii Y nakazuje gonadektomię.</li>
                         </ul>
                     </div>
                     <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g4')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
@@ -264,8 +264,8 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm dziedziczenia:</strong> Aneuploidia gonosomów u mężczyzn – obecność dodatkowego chromosomu X (47,XXY) wskutek nondysjunkcji mejotycznej.</li>
-                            <li><strong>Klinika:</strong> Wysoki wzrost, <strong>proporcje eunuchoidalne</strong>, ginekomastia, owłosienie typu kobiecego oraz <strong>małe, twarde jądra</strong> w badaniu palpacyjnym. Badania: profil wykazuje <strong>↑ LH i ↑ FSH</strong> przy niskim testosteronie.</li>
+                            <li><strong>Mechanizm patologii i dziedziczenie:</strong> Aneuploidia gonosomów u mężczyzn – obecność dodatkowego chromosomu X (47,XXY) wskutek nondysjunkcji mejotycznej. Włóknienie kanalików nasiennych.</li>
+                            <li><strong>Klinika:</strong> Wysoki wzrost, <strong>proporcje eunuchoidalne</strong>, ginekomastia, owłosienie typu kobiecego oraz <strong>małe, twarde jądra</strong> w badaniu palpacyjnym. Profil hormonalny: <strong>↑ LH i ↑ FSH</strong> przy niskim testosteronie. Biopsja jądra metodą mikro-TESE.</li>
                         </ul>
                     </div>
                     <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g5')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
@@ -278,8 +278,8 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm dziedziczenia:</strong> Strukturalna aberracja chromosomowa – delecja ramienia krótkiego chromosomu 5 (<strong>5p-</strong>), najczęściej powstająca de novo.</li>
-                            <li><strong>Obraz kliniczny:</strong> Noworodkowy płacz przypominający <strong>miauczenie kota</strong> (hipoplazja krtani), mikrocefalia, głębokie opóźnienie rozwoju intelektualnego.</li>
+                            <li><strong>Mechanizm patologii i dziedziczenie:</strong> Strukturalna aberracja chromosomowa – delecja ramienia krótkiego chromosomu 5 (<strong>5p-</strong>), najczęściej powstająca de novo.</li>
+                            <li><strong>Obraz kliniczny:</strong> Noworodkowy płacz przypominający <strong>miauczenie kota</strong> (hipoplazja krtani), mikrocefalia, hiperteloryzm, głębokie opóźnienie rozwoju intelektualnego.</li>
                         </ul>
                     </div>
                     <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g6')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
@@ -300,7 +300,7 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm dziedziczenia:</strong> Mikrodelecja regionu 22q11.2, dziedziczona w sposób <strong>autosomalny dominujący (AD)</strong> z wysokim odsetkiem mutacji de novo. Eliminuje gen <strong>TBX1</strong>.</li>
+                            <li><strong>Mechanizm patologii i dziedziczenie:</strong> Mikrodelecja regionu 22q11.2, dziedziczona w sposób <strong>autosomalny dominujący (AD)</strong> z wysokim odsetkiem mutacji de novo. Eliminuje gen <strong>TBX1</strong>.</li>
                             <li><strong>Klinika (CATCH-22):</strong> Stożkowo-pniowe wady serca, dysmorfia, <strong>aplazja grasicy (niedobór odporności T)</strong>, rozszczep podniebienia, <strong>hipokalcemia</strong> wtórna do braku przytarczyc. Obowiązuje zakaz szczepień żywych.</li>
                         </ul>
                     </div>
@@ -314,7 +314,7 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm dziedziczenia:</strong> Submikroskopowa delecja regionu 7q11.23 (gen elastyny <strong>ELN</strong>), dziedziczenie typu <strong>autosomalnego dominującego (AD)</strong>, zwykle de novo.</li>
+                            <li><strong>Mechanizm patologii i dziedziczenie:</strong> Submikroskopowa delecja regionu 7q11.23 (gen elastyny <strong>ELN</strong>), dziedziczenie typu <strong>autosomalnego dominującego (AD)</strong>, zwykle de novo.</li>
                             <li><strong>Objawy:</strong> Twarz elfa, nadzastawkowe zwężenie ujścia aorty (<strong>SVAS</strong>), idiopatyczna hiperkalcemia niemowląt. Wymaga diety z wyłączeniem witaminy D i wapnia.</li>
                         </ul>
                     </div>
@@ -328,7 +328,7 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Zjawisko epigenetyczne:</strong> Przykłady <strong>imprintingu genomowego (piętnowania)</strong> w rejonie 15q11-q13.</li>
+                            <li><strong>Zjawisko epigenetyczne:</strong> Przykłady <strong>imprintingu genomowego (piętnowania)</strong> w rejonie 15q11-q13. Diagnostyka: badanie wzoru metylacji DNA.</li>
                             <li><strong>Zespół Pradera-Willego:</strong> Utrata ekspresji aktywnej kopii ojcowskiej (gen <strong>SNRPN</strong>) wskutek delecji lub disomii jednorodzicielskiej matczynej. Noworodkowa wiotkość (<strong>"floppy infant"</strong>), a później patologiczna <strong>hiperfagia i otyłość</strong>.</li>
                             <li><strong>Zespół Angelmana:</strong> Utrata ekspresji aktywnej kopii matczynej (gen <strong>UBE3A</strong>). Objawy: <strong>Happy Puppet Syndrome</strong>, niesprowokowany śmiech, ataksja chodu, brak rozwoju mowy.</li>
                         </ul>
@@ -343,7 +343,7 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Mechanizm dziedziczenia/epigenetyki:</strong> Zaburzenie metylacji w locus 11p15.5 prowadzące do nadekspresji ojcowskiego onkogenu czynnika wzrostu <strong>IGF2</strong>.</li>
+                            <li><strong>Mechanizm patologii i dziedziczenie:</strong> Zaburzenie metylacji w locus 11p15.5 prowadzące do nadekspresji ojcowskiego onkogenu czynnika wzrostu <strong>IGF2</strong>. Zespół nadmiernego rozrostu.</li>
                             <li><strong>Klinika:</strong> Makrosomia, hemihipertrofia, przepuklina pępowinowa oraz patognomoniczna <strong>makroglosja</strong> (wielki język). Ryzyko embrionalnego <strong>guza Wilmsa</strong> nakazuje monitorowanie USG i stężenia AFP co 3 miesiące.</li>
                         </ul>
                     </div>
@@ -365,8 +365,8 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Skala Tannera:</strong> Ocena stadium dojrzałości płciowej (stadia I-V). Kluczowa przy opóźnionym dojrzewaniu płciowym w zespole Turnera.</li>
-                            <li><strong>Skala Apgar:</strong> Ocena noworodka w 1., 3., 5. i 10. minucie życia (tętno, oddech, napięcie mięśni, reakcja na bodźce, barwa skóry).</li>
+                            <li><strong>Skala Tannera:</strong> Ocena dojrzałości płciowej (stadia I-V). Kluczowa przy opóźnionym dojrzewaniu płciowym w zespole Turnera i Klinefeltera.</li>
+                            <li><strong>Skala Apgar:</strong> Ocena noworodka w 1., 3., 5. i 10. minucie życia (tętno, oddech, napięcie mięśni, reakcja na bodźce, barwa skóry). Hipotonia obniża wynik.</li>
                             <li><strong>Pozostałe skale:</strong> Skala Glasgow (GCS - stopień przytomności), skala Ferrimana-Gallweya (ocena nasilenia hirsutyzmu u kobiet), skala Bishopa (dojrzałość szyjki macicy).</li>
                         </ul>
                     </div>
@@ -388,10 +388,10 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Zespoły HBOC (BRCA1/BRCA2):</strong> Germinalne mutacje w genach supresorowych naprawy dsDNA drogą homologicznej rekombinacji. Dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Profilaktyczna adneksotomia i mastektomii.</li>
+                            <li><strong>Zespoły HBOC (BRCA1/BRCA2):</strong> Germinalne mutacje w genach supresorowych naprawy dsDNA drogą homologicznej rekombinacji. Dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Profilaktyczna adneksotomia i mastektomia.</li>
                             <li><strong>Zespół Li-Fraumeni (mutacja TP53):</strong> Dziedziczona <strong>autosomalnie dominująco (AD)</strong> mutacja germinalna 'strażnika genomu' TP53. Powoduje mięsaki, raki piersi i mózgu w młodym wieku.</li>
                             <li><strong>Rodzinna Polipowatość Gruczolakowata (FAP - mutacja APC):</strong> Dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Tysiące polipów jelita z 100% ryzykiem transformacji złośliwej przed 40. r.ż. Nakaz totalnej proktokolektomii.</li>
-                            <li><strong>Siatkówczak (Retinoblastoma - mutacja RB1) & Guz Wilmsa:</strong> RB1 to model dwóch uderzeń Knudsona (objaw leukokorii). Guz Wilmsa (nephroblastoma) wchodzi w skład kompleksu <strong>WAGR</strong> oraz BWS.</li>
+                            <li><strong>Siatkówczak (Retinoblastoma - mutacja RB1) & Guz Wilmsa:</strong> RB1 to model dwóch uderzeń Knudsona (objaw leukokorii). Guz Wilmsa (nephroblastoma) wchodzi w skład kompleksu <strong>WAGR</strong> (locus 11p13) oraz BWS.</li>
                         </ul>
                     </div>
                     <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g12')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
@@ -408,14 +408,14 @@
                 <div class="horizontal-card" id="g13" style="border-left: 6px solid #475569;">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid fa-brain"></i> Mutacje Dynamiczne, Bloki Metaboliczne i DSD</div>
-                        <div><span class="card-badge badge-warn">AD / AR / Sprzężone z X</span></div>
+                        <div><span class="card-badge badge-warn">Medyczny kanon</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Choroba Huntingtona (HD):</strong> Mutacja dynamiczna – ekspansja CAG. Dziedziczenie <strong>autosomalne dominujące (AD)</strong> ze zjawiskiem <strong>antycypacji</strong> i paradoksem Shermana.</li>
+                            <li><strong>Choroba Huntingtona (HD):</strong> Mutacja dynamiczna – ekspansja CAG. Dziedziczenie <strong>autosomalne dominujące (AD)</strong> ze zjawiskiem <strong>antycypacji</strong> (szczególnie od ojca) i paradoksem Shermana.</li>
                             <li><strong>Zespół łamliwego chromosomu X (FXS):</strong> Ekspansja powtórzeń CGG (&gt;200) w genie FMR1 na chromosomie X (<strong>dziedziczenie sprzężone z X</strong>). Niepełnosprawność intelektualna, długa twarz, makroorchidyzm. Stan <strong>premutacji</strong> (55-200 powtórzeń) generuje ryzyko zespołu drżeniowo-ataktycznego FXTAS.</li>
                             <li><strong>Wrodzone wady metabolizmu (Enzymopatie - dziedziczenie AR):</strong>
-                                <br>- <strong>Fenyloketonuria:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Defekt hydroksylazy fenyloalaniny (<strong>PAH</strong>), akumulacja fenyloalaniny, mysi zapach, jasna karnacja, dieta eliminacyjna.
+                                <br>- <strong>Fenyloketonuria:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Defekt hydroksylazy fenyloalaniny (<strong>PAH</strong>), akumulacja fenyloalaniny, mysi zapach moczu, jasna karnacja, dieta eliminacyjna.
                                 <br>- <strong>Galaktozemia:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>, niedobór GALT, zaćma i uszkodzenie wątroby po ekspozycji na laktozę/galaktozę.
                                 <br>- <strong>Alkaptonuria:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>, defekt dioksygenazy homogentyzynowej, ciemnienie moczu, ochronoza stawowa.
                                 <br>- <strong>Mukowiscydoza (CF):</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>, mutacja w kanale chlorkowym <strong>CFTR</strong> (najczęściej deltaF508), gęsty śluz w układzie oddechowym i trzustce.
@@ -424,8 +424,8 @@
                             </li>
                             <li><strong>Nerwiakowłókniakowatość typu 1 (NF1):</strong> Dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Defekt neurofibrominy (17q11.2). Plamy café au lait, guzki Lisha. Modelowa <strong>zmienna ekspresja</strong> i wysokie mutacje de novo.</li>
                             <li><strong>Zaburzenia rozwoju płciowego (DSD / Interpłciowość):</strong>
-                                <br>- <strong>Zespół Swyera:</strong> Czysta dysgenezja gonad 46,XY. Pacjentki o żeńskim fenotypie zewnętrznym, pasmowate gonady, brak wirylizacji.
-                                <br>- <strong>Zespół niewrażliwości na androgeny (AIS / PAIS):</strong> Mutacja receptora androgenowego (AR) na chromosomie X. Męski kariotyp 46,XY przy całkowicie żeńskim fenotypie zewnętrznym.
+                                <br>- <strong>Zespół Swyera:</strong> Czysta dysgenezja gonad 46,XY. Pacjentki o żeńskim fenotypie zewnętrznym, pasmowate gonady, brak wirylizacji, wysokie.
+                                <br>- <strong>Zespół niewrażliwości na androgeny (AIS / PAIS):</strong> Mutacja receptora androgenowego (AR) na chromosomie X. Męski kariotyp 46,XY przy całkowicie żeńskim fenotypie zewnętrznym i braku macicy (jądra w jamie brzusznej).
                             </li>
                         </ul>
                     </div>
@@ -443,11 +443,11 @@
                 <div class="horizontal-card" id="g14" style="border-left: 6px solid #b45309;">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid fa-bone"></i> Zespół Marfana, Crouzona oraz Bardeta-Biedla</div>
-                        <div><span class="card-badge badge-gen">AD / AR / Różnorodne</span></div>
+                        <div><span class="card-badge badge-gen">Plejotropia</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Zespół Marfana:</strong> Defekt genu fibryliny-1 (<strong>FBN1</strong>), dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Modelowa <strong>plejotropia</strong>. Sylwetka marfanoidalna, arachnodaktilia, ectopia lentis (podwichnięcie soczewki), tętniak i rozwarstwienie aorty wstępującej.</li>
+                            <li><strong>Zespół Marfana:</strong> Defekt genu fibryliny-1 (<strong>FBN1</strong>), dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Modelowa <strong>plejotropia</strong> (jeden defekt genowy daje objawy w wielu odległych układach). Sylwetka marfanoidalna, arachnodaktilia, ectopia lentis (podwichnięcie soczewki), tętniak i rozwarstwienie aorty wstępującej.</li>
                             <li><strong>Zespół Crouzona:</strong> Kraniosynostoza szwów, mutacja genu receptora czynnika wzrostu fibroblastów 2 (<strong>FGFR2</strong>), dziedziczenie <strong>autosomalne dominujące (AD)</strong>. Wytrzeszcz oczu (exophthalmus), hipoplazja szczęki.</li>
                             <li><strong>Zespół Bardeta-Biedla:</strong> Ciliopatia, dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Dystrofia pręcikowo-czopkowa siatkówki, otyłość centralna, polidaktilia, wady nerek.</li>
                         </ul>
@@ -466,12 +466,12 @@
                 <div class="horizontal-card" id="g15" style="border-left: 6px solid #06b6d4;">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid fa-eye"></i> LHON, Wrodzona Ślepota Lebera oraz Zespół Ushera</div>
-                        <div><span class="card-badge badge-success">Mitochondrialne / AR</span></div>
+                        <div><span class="card-badge badge-success">Siatkówka & Słuch</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
                             <li><strong>Dziedziczna Neuropatia Wzrokowa Lebera (LHON):</strong> Modelowy przykład <strong>dziedziczenia mitochondrialnego</strong> (matczynego). Mutacje w genach mtDNA kompleksu I (ND1, ND4, ND6), zjawisko <strong>heteroplazmii</strong>. Nagła, bezbolesna utrata wzroku u młodych mężczyzn.</li>
-                            <li><strong>Wrodzona Ślepota Lebera (LCA):</strong> Dystrofia siatkówki, ślepota od urodzenia. Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Typ 2 (mutacja <strong>RPE65</strong>) podlega terapii genowej Luxturna.</li>
+                            <li><strong>Wrodzona Ślepota Lebera (LCA):</strong> Dystrofia siatkówki, ślepota od urodzenia. Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Typ 2 (mutacja <strong>RPE65</strong>) podlega innowacyjnej terapii genowej Luxturna.</li>
                             <li><strong>Zespół Ushera:</strong> Dziedziczenie <strong>autosomalne recesywne (AR)</strong>. Łączy postępujące zwyrodnienie barwnikowe siatkówki (retinitis pigmentosa) z odbiorczym niedosłuchem lub głuchotą.</li>
                         </ul>
                     </div>
@@ -489,13 +489,14 @@
                 <div class="horizontal-card" id="g16" style="border-left: 6px solid #0d9488;">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid fa-vials"></i> WES, aCGH oraz Protokoły Wektorowe AAV</div>
-                        <div><span class="card-badge badge-gen">Technologia molekularna</span></div>
+                        <div><span class="card-badge badge-gen">Molekularne</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>WES (Whole Exome Sequencing):</strong> NGS regionów kodujących. <strong>Kluczowy dogmat:</strong> WES <strong>NIE WYKRYWA dobrze mutacji dynamicznych</strong> ( Huntington) oraz rozległych rearanżacji strukturalnych.</li>
-                            <li><strong>aCGH (Mikromacierz Porównawcza):</strong> Wykrywanie submikroskopowych zmian liczby kopii DNA (CNV). Nie identyfikuje zrównoważonych translokacji i inwersji.</li>
-                            <li><strong>Terapie Genowe:</strong> Luxturna (wektor AAV dostarczający gen RPE65 w LCA2); Zolgensma (wektor AAV9 wprowadzający gen SMN1 w rdzeniowym zaniku mięśni SMA1 przed 18. miesiącem życia).</li>
+                            <li><strong>WES (Whole Exome Sequencing):</strong> NGS regionów kodujących (eksony). <strong>Kluczowy dogmat:</strong> WES <strong>NIE WYKRYWA dobrze mutacji dynamicznych</strong> ( Huntington) oraz rozległych rearanżacji strukturalnych.</li>
+                            <li><strong>aCGH (Mikromacierz Porównawcza):</strong> Wykrywanie submikroskopowych zmian liczby kopii DNA (CNV). Nie identyfikuje zrównoważonych translokacji i inwersji. Doskonałe do zespołów mikrodelecyjnych.</li>
+                            <li><strong>FISH (Fluorescence In Situ Hybridization):</strong> Sondy znakowane fluorescencyjnie. Złoty standard detekcji zespołu DiGeorge'a (22q11.2).</li>
+                            <li><strong>Terapie Genowe:</strong> Luxturna (wektor AAV pod siatkówkę w LCA2 z mutacją RPE65); Zolgensma (wektor AAV9 z genem SMN1 w rdzeniowym zaniku mięśni SMA1 przed 18. miesiącem życia).</li>
                         </ul>
                     </div>
                     <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('g16')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
@@ -523,11 +524,13 @@
                         <tr><td><strong>Zespół Edwardsa</strong></td><td>Chromosom 18</td><td>Trisomia (Pełna aneuploidia)</td><td>Zaciśnięte pięści, nakładanie się palców (II nad III), stopy kołyskowe, dolichocefalia.</td></tr>
                         <tr><td><strong>Zespół DiGeorge'a</strong></td><td>del 22q11.2 (TBX1)</td><td>Mikrodelecja / AD</td><td>Wady stożkowo-pniowe serca, aplazja grasicy (brak komórek T), rozszczep, hipokalcemia.</td></tr>
                         <tr><td><strong>Zespół Marfana</strong></td><td>FBN1 (15q21.1)</td><td>Autosomalne Dominujące (AD)</td><td>Arachnodaktilia, dolichostenomelia, ectopia lentis, tętniak i rozwarstwienie aorty.</td></tr>
+                        <tr><td><strong>Zespół Williamsa</strong></td><td>del 7q11.23 (ELN)</td><td>Mikrodelecja / AD</td><td>Twarz elfa, SVAS, idiopatyczna hiperkalcemia niemowląt.</td></tr>
+                        <tr><td><strong>Zespół Pradera-Willego</strong></td><td>15q11-q13 (SNRPN)</td><td>Imprinting (Ojcowskie wyciszenie)</td><td>Hipotonia ("floppy infant"), hiperfagia, skrajna otyłość, hipogonadyzm.</td></tr>
+                        <tr><td><strong>Zespół Angelmana</strong></td><td>15q11-q13 (UBE3A)</td><td>Imprinting (Matczyne wyciszenie)</td><td>Happy Puppet Syndrome, niesprowokowany śmiech, ataksja, brak rozwoju mwy.</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
 
         <div id="neu1" class="content-tab">
             <div class="module-header neu-border">
@@ -542,15 +545,15 @@
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Ośrodkowe uszkodzenie nerwu VII (nadjądrowe):</strong> Uszkodzenie kory lub dróg korowo-jądrowych (np. udar). Niedowład mięśni mimicznych <strong>wyłącznie dolnej połowy twarzy kontralateralnie</strong>. Pacjent potrafi zmarszczyć czoło i zamknąć oko.</li>
-                            <li><strong>Obwodowe porażenie nerwu VII (Porażenie Bella):</strong> Uszkodzenie jądra w moście lub pnia nerwu na obwodzie. Paraliż <strong>całej połowy twarzy ipsilateralnie</strong>. Dodatni objaw Bella (rotacja gałki ocznej ku górze przy próbie zamknięcia oka).</li>
-                            <li><strong>Zespół Opuszkowy vs Rzekomoopuszkowy:</strong> Opuszkowy to uszkodzenie dolnego motoneuronu (IX, X, XII) – <strong>głębokie zaniki i fascykulacje języka</strong>, odruch żuchwowy zniesiony. Rzekomoopuszkowy to uszkodzenie obustronne dróg korowo-jądrowych – język sztywny, spastyczny bez zaników i bez fascykulacji, odruch żuchwowy <strong>wybitnie wygórowany</strong>.</li>
+                            <li><strong>Ośrodkowe uszkodzenie nerwu VII (nadjądrowe):</strong> Uszkodzenie kory lub dróg korowo-jądrowych (np. udar). Niedowład mięśni mimicznych <strong>wyłącznie dolnej połowy twarzy kontralateralnie</strong>. Pacjent potrafi zmarszczyć czoło i zamknąć oko (górne piętro ma obustronne korowe unerwienie).</li>
+                            <li><strong>Obwodowe porażenie nerwu VII (Porażenie Bella):</strong> Uszkodzenie jądra w moście lub pnia nerwu na obwodzie. Paraliż <strong>całej połowy twarzy ipsilateralnie</strong>. Pacjent nie potrafi zmarszczyć czoła ani zamknąć oka (dodatni <strong>objaw Bella</strong> – rotacja gałki do góry i na zewnątrz), utrata smaku na przednich 2/3 języka, hiperakuzja.</li>
+                            <li><strong>Zespół Opuszkowy vs Rzekomoopuszkowy:</strong> Opuszkowy to uszkodzenie dolnego motoneuronu (IX, X, XII) w rdzeniu przedłużonym – dysfagia, dyzartria, wiotkie porażenie podniebienia, odruch żuchwowy zniesiony. <strong>Kryterium katedralne: Na języku widoczne są głębokie zaniki mięśniowe oraz aktywne fascykulacje (drżenia pęczkowe).</strong> Rzekomoopuszkowy to uszkodzenie obustronne dróg korowo-jądrowych – język sztywny, spastyczny bez zaników i bez fascykulacji, odruch żuchwowy <strong>wybitnie wygórowany</strong>, afekt rzekomoopuszkowy (przymusowy śmiech/płacz).</li>
                         </ul>
-                        <div class="schema-block">[ WEBER ] Śródmózgowie: Ipsilateralnie porażenie n. III (szeroka sztywna źrenica, zez rozbieżny, opadanie powieki); kontralateralnie niedowład połowiczy spastyczny kończyn.
-[ MILLARD-GUBLER ] Most: Ipsilateralnie obwodowe porażenie n. VII i n. VI (zez zbieżny); kontralateralnie niedowład spastyczny.
-[ WALLENBERG ] Opuszka boczna (PICA): Ipsilateralnie Horner, n. V (twarz), chrypka, dysfagia, ataksja; kontralateralnie zniesienie czucia bólu/temp. DROGA PIRAMIDOWA OSZCZĘDZONA – BRAK NIEDOWŁADU KOŃCZYN!</div>
+                        <div class="schema-block">[ WEBER ] Śródmózgowie brzuszne: Ipsilateralnie porażenie n. III (opadanie powieki, szeroka sztywna źrenica, gałka ku dołowi i na zewnątrz); kontralateralnie niedowład połowiczy spastyczny kończyn.
+[ MILLARD-GUBLER ] Most brzuszny dolny: Ipsilateralnie obwodowe porażenie n. VII i n. VI (zez zbieżny); kontralateralnie niedowład spastyczny.
+[ WALLENBERG ] Opuszka boczna (zamknięcie tętnicy PICA): Ipsilateralnie Horner (ptosis, miosis, enophthalmus), niedoczulica twarzy (n. V), chrypka, dysfagia, ataksja móżdżkowa; kontralateralnie zniesienie czucia bólu i temperatury (czucie rozszczepienne). DROGA PIRAMIDOWA OSZCZĘDZONA – BRAK NIEDOWŁADU KOŃCZYN!</div>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n1')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n1')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -564,17 +567,19 @@
                 <div class="horizontal-card" id="n2" style="border-left: 6px solid #be123c;">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid fa-droplet"></i> Udary Mózgu i Algorytm Farmakoterapii</div>
-                        <div><span class="card-badge badge-danger">Ostra naczyniowa</span></div>
+                        <div><span class="card-badge badge-danger">Ostra faza / rt-PA</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Terytoria unaczynienia tętniczego:</strong> MCA (niedowład z przewagą twarzy i ręki, afazja, zwrot oczu na ognisko); ACA (niedowład z przewagą nogi, objawy czołowe, nietrzymanie moczu); PCA (niedowidzenie połowicze z zaoszczędzeniem widzenia plamkowego).</li>
-                            <li><strong>Tromboliza Dożylna (rt-PA) – Okno do 4,5h:</strong> Wytyczna dawkowania Alteplazy: <strong>0,9 mg/kg m.c.</strong> (max 90 mg). 10% w szybkim bolusie iv w ciągu 1 min, reszta we wlewie ciągłym przez 60 min. RR przed podaniem musi wynosić stabilnie <strong>&lt; 185/110 mmHg</strong>.</li>
-                            <li><strong>Udar Lakunarny:</strong> Wywołany procesem <strong>lipohialinozy</strong> małych tętnic przeszywających w przebiegu nadciśnienia (brak etiologii zatorowej).</li>
-                            <li><strong>SAH (Krwawienie Podpajęczynówkowe):</strong> Piorunujący ból głowy. Zapobieganie skurczowi naczyń: <span class="drug-tag">Nimodypina</span> doustnie 60 mg co 4 godziny przez 21 dni.</li>
+                            <li><strong>Terytoria unaczynienia tętniczego:</strong> MCA (kontralateralny niedowład i niedoczulica z przewagą <strong>twarzy i kończyny górnej</strong>, afazja, zbaczanie oczu na ognisko); ACA (niedowład z przewagą <strong>kończyny dolnej - nogi</strong>, objawy czołowe, nietrzymanie moczu); PCA (kontralateralne niedowidzenie połowicze jednoimienne z <strong>zaoszczędzeniem widzenia plamkowego</strong>, przy obustronnym zespole – zespół Antona).</li>
+                            <li><strong>Tromboliza Dożylna (rt-PA) – Okno terapeutyczne do 4,5h:</strong> Dawkowanie <span class="drug-tag">Alteplaza</span>: <strong>0,9 mg/kg m.c.</strong> (max 90 mg). 10% w szybkim bolusie i.v. w ciągu 1 min, reszta we wlewie ciągłym przez 60 min. Kwalifikacja RR: ciśnienie musi wynosić <strong>&lt; 185/110 mmHg</strong>. Dożylny <span class="drug-tag">Urapidyl</span> lub labetalol do obniżenia. Alternatywa: <span class="drug-tag">Tenekteplaza (TNK)</span> w pojedynczym bolusie 0,25 mg/kg m.c.</li>
+                            <li><strong>Odwracanie działania NOAC przed rt-PA:</strong> Dabigatran <i class="fa-solid fa-arrow-right"></i> <span class="drug-tag">Idarucyzumab</span> (5 g i.v.). Rywaroksaban/Apiksaban <i class="fa-solid fa-arrow-right"></i> Koncentrat czynników zespołu protrombiny (PCC) lub Andexanet alfa.</li>
+                            <li><strong>Udar Lakunarny:</strong> Przyczyną jest <strong>lipohialinoza</strong> (zwyrodnienie tłuszczowo-szkliste) małych tętnic przeszywających związana z nadciśnieniem (brak etiologii zatorowej).</li>
+                            <li><strong>SAH (Krwawienie Podpajęczynówkowe):</strong> Pęknięcie tętniaka. Piorunujący ból głowy, objawy oponowe. Skala Hunt-Hess (kliniczna) i Fishera (TK). Profilaktyka skurczu naczyń: bloker kanałów wapniowych <span class="drug-tag">Nimodypina</span> doustnie 60 mg co 4 godziny przez 21 dni.</li>
+                            <li><strong>Krwotoki nietypowe:</strong> Płatowe krwotoki śródmózgowe u starszych pacjentów bez nadciśnienia wywoływane są przez <strong>Cerebralną Angiopatię Amyloidową (CAA)</strong> (odkładanie beta-amyloidu w naczyniach korowych). Krwotoki typowe (jądra podstawy) wywołane są pęknięciem mikrotętniaków Charcota-Boucharda wskutek nadciśnienia.</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n2')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n2')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -587,16 +592,17 @@
             <div class="list-layout" id="lay-neu3">
                 <div class="horizontal-card" id="n3" style="border-left: 6px solid #8b5cf6;">
                     <div class="hc-header">
-                        <div class="hc-title"><i class="fa-solid fa-ribbon"></i> SM oraz Spektrum NMOSD</div>
-                        <div><span class="card-badge badge-neuro">Demielinizacje</span></div>
+                        <div class="hc-title"><i class="fa-solid fa-ribbon"></i> SM oraz Spektrum NMOSD (Choroba Devica)</div>
+                        <div><span class="card-badge badge-neuro">Zapalne / OCB</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Stwardnienie Rozsiane (SM):</strong> Autoimmunologiczny proces demielinizacji powiązany z allelem HLA-DRB1*1501. Zjawisko Uhthoffa. Rozsianie w przestrzeni (DIS) i czasie (DIT). <strong>Wykrycie prążków oligoklonalnych (OCB) w płynie mózgowo-rdzeniowym pozwala zastąpić kryterium rozsiania w czasie (DIT)</strong>.</li>
-                            <li><strong>Spektrum NMOSD (Choroba Devica):</strong> Akwaporynopatia, obecność przeciwciał <strong>anty-AQP4</strong>. Rozległe poprzeczne zapalenie rdzenia (LETM ≥3 segmenty). OCB zazwyczaj nieobecne. Leki pierwszego rzutu z SM są w NMOSD przeciwwskazane.</li>
+                            <li><strong>Stwardnienie Rozsiane (SM):</strong> Autoimmunologiczny proces powiązany z allelem HLA-DRB1*1501. Pozagałkowe zapalenie n. wzrokowego (RBN) z mroczkiem i bólem przy ruchach gałki, <strong>zjawisko Uhthoffa</strong> (nasilenie objawów w cieple). Kryteria McDonalda 2017 wymagają rozsiania w przestrzeni (DIS - plaki tworzące <strong>Palce Dawsona</strong>) i czasie (DIT). <strong>Wykrycie prążków oligoklonalnych (OCB) w płynie mózgowo-rdzeniowym pozwala zastąpić kryterium rozsiania w czasie (DIT)</strong>. Rzut leczy się metylprednizolonem i.v. 1,0 g przez 3-5 dni.</li>
+                            <li><strong>Toksyczności DMT w SM:</strong> Fingolimod (bradykardia, blok AV, wymaga 6h nadzoru EKG przy 1. dawce). Natalizumab (ryzyko PML - postępującej wieloogniskowej leukoencefalopatii wywołanej reaktywacją <strong>wirusa JC</strong>).</li>
+                            <li><strong>Spektrum NMOSD (Choroba Devica):</strong> Akwaporynopatia, autoprzeciwciała <strong>anty-AQP4</strong> niszczące astrocyty za pośrednictwem dopełniacza. Rozległe poprzeczne zapalenie rdzenia (<strong>LETM – ognisko ≥3 segmenty kręgów</strong>). Prążki oligoklonalne (OCB) są <strong>ZAZWYCZAJ NIEOBECNE</strong>. Leki pierwszego rzutu z SM są w NMOSD przeciwwskazane, bo nasilają rzuty!</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n3')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n3')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -604,45 +610,60 @@
         <div id="neu4" class="content-tab">
             <div class="module-header neu-border">
                 <h1>4. Epileptologia & Status</h1>
-                <p>Protokoły ratunkowe leczenia stanu padaczkowego.</p>
+                <p>Protokoły ratunkowe leczenia stanu padaczkowego i profil AED.</p>
             </div>
             <div class="list-layout" id="lay-neu4">
                 <div class="horizontal-card" id="n4" style="border-left: 6px solid #eab308;">
                     <div class="hc-header">
-                        <div class="hc-title"><i class="fa-solid fa-bolt"></i> Stan Padaczkowy i Toksykodynamika Leków</div>
-                        <div><span class="card-badge badge-warn">Napady Ostre</span></div>
+                        <div class="hc-title"><i class="fa-solid fa-bolt"></i> Stan Padaczkowy, AED i Napady Alkoholowe</div>
+                        <div><span class="card-badge badge-warn">Status / B1 Dogmat</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Stan Padaczkowy (&gt;5 min):</strong> Faza 1 (5-20 min) – Diazepam 10-20 mg i.v. powoli (max 5 mg/min) lub Midazolam 10 mg i.m. przy braku wkłucia żylnego. Faza 2 (20-40 min) – Kwas walproinowy i.v. (40 mg/kg m.c.) lub Lewetiracetam i.v. 60 mg/kg m.c. Faza 3 (&gt;40 min) – OIOM, intubacja, ciągły wlew Propofolu do wzorca burst-suppression w cEEG.</li>
-                            <li><strong>Napady Alkoholowe:</strong> Okno 6-48h po zaprzestaniu picia. Są to wyłącznie napady pierwotnie uogólnione toniczno-kloniczne. <strong>Bezwzględny nakaz: podać Tiaminę (Witaminę B1) 100-200 mg i.v./i.m. PRZED podaniem jakiejkolwiek glukozy</strong>, aby uniknąć nieodwracalnej Encefalopatii Wernickego.</li>
-                            <li><strong>Toksyczności AED:</strong> Kwas walproinowy (bezwzględny zakaz u kobiet w wieku rozrodczym – wady cewy nerwowej, hiperamonemia); Karbamazepina (hiponatremia SIADH-like, induktor CYP3A4).</li>
+                            <li><strong>Stan Padaczkowy (Status Epilepticus):</strong> Napad drgawkowy uogólniony trwający nieprzerwanie &gt; 5 minut lub seria bez odzyskiwania przytomności.
+                                <br>- Faza 1 (5-20 min) – Benzodiazepiny i.v.: <span class="drug-tag">Diazepam</span> 10-20 mg powoli (max 5 mg/min – ryzyko depresji ośrodka oddechowego) lub Klonazepam 1-2 mg. Brak wkłucia -> <span class="drug-tag">Midazolam</span> 10 mg i.m. (standard przedszpitalny).
+                                <br>- Faza 2 (20-40 min) – <span class="drug-tag">Kwas walproinowy</span> i.v. (40 mg/kg m.c.) lub Lewetiracetam i.v. 60 mg/kg m.c.
+                                <br>- Faza 3 (&gt;40 min) – Stan refrakterny, OIOM, intubacja, wlew ciągły Propofolu lub Tiopentalu do wzorca burst-suppression w cEEG.
+                            </li>
+                            <li><strong>Alkoholowe Napady z Odstawienia:</strong> Występują 6-48h po zaprzestaniu picia, mają charakter <strong>wyłącznie pierwotnie uogólniony toniczno-kloniczny</strong>. Ostre leczenie: benzodiazepiny.
+                                <br><strong>Katedralny dogmat ratunkowy: Każdy pacjent z napadem alkoholowym musi otrzymać Tiaminę (Witaminę B1) w dawce 100–200 mg i.v./i.m. PRZED podaniem jakiejkolwiek glukozy. Podanie glukozy przy niedoborze B1 natychmiast wyzwala ostrą, nieodwracalną Encefalopatię Wernickego (triada: oczopląs/porażenie n. VI, ataksja, zaburzenia świadomości).</strong>
+                            </li>
+                            <li><strong>Toksyczności AED:</strong>
+                                <br>- <strong>Kwas walproinowy (VPA):</strong> Najwyższa teratogenność (wady cewy, bezwzględny zakaz u kobiet w wieku rozrodczym), przyrost masy ciała, hepatotoksyczność, **hiperamonemia** (splątanie przy prawidłowych wartościach transaminaz AspAT/AlAT), PCOS.
+                                <br>- <strong>Karbamazepina (CBZ):</strong> Ogniskowe i neuralgia n. V. **Skutek uboczny: hiponatremia z rozcieńczenia (SIADH-like)**. Ryzyko SJS (HLA-B*1502). Silny induktor CYP3A4 (osłabia antykoncepcję).
+                                <br>- <strong>Lamotrygina (LTG):</strong> Najbezpieczniejsza w ciąży. Wymaga powolnej titracji ze względu na ryzyko SJS.
+                                <br>- <strong>Etosuksymid:</strong> Wybór w napadach nieświadomości u dzieci. EEG: uogólniony **zapis iglica-fala o częstotliwości 3 Hz** podczas hiperwentylacji.
+                            </li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n4')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n4')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
 
         <div id="neu5" class="content-tab">
             <div class="module-header neu-border">
-                <h1>5. Zespoły Otępienne i Neurodegeneracje</h1>
+                <h1>5. Neurozwyrodnienia & Otępienia</h1>
                 <p>Diagnostyka różnicowa i kryteria alzheimerowskie.</p>
             </div>
             <div class="list-layout" id="lay-neu5">
                 <div class="horizontal-card" id="n5" style="border-left: 6px solid #fbbf24;">
                     <div class="hc-header">
-                        <div class="hc-title"><i class="fa-solid fa-clock"></i> Choroba Alzheimera oraz Otępienie z Ciałami Lewy'ego</div>
-                        <div><span class="card-badge badge-warn">Zwyrodnienia poznawcze</span></div>
+                        <div class="hc-title"><i class="fa-solid fa-clock"></i> Zespoły Otępienne i Kryteria Różnicowe</div>
+                        <div><span class="card-badge badge-warn">Otępienia</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Choroba Alzheimera (AD):</strong> Akumulacja zewnątrzkomórkowego beta-amyloidu Aβ42 oraz splotów tau. Obustronny zanik struktur formacji hipokampa w MRI.</li>
-                            <li><strong>Otępienie z Ciałami Lewy'ego (DLB):</strong> Fluktuacje uwagi, omamy wzrokowe. <strong>Reguła 1 Roku:</strong> Otępienie musi wyprzedzić parkinsonizm ruchowy lub wystąpić w ciągu maksymalnie 12 miesięcy od ich początku. Skrajna śmiertelna nadwrażliwość na klasyczne neuroleptyki (Haloperidol)! Omamy leczymy wyłącznie Rywastygminą.</li>
-                            <li><strong>Otępienie Czołowo-Skroniowe (bvFTD):</strong> Zmiany osobowości, odhamowanie społeczne. Inhibitory acetylocholinesterazy są przeciwwskazane (nasilają agresję).</li>
+                            <li><strong>Choroba Alzheimera (AD):</strong> Beta-amyloid Aβ42 i białko tau. Utrata pamięci epizodycznej. **MR mózgu wykazuje selektywny, obustronny zanik formacji hipokampa**. Inhibitory acetylocholinesterazy – <span class="drug-tag">Donepezil</span>, Rywastygmina; w zaawansowanym stadium <span class="drug-tag">Memantyna</span> (antagonista NMDA).</li>
+                            <li><strong>Otępienie z Ciałami Lewy'ego (DLB):</strong> Synukleinopatia, fluktuacje uwagi, zaburzenia snu REM, wczesne żywe omamy wzrokowe.
+                                <br><strong>Reguła 1 Roku (Kanon Katedry):</strong> Otępienie **musi wyprzedzić parkinsonizm ruchowy LUB pojawić się maksymalnie w ciągu pierwszych 12 miesięcy (1 roku) od jego wystąpienia**. Jeśli parkinsonizm trwa latami przed otępieniem – rozpoznaniem jest PDD. Klasyczne neuroleptyki (Haloperidol) wywołują śmiertelny blok ruchowy lub NMS. Omamy leczymy wyłącznie <span class="drug-tag">Rywastygminą</span>.
+                            </li>
+                            <li><strong>Otępienie Czołowo-Skroniowe (bvFTD):</strong> Zanik płatów czołowych i skroniowych ("ostrze noża"). Zmiany osobowości, odhamowanie społeczne, utrata empatii, hiperoralność. **Inhibitory acetylocholinesterazy są bezwzględny przeciwwskazane – drastycznie nasilają agresję pacjenta!**</li>
+                            <li><strong>Choroba Creutzfeldta-Jakoba (CJD):</strong> Piorunujące otępienie prionowe ($PrP^{Sc}$). **Mioklonie wrażliwe na bodźce (startle myoclonus)**. PMR: białko <strong>14-3-3</strong>, test RT-QuIC; EEG: zespoły PSWC; MRI: **objaw wstążki korowej (cortical ribboning)**.</li>
+                            <li><strong>Wodogłowie Normotensyjne (NPH / Zespół Hakima-Adamsa):</strong> **Triada Hakima**: 1. Zaburzenia chodu (magnetyczny - stopy przyklejone do podłogi), 2. Nietrzymanie moczu, 3. Otępienie podkorowe. Poprawa chodu po upuście płynu M-R (Tap-Test). Zastawka komorowo-otrzewnowej (VP shunt).</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n5')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n5')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -655,17 +676,20 @@
             <div class="list-layout" id="lay-neu6">
                 <div class="horizontal-card" id="n6" style="border-left: 6px solid #10b981;">
                     <div class="hc-header">
-                        <div class="hc-title"><i class="fa-solid fa-dumbbell"></i> GBS, Miastenia oraz Dystrofie</div>
-                        <div><span class="card-badge badge-success">Obwód / Mięśnie</span></div>
+                        <div class="hc-title"><i class="fa-solid fa-dumbbell"></i> GBS, Patologia Złącza i Dystrofie Mięśniowe</div>
+                        <div><span class="card-badge badge-success">Muskularne</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Zespół Guillaina-Barrégo (GBS):</strong> Wstępujący symetryczny wiotki niedowład z arefleksją. PMR: rozszczepienie cytoalbuminowe. Sterydy w ostrym GBS stanowią błąd.</li>
-                            <li><strong>Miastenia Gravis vs LEMS:</strong> Miastenia to blokada postsynaptyczna (anty-AChR), zjawisko dekrementu (&gt;10%), powiązana z grasiczakiem. LEMS to blokada presynaptyczna (anty-VGCC), zespół paranowotworowy w przebiegu raka drobnokomórkowego płuca (SCLC), zjawisko inkrementu (&gt;100%).</li>
-                            <li><strong>Dystrofia Duchenne'a (DMD) & Emery'ego-Dreifussa (EDMD):</strong> DMD (brak dystrofiny, kinaza CK podwyższona 50-200 krotnie). EDMD (przykurcze, niedowład ramieniowo-strzałkowy, kardiomiopatia z blokami AV II/III stopnia – nakaz pilnej implantacji stymulatora serca).</li>
+                            <li><strong>Zespół Guillaina-Barrégo (GBS):</strong> Ostra poliradikuloneuropatia demielinizacyjna po infekcji *Campylobacter jejuni*. **Wstępujący**, symetryczny niedowład wiotki z **bezwzględną arefleksją**. PMR w 2. tygodniu: **rozszczepienie cytoalbuminowe (wysokie białko przy prawidłowej cytozie)**. Sterydy w ostrym GBS są nieskuteczne i stanowią błąd. Leczenie: IVIG lub plazmafereza.</li>
+                            <li><strong>Miastenia Gravis (MG):</strong> Patologia <strong>postsynaptyczna</strong>. Autoprzeciwciała <strong>anty-AChR</strong>. Powiązana z hiperplazją grasicy lub <strong>grasiczakiem (Thymoma)</strong> – bezwzględne wskazanie do TK klatki! Patologiczna nużliwość mięśni, ptoza, diplopia. Odruchy ścięgniste zachowane. EMG: **zjawisko dekrementu amplitudy (spadek o &gt;10%)**. Leczenie: <span class="drug-tag">Pirydostygmina</span> (Mestinon).</li>
+                            <li><strong>Zespół Lamberta-Eatona (LEMS):</strong> Patologia <strong>presynaptyczna</strong>. Autoprzeciwciała <strong>anty-VGCC</strong> (zablokowany wyrzut ACh). Zespół paranowotworowy współistniejący z <strong>rakiem drobnokomórkowym płuca (SCLC)</strong>. Osłabienie mięśni obręczy biodrowej, suchość w jamie ustnej. Odruchy głębokie zniesione w spoczynku, poprawiają się po wysiłku. EMG: **zjawisko potężnego inkrementu amplitudy (torowanie o &gt;100%)**. Leczenie: <span class="drug-tag">Amifamfrydyna</span>.</li>
+                            <li><strong>Dystrofia Mięśniowa Duchenne'a (DMD):</strong> Sprzężona z X. Brak **dystrofiny**. Chód kaczkowaty, **objaw Gowersa**, **rzekomy przerost mięśni łydek (pseudohipertrofia)**. Laboratorium: **kinaza fosfokreatynowa (CK / CPK) 50- do 200-krotnie podwyższona (10 000 – 50 000 U/l)** od urodzenia.</li>
+                            <li><strong>Dystrofia Emery'ego-Dreifussa (EDMD):</strong> Defekt emeryny/laminy. **Klasyczna Triada Objawów**: 1. Wczesne przykurcze, 2. Niedowład ramieniowo-strzałkowy, 3. **Kardiomiopatia z ciężkimi blokami przewodzenia AV II/III stopnia** (ryzyko nagłego zgonu sercowego). **Postępowanie ratunkowe: natychmiastowa, profilaktyczna implantacja stymulatora serca (pacemaker) lub ICD.**</li>
+                            <li><strong>Zwyrodnienie Sznurowe Rdzenia (SCD):</strong> Niedobór witaminy B12. Degeneracja **sznurów tylnych** (utrata czucia głębokiego, wibracji, ataksja czuciowa) oraz **dróg piramidowych bocznych** (niedowład spastyczny, objaw Babińskiego).</li>
                         </ul>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n6')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n6')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -673,30 +697,76 @@
         <div id="neu7" class="content-tab">
             <div class="module-header neu-border">
                 <h1>7. Zespoły Bólowe & PMR</h1>
-                <p>Diagnostyka różnicowa płynu mózgowo-rdzeniowego.</p>
+                <p>Zapalenia tętnic, bóle klasterowe i diagnostyka różnicowa płynu mózgowo-rdzeniowego.</p>
             </div>
             <div class="list-layout" id="lay-neu7">
                 <div class="horizontal-card" id="n7" style="border-left: 6px solid #e11d48;">
                     <div class="hc-header">
-                        <div class="hc-title"><i class="fa-solid fa-head-side-virus"></i> Horton, Klaster oraz Diagnostyka Laboratoryjna</div>
-                        <div><span class="card-badge badge-danger">Analizy PMR</span></div>
+                        <div class="hc-title"><i class="fa-solid fa-head-side-virus"></i> Horton, Klaster oraz Laboratorium Płynu M-R</div>
+                        <div><span class="card-badge badge-danger">Kliniczne zestawienie</span></div>
                     </div>
                     <div class="hc-body">
                         <ul>
-                            <li><strong>Klasterowy ból głowy:</strong> Jednostronny rozdzierający ból w oczodole. Pobudzenie ruchowe. Przerywanie napadu: inhalacja 100% tlenu medycznego (10-15 l/min) przez maskę z rezerwuarem.</li>
-                            <li><strong>Choroba Hortona:</strong> Zapalenie tętnicy skroniowej, ryzyko ślepoty. OB &gt;100 mm/h. Chromanie żuchwy. <strong>Dogmat: Podejrzenie nakazuje natychmiastowe podanie sterydów i.v. przed biopsją naczyń</strong>.</li>
+                            <li><strong>Klasterowy ból głowy:</strong> Jednostronny, rozdzierający ból w oczodole (15-180 min) z objawami wegetatywnymi ipsilateralnie. Pacjent w napadzie jest **skrajnie pobudzony ruchowo – biega, krzyczy**. Przerwanie napadu: inhalacja **100% tlenu medycznego (10-15 l/min) przez maskę z rezerwuarem** LUB sumatryptan s.c. Profilaktyka: <span class="drug-tag">Werapamil</span> (wymaga nadzoru EKG - bloki serca).</li>
+                            <li><strong>Zapalenie Tętnicy Skroniowej (Choroba Hortona):</strong> Zapalenie naczyń u osób **&gt;50. r.ż.** Tkliwa skroniowa, **chromanie żuchwy** (bólem żwaczy przy żuciu). Ekstremalny wzrost **OB (&gt;100 mm/h)** i CRP. Ryzyko nagłej nieodwracalnej ślepoty. <strong>Katedralny dogmat ratunkowy: W przypadku podejrzenia klinicznego należy NATYCHMIAST podać wysokie dawki sterydów (Metylprednizolon i.v. 1 g przez 3 dni) bez oczekiwania na wynik biopsji tętnicy!</strong></li>
                         </ul>
+                        
                         <div class="table-container">
                             <table>
-                                <thead><tr><th>Zapalenie Opon</th><th>Wygląd PMR</th><th>Pleocytoza</th><th>Przewaga</th><th>Białko</th><th>Glukoza (PMR/Krew)</th></tr></thead>
+                                <thead>
+                                    <tr>
+                                        <th>Typ Zapalenia Opon</th>
+                                        <th>Wygląd PMR</th>
+                                        <th>Pleocytoza (komórki/$\mu l$)</th>
+                                        <th>Skład komórkowy (Przewaga)</th>
+                                        <th>Białko całkowite (mg/dl)</th>
+                                        <th>Glukoza (PMR/Krew)</th>
+                                        <th>Chlorki (mmol/l)</th>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                    <tr><td><b>Bakteryjne Ropne</b></td><td>Mętny, żółty</td><td>W tysiącach</td><td>Neutrofile</td><td>100-500</td><td>&lt; 40%</td></tr>
-                                    <tr><td><b>Gruźlicze Swoiste</b></td><td>Żółtawy</td><td>Umiarkowana</td><td>Limfocyty</td><td>&gt; 500 (Ekstremalne)</td><td>&lt; 30% (Chlorki &lt;115!)</td></tr>
+                                    <tr>
+                                        <td><b>Prawidłowy PMR</b></td>
+                                        <td>Wodojasny, klarowny</td>
+                                        <td>0 – 5</td>
+                                        <td>Limfocyty</td>
+                                        <td>15 – 45</td>
+                                        <td>&gt; 60% stężenia we krwi</td>
+                                        <td>120 – 130</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Bakteryjne (Ropne)</b></td>
+                                        <td>Mętny, żółty, ropny</td>
+                                        <td><b>Wysoka: w tysiącach</b></td>
+                                        <td><b>Neutrofile (granulocyty)</b></td>
+                                        <td>Wysokie (100 – 500)</td>
+                                        <td><b>Silnie obniżona (&lt; 40%)</b></td>
+                                        <td>Norma / lekki spadek</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Wirusowe (Aseptyczne)</b></td>
+                                        <td>Przejrzysty, wodojasny</td>
+                                        <td>Umiarkowana (20 – 500)</td>
+                                        <td><b>Limfocyty</b></td>
+                                        <td>Norma / lekki wzrost (45–100)</td>
+                                        <td><b>Prawidłowa (&gt; 60%)</b></td>
+                                        <td>Normalne</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Gruźlicze (Swoiste)</b></td>
+                                        <td>Przejrzysty, żółtawy</td>
+                                        <td>Umiarkowana (100 – 500)</td>
+                                        <td><b>Limfocyty</b> (mieszany)</td>
+                                        <td><b>Ekstremalnie wysokie (&gt;500)</b></td>
+                                        <td>Obniżona (&lt; 30%)</td>
+                                        <td><b>Skrajnie OBNIŻONE (&lt;115)</b></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
+                        <p style="margin-top: 12px; font-size: 13px; color: #9ca3af;">* <i>Haczyk gruźliczy:</i> Profil składający się ze skrajnie wysokiego białka, niskiej glukozy oraz wybitnie obniżonych chlorków (&lt;115 mmol/l) jest patognomoniczny dla Mycobacterium tuberculosis.</p>
                     </div>
-                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n7')"><i class="fa-solid fa-palette"></i> Edytuj</button></div>
+                    <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('n7')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
                 </div>
             </div>
         </div>
@@ -778,6 +848,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <script>
@@ -788,8 +859,8 @@
         let neurologyQuizDB = [
             { id: 2001, year: "2026", q: "Antidotum dla inhibitorów czynnika Xa (apiksaban, rywaroksaban) zatwierdzone przez Katedrę to:", opts: ["Idarucyzumab", "Witamina K", "Koncentrat czynników zespołu protrombiny (PCC) lub Andexanet alfa", "Siarczan protaminy"], ans: 2, rat: "Dla rywaroksabanu i apiksabanu właściwym postępowaniem jest podanie PCC lub Andexanetu alfa." },
             { id: 2002, year: "2026", q: "Ośrodkowe uszkodzenie nerwu twarzowego (VII) objawia się klinicznie jako:", opts: ["Porażenie wszystkich mięśni mimicznych połowy twarzy po stronie uszkodzenia", "Niedowład mięśni mimicznych dolnej połowy twarzy po stronie przeciwnej do uszkodzenia", "Zaburzenia smaku w przednich 2/3 języka z opadaniem powłok", "Objaw Bella po stronie ipsilateralnej"], ans: 1, rat: "Uszkodzenie nadjądrowe oszczędza górną część twarzy (czoło, oko) z uwagi na obustronne korowe unerwienie, wywołując niedowład wyłącznie dołu twarzy kontralateralnie." },
-            { id: 2003, year: "2025", q: "Przeciwciała przeciwko akwaporynie 4 (anty-AQP4) wykazują wysoką swoistość i patognomoniczność dla:", opts: ["Stwardnienia rozsianego (SM)", "Zapalenia nerwów wzrokowych i rdzenia kręgowego (NMOSD / choroba Devica)", "Ostrego rozsianego zapalenia mózgu i rdzenia (ADEM)", "Zespołu Guillaina-Barrégo"], ans: 1, rat: "Anty-AQP4 różnicują NMOSD od stwardnienia rozsianego, stanowiąc marker astropatii I TERMIN.docx]." },
-            { id: 2004, year: "2025", q: "Objawem ruchowym bezwzględnie koniecznym do postawienia klinicznego rozpoznania idiopatycznej choroby Parkinsona jest:", opts: ["Sztywność mięśniowa o charakterze plastycznym", "Drżenie spoczynkowe czterotaktowe", "Spowolnienie ruchowe (bradykineza)", "Zaburzenia odruchów posturalnych z upadkami"], ans: 2, rat: "Kryteria rozpoznania choroby Parkinsona wymagają obecności spowolnienia ruchowego (bradykinezy) jako objawu osiowego I TERMIN.docx]." }
+            { id: 2003, year: "2025", q: "Przeciwciała przeciwko akwaporynie 4 (anty-AQP4) wykazują wysoką swoistość i patognomoniczność dla:", opts: ["Stwardnienia rozsianego (SM)", "Zapalenia nerwów wzrokowych i rdzenia kręgowego (NMOSD / choroba Devica)", "Ostrego rozsianego zapalenia mózgu i rdzenia (ADEM)", "Zespołu Guillaina-Barrégo"], ans: 1, rat: "Anty-AQP4 różnicują NMOSD od stwardnienia rozsianego, stanowiąc marker astropatii." },
+            { id: 2004, year: "2025", q: "Objawem ruchowym bezwzględnie koniecznym do postawienia klinicznego rozpoznania idiopatycznej choroby Parkinsona jest:", opts: ["Sztywność mięśniowa o charakterze plastycznym", "Drżenie spoczynkowe czterotaktowe", "Spowolnienie ruchowe (bradykineza)", "Zaburzenia odruchów posturalnych z upadkami"], ans: 2, rat: "Kryteria rozpoznania choroby Parkinsona wymagają obecności spowolnienia ruchowego (bradykinezy) jako objawu osiowego." }
         ];
 
         let genStats = { total: 0, correct: 0 };
@@ -809,7 +880,7 @@
             });
         }
 
-        // ZAAWANSOWANY STANOWY AUTOMAT PARSERUJĄCY TEKST (WYKRYWA 100% PYTAŃ Z DOKUMENTÓW)
+        // ZAAWANSOWANY STANOWY AUTOMAT PARSERUJĄCY TEKST (DETEKCJA 100% PYTAŃ Z DOKUMENTÓW)
         async function parseIncomingFile(targetBlock) {
             const input = targetBlock === 'genetics' ? document.getElementById('fileInputGen') : document.getElementById('fileInputNeu');
             const file = input.files[0];
@@ -861,17 +932,14 @@
                 }
             } catch(e) {}
 
-            // Zaawansowany Automat Stanowy do ekstrakcji pytań z nieliniowych dokumentów tekstowych
             const wyekstrahowanePytania = [];
             const linie = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             
             let obecnePytanie = null;
 
             linie.forEach(linia => {
-                // Wykrywanie nowej linii pytania (Numeracja na początku lub znak zapytania na końcu)
                 const czyNowePytanie = linia.match(/^\d+[\.\)]/) || linia.endsWith('?') || linia.toLowerCase().includes('wskaż') || linia.toLowerCase().includes('które');
-                // Wykrywanie nowej opcji odpowiedzi (Rozpoznaje struktury typu: A., A), - A itp.)
-                const czyOpcja = linia.match(/^[A-E][\.\)\-]/) || linia.match(/^[a-e][\.\)\-]/);
+                const czyOpcja = linia.match(/^[A-Ea-e][\.\)\-]/);
 
                 if (czyNowePytanie && !czyOpcja) {
                     if (obecnePytanie && obecnePytanie.opts.length >= 2) {
@@ -888,7 +956,6 @@
                 } else if (czyOpcja && obecnePytanie) {
                     obecnePytanie.opts.push(linia.replace(/^[A-Ea-e][\.\)\-]/, '').trim());
                 } else if (obecnePytanie && !czyOpcja) {
-                    // Blok obsługi pytań wieloliniowych
                     obecnePytanie.q += " " + linia;
                 }
             });
@@ -901,7 +968,7 @@
                 alert(`Sukces: Parser Katedralny poprawnie wyodrębnił ${wyekstrahowanePytania.length} pytań z dokumentu.`);
                 if(block === 'genetics') renderGeneticsQuiz(); else renderNeurologyQuiz();
             } else {
-                alert("Błąd dopasowania struktur. Upewnij się, że pytania kończą się znakiem zapytania lub posiadają opcje rozpoczynające się od A), B), C), D).");
+                alert("Błąd dopasowania struktur. Sprawdź plik wejściowy.");
             }
         }
 
@@ -962,7 +1029,7 @@
                 <div class="horizontal-card" id="${uId}" style="border-left: 6px solid ${borderCol};">
                     <div class="hc-header">
                         <div class="hc-title"><i class="fa-solid ${icon}"></i> ${title}</div>
-                        <div><span class="card-badge ${isGen ? 'badge-gen' : 'badge-neuro'}">Modyfikacja</span></div>
+                        <div><span class="card-badge ${isGen ? 'badge-gen' : 'badge-neuro'}">Wpis własny</span></div>
                     </div>
                     <div class="hc-body">${listHTML}</div>
                     <div class="card-actions"><button class="btn-inline" onclick="openVisualEditor('${uId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button></div>
