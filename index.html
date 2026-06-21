@@ -1769,5 +1769,74 @@
             };
         })();
     </script>
+    <script>
+        // 1. Nadpisujemy funkcję przetwarzającą pliki, aby natychmiast rozpoznawała format JSON
+        window.processTextBaza = function(text, block) {
+            try {
+                // Próba odczytania pliku jako czystej struktury JSON
+                const parsed = JSON.parse(text);
+                if (Array.isArray(parsed)) {
+                    // Czyścimy dotychczasową tablicę przed nowym importem, aby zapobiec duplikatom
+                    if (block === 'genetics') {
+                        window.geneticsQuizDB = parsed;
+                        if (typeof renderGeneticsQuiz === 'function') renderGeneticsQuiz();
+                    } else {
+                        window.neurologyQuizDB = parsed;
+                        if (typeof renderNeurologyQuiz === 'function') renderNeurologyQuiz();
+                    }
+                    
+                    alert(`Sukces! Czytnik pomyślnie załadował ${parsed.length} pytań z pliku JSON.`);
+                    
+                    // Informujemy pasek administratora o gotowości do synchronizacji
+                    const status = document.getElementById("sync-status");
+                    if (status) {
+                        status.innerText = " Oczekuje na Push...";
+                        status.style.color = "#fbbf24";
+                    }
+                    return; // Koniec operacji dla JSON
+                }
+            } catch (e) {
+                // Jeśli plik nie jest JSON-em, aktywuje się awaryjny, standardowy parser tekstowy
+            }
+
+            // Awaryjny parser tekstowy (gdybyś wgrywał plik TXT/DOCX)
+            const wyekstrahowanePytania = [];
+            const linie = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            let obecnePytanie = null;
+
+            linie.forEach(linia => {
+                const czyNowePytanie = linia.match(/^\d+[\.\)]/) || linia.endsWith('?');
+                const czyOpcja = linia.match(/^[A-Ea-e][\.\)\-]/);
+
+                if (czyNowePytanie && !czyOpcja) {
+                    if (obecnePytanie && obecnePytanie.opts.length >= 2) wyekstrahowanePytania.push(obecnePytanie);
+                    obecnePytanie = {
+                        id: Date.now() + Math.random(),
+                        year: "2026",
+                        q: linia.replace(/^\d+[\.\)]/, '').trim(),
+                        opts: [],
+                        ans: 0,
+                        rat: "Ekstrakcja automatyczna."
+                    };
+                } else if (czyOpcja && obecnePytanie) {
+                    obecnePytanie.opts.push(linia.replace(/^[A-Ea-e][\.\)\-]/, '').trim());
+                }
+            });
+            if (obecnePytanie && obecnePytanie.opts.length >= 2) wyekstrahowanePytania.push(obecnePytanie);
+
+            if (wyekstrahowanePytania.length > 0) {
+                if (block === 'genetics') {
+                    window.geneticsQuizDB = wyekstrahowanePytania;
+                    if (typeof renderGeneticsQuiz === 'function') renderGeneticsQuiz();
+                } else {
+                    window.neurologyQuizDB = wyekstrahowanePytania;
+                    if (typeof renderNeurologyQuiz === 'function') renderNeurologyQuiz();
+                }
+                alert(`Pomyślnie przetworzono tekst i wyodrębniono ${wyekstrahowanePytania.length} pytań.`);
+            } else {
+                alert("Błąd krytyczny struktury: Czytnik nie był w stanie dopasować formatu danych. Upewnij się, że wgrywasz poprawny plik.");
+            }
+        };
+    </script>
 </body>
 </html>
