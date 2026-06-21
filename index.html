@@ -1188,5 +1188,41 @@
             el.style.color = sc >= 65 ? 'var(--color-success)' : 'var(--color-danger)';
         }
     </script>
+
+ <!-- Wklej na samym dole pliku, tuż przed </body> -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // 1. Twoja konfiguracja Firebase (Uzupełnij apiKey oraz appId!)
+    const firebaseConfig = {
+        apiKey: "AIzaSyBZmrhKXYnZlYVsUpDtcizCrpiO2_qTErw",
+        authDomain: "baza-fc9ef.firebaseapp.com",
+        projectId: "baza-fc9ef",
+        storageBucket: "baza-fc9ef.appspot.com",
+        messagingSenderId: "148935839867",
+        appId: "1:148935839867:web:b6bf1bcfb1ed79f252d2de"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const docRef = doc(db, "strony", "glowna");
+
+    // 2. Bezpieczne opakowanie całej Twojej strony bez niszczenia skryptów
+    const wrapper = document.createElement("div");
+    wrapper.id = "live-page-wrapper";
+    wrapper.style.paddingBottom = "90px"; // Miejsce na panel na dole
+
+    while (document.body.firstChild) {
+        wrapper.appendChild(document.body.firstChild);
+    }
+    document.body.appendChild(wrapper);
+
+    // 3. Dodanie paska zapisu na samym dole strony
+    const adminBar = document.createElement("div");
+    adminBar.style.cssText = "position:fixed; bottom:0; left:0; right:0; background:#111; color:#fff; padding:15px; text-align:center; font-family:sans-serif; z-index:999999; border-top:3px solid #007bff; display:flex; justify-content:center; align-items:center; gap:10px; box-shadow: 0 -3px 10px rgba(0,0,0,0.5);";
+    adminBar.innerHTML = `
+        <span style="font-size:14px; font-weight:boldNo response
+
 </body>
 </html>
