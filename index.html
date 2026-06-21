@@ -113,6 +113,39 @@
         .btn.primary { background: #1e293b; color: white; border: none; }
         .wgraj-box { border: 2px dashed #3b82f6; border-radius: 8px; padding: 20px; text-align: center; background-color: rgba(59, 130, 246, 0.03); margin-bottom: 24px; }
     </style>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // Wklej tutaj dane skopiowane z Firebase (podmień poniższe wartości)
+  const firebaseConfig = {
+      apiKey: "AIzaSyBZmrhKXYnZlYVsUpDtcizCrpiO2_qTErw",
+    authDomain: "baza-fc9ef.firebaseapp.com",
+    projectId: "baza-fc9ef",
+    storageBucket: "baza-fc9ef.firebasestorage.app",
+    messagingSenderId: "148935839867",
+    appId: "1:148935839867:web:b6bf1bcfb1ed79f252d2de",
+    measurementId: "G-DT8PDH2VVM"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // Funkcja zapisująca dane do chmury
+  window.saveToCloud = async (data) => {
+    await addDoc(collection(db, "notatki"), data);
+  };
+
+  // Nasłuchiwanie zmian w bazie na żywo
+  onSnapshot(collection(db, "notatki"), (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === "added") {
+        // Funkcja renderująca - upewnij się, że masz ją w swoim skrypcie!
+        renderSingleCard(change.doc.data());
+      }
+    });
+  });
+</script>
 </head>
 <body>
 
