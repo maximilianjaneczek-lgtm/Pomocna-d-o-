@@ -1577,14 +1577,14 @@
         const passInput = document.getElementById("admin-pass");
         const status = document.getElementById("sync-status");
 
-        onSnapshot(docRef, (docSnapshot) => {
-            if (docSnapshot.exists()) {
-                const dane = docSnapshot.data();
-                if (document.activeElement !== passInput) {
-                    wrapper.innerHTML = dane.kodHTML || "";
-                }
-            }
-        });
+      //  onSnapshot(docRef, (docSnapshot) => {
+         //   if (docSnapshot.exists()) {
+       //         const dane = docSnapshot.data();
+       //         if (document.activeElement !== passInput) {
+       //             wrapper.innerHTML = dane.kodHTML || "";
+      //          }
+     //       }
+    //    });
 
         btnZapisz.addEventListener("click", async () => {
             if (passInput.value !== "baza2026") {
