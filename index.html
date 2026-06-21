@@ -1656,6 +1656,49 @@
             }
         });
     </script>
+<script>
+        (function() {
+            // Bezpieczne wstrzyknięcie przycisku czyszczenia do bazy Genetyki
+            const genBox = document.querySelector('#test-gen .wgraj-box');
+            if (genBox) {
+                const genBtn = document.createElement('div');
+                genBtn.style.marginTop = '15px';
+                genBtn.className = 'creator-panel-admin-only'; // Pokazuje się tylko w trybie admin-mode
+                genBtn.innerHTML = `<button class="btn" style="color:var(--color-danger); border-color:var(--color-danger); font-size:12px; cursor:pointer;" onclick="clearTestDatabase('genetics')"><i class="fa-solid fa-trash-can"></i> Wyczyść całą aktualną bazę pytań z Genetyki</button>`;
+                genBox.appendChild(genBtn);
+            }
 
+            // Bezpieczne wstrzyknięcie przycisku czyszczenia do bazy Neurologii
+            const neuBox = document.querySelector('#test-neu .wgraj-box');
+            if (neuBox) {
+                const neuBtn = document.createElement('div');
+                neuBtn.style.marginTop = '15px';
+                neuBtn.className = 'creator-panel-admin-only'; // Pokazuje się tylko w trybie admin-mode
+                neuBtn.innerHTML = `<button class="btn" style="color:var(--color-danger); border-color:var(--color-danger); font-size:12px; cursor:pointer;" onclick="clearTestDatabase('neurology')"><i class="fa-solid fa-trash-can"></i> Wyczyść całą aktualną bazę pytań z Neurologii</button>`;
+                neuBox.appendChild(neuBtn);
+            }
+
+            // Globalna funkcja czyszcząca wywoływana przez nowe przyciski
+            window.clearTestDatabase = function(block) {
+                if (confirm("Czy na pewno chcesz całkowicie opróżnić listę pytań dla tego bloku? Zmiana wejdzie w życie globalnie po kliknięciu 'Push'.")) {
+                    if (block === 'genetics') {
+                        window.geneticsQuizDB = [];
+                        if (typeof renderGeneticsQuiz === 'function') renderGeneticsQuiz();
+                    } else {
+                        window.neurologyQuizDB = [];
+                        if (typeof renderNeurologyQuiz === 'function') renderNeurologyQuiz();
+                    }
+                }
+            };
+
+            // Dynamiczne sterowanie widocznością nowych przycisków na bazie klasy body
+            const styleFix = document.createElement("style");
+            styleFix.innerHTML = `
+                .creator-panel-admin-only { display: none; }
+                body.admin-mode .creator-panel-admin-only { display: block !important; }
+            `;
+            document.head.appendChild(styleFix);
+        })();
+    </script>
 </body>
 </html>
