@@ -336,7 +336,7 @@
                     <div class="hc-body">
                         <ul>
                             <li><strong>Mechanizm patologii i dziedziczenie:</strong> Aneuploidia gonosomów u mężczyzn – obecność dodatkowego chromosomu X (47,XXY) wskutek nondysjunkcji mejotycznej. Włóknienie kanalików nasiennych.</li>
-                            <li><strong>Klinika:</strong> Wysoki wzrost, <strong>proporcje eunuchoidalne</strong>, ginekomastia, owłosienie typu kobiecego oraz <strong>małe, twarde jądra</strong> w badaniu palpacyjnym. Profil hormonalny: <strong>↑ LH i ↑ FSH</strong> przy niskim testosteronie. Biopsja jądra metodą mikro-TESE.</li>
+                            <li><strong>Klinika:</strong> Wysoki wzrost, <strong>proporcje eunuchoidalne</strong>, ginekomastia, owysłanie typu kobiecego oraz <strong>małe, twarde jądra</strong> w badaniu palpacyjnym. Profil hormonalny: <strong>↑ LH i ↑ FSH</strong> przy niskim testosteronie. Biopsja jądra metodą mikro-TESE.</li>
                         </ul>
                     </div>
                     <div class="card-actions">
@@ -639,9 +639,6 @@
             </div>
         </div>
 
-        
-        </div>
-
         <div id="neu1" class="content-tab">
             <div class="module-header neu-border">
                 <h1 class="mod-headline-title">1. Symptomatologia & Pnie Mózgu</h1>
@@ -697,7 +694,7 @@
                             <li><strong>Odwracanie działania NOAC przed rt-PA:</strong> Dabigatran <i class="fa-solid fa-arrow-right"></i> <span class="drug-tag">Idarucyzumab</span> (5 g i.v.). Rywaroksaban/Apiksaban <i class="fa-solid fa-arrow-right"></i> Koncentrat czynników zespołu protrombiny (PCC) lub Andexanet alfa.</li>
                             <li><strong>Udar Lakunarny:</strong> Przyczyną jest <strong>lipohialinoza</strong> (zwyrodnienie tłuszczowo-szkliste) małych tętnic przeszywających związana z nadciśnieniem (brak etiologii zatorowej).</li>
                             <li><strong>SAH (Krwawienie Podpajęczynówkowe):</strong> Pęknięcie tętniaka Piorunujący ból głowy, objawy oponowe. Skala Hunt-Hess (kliniczna) i Fishera (TK). Profilaktyka skurczu naczyń: bloker kanałów wapniowych <span class="drug-tag">Nimodypina</span> doustnie 60 mg co 4 godziny przez 21 dni.</li>
-                            <li><strong>Krwotoki nietypowe:</strong> Płatowe krwotoki śródmózgowe u starszych pacjentów bez nadciśnienia wywoływane są przez <strong>Cerebralną Angiopatię Amyloidową (CAA)</strong> (odkładanie beta-amyloidu w naczyniach korowych). Krwotoki typowe (jądra podstawy) wywołane są pęknięciem mikrotętniaków Charcota-Boucharda wskutek nadciśnienia.</li>
+                            <li><strong>Krwotoki nietypowe:</strong> Płatowe krwotoki śródmózgowe u starszych pacjentów bez nadciśnienia wywoływane są przez <strong>Cerebralną Angiopatię Amyloidową (CAA)</strong> (odkładanie beta-amyloidu w naczyniach korowych). Krwotoki typowe (jądra podstawy) wyvoegdowane są pęknięciem mikrotętniaków Charcota-Boucharda wskutek nadciśnienia.</li>
                         </ul>
                     </div>
                     <div class="card-actions">
@@ -963,6 +960,19 @@
                     </select>
                 </div>
             </div>
+
+            <div style="background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; color: #f1f5f9; margin-bottom: 25px; text-align: left;">
+                <div style="color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;">
+                    <i class="fa-solid fa-database"></i> Filar: Generatory bazy Neurologii (Ulepszony)
+                </div>
+                <div style="background: #1e293b; padding: 15px; border-radius: 8px;">
+                    <span style="font-size: 12px; color: #60a5fa; font-weight: 700; display: block; margin-bottom: 5px;">Szybkie dodawanie / edycja rocznika pytań:</span>
+                    <input type="text" id="neu-import-year-input" placeholder="Rocznik bazy (np. 2026)" value="2026" style="background: #0f172a; border: 1px solid #334155; color: white; padding: 6px 12px; border-radius: 4px; margin-bottom: 8px; width: 180px; font-size: 12px; display: block; outline: none;">
+                    <textarea id="neu-import-textarea" placeholder='Wklej tablicę obiektów JSON, np.:\n[\n  {"q": "Treść pytania?", "opts": ["A", "B", "C"], "ans": 0, "rat": "Uzasadnienie"}\n]' style="width: 100%; height: 80px; background: #0f172a; border: 1px solid #334155; color: #38bdf8; font-family: monospace; font-size: 11px; padding: 8px; box-sizing: border-box; border-radius: 4px; display: block; resize: vertical; margin-bottom: 8px; outline: none;"></textarea>
+                    <button onclick="window.submitNeurologyJsonImport()" style="background: #1e3a8a; color: white; border: none; padding: 8px 16px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-cloud-arrow-up"></i> Kompiluj i zapisz rocznik</button>
+                </div>
+            </div>
+
             <div class="wgraj-box" style="border-color: var(--color-neurology);">
                 <h4><i class="fa-solid fa-file-word" style="color:var(--color-neurology)"></i> Zaawansowany Stanowy Automat Parserujący (Wgraj PDF / DOCX / JSON)</h4>
                 <input type="file" id="fileInputNeu" onchange="parseIncomingFile('neurology')" class="form-control" accept=".txt,.json,.pdf,.docx">
@@ -1011,7 +1021,7 @@
     </div>
 
     <script>
-
+        let geneticsQuizDB = [];
         let neurologyQuizDB = [
             { id: 2001, year: "2026", q: "Antidotum dla inhibitorów czynnika Xa (apiksaban, rywaroksaban) zatwierdzone przez Katedrę to:", opts: ["Idarucyzumab", "Witamina K", "Koncentrat czynników zespołu protrombiny (PCC) lub Andexanet alfa", "Siarczan protaminy"], ans: 2, rat: "Dla rywaroksabanu i apiksabanu właściwym postępowaniem jest podanie PCC lub Andexanetu alfa." },
             { id: 2002, year: "2026", q: "Ośrodkowe uszkodzenie nerwu twarzowego (VII) objawia się klinicznie jako:", opts: ["Porażenie wszystkich mięśni mimicznych połowy twarzy po stronie uszkodzenia", "Niedowład mięśni mimicznych dolnej połowy twarzy po stronie przeciwnej do uszkodzenia", "Zaburzenia smaku w przednich 2/3 języka z opadaniem powłok", "Objaw Bella po stronie ipsilateralnej"], ans: 1, rat: "Uszkodzenie nadjądrowe oszczędza górną część twarzy (czoło, oko) z uwagi na obustronne korowe unerwienie, wywołując niedowład wyłącznie dołu twarzy kontralateralnie." },
@@ -1022,640 +1032,6 @@
         let genStats = { total: 0, correct: 0 };
         let neuStats = { total: 0, correct: 0 };
 
-        // CAŁKOWICIE NAPRAWIONA I DYNAMICZNA FUNKCJA PRZEŁĄCZANIA ZAKŁADEK I HIGHLIGHTOWANIA MENU
-        function switchTab(id) {
-            document.querySelectorAll('.content-tab').forEach(t => t.classList.remove('active'));
-            const targetTab = document.getElementById(id);
-            if (targetTab) targetTab.classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active-gen', 'active-neu');
-            });
-            
-            let navId = 'nv-' + id;
-            if (id === 'gemini-engine') navId = 'nv-gemini';
-            
-            const activeNav = document.getElementById(navId);
-            if (activeNav) {
-                if (id.startsWith('mod') || id === 'matrix' || id === 'test-gen' || id === 'gemini-engine') {
-                    activeNav.classList.add('active-gen');
-                } else if (id.startsWith('neu') || id === 'test-neu') {
-                    activeNav.classList.add('active-neu');
-                }
-            }
-            
-            if(id === 'test-gen') renderGeneticsQuiz();
-            if(id === 'test-neu') renderNeurologyQuiz();
-        }
-
-        function filterGlobal() {
-            const val = document.getElementById('globalSearch').value.toLowerCase().trim();
-            document.querySelectorAll('.horizontal-card').forEach(card => {
-                card.style.display = card.textContent.toLowerCase().includes(val) ? 'flex' : 'none';
-            });
-        }
-
-        function deleteCard(cardId) {
-            if (confirm("Czy na pewno chcesz usunąć tę całą tabliczkę kliniczną z widoku?")) {
-                const element = document.getElementById(cardId);
-                if (element) element.remove();
-            }
-        }
-
-        // FUNKCJA EDYCJI NAZW I OPISÓW MODUŁÓW (ROZDZIAŁÓW)
-        function editModuleHeader(modId) {
-            const moduleContainer = document.getElementById(modId);
-            if (!moduleContainer) return;
-
-            const titleNode = moduleContainer.querySelector('.mod-headline-title');
-            const descNode = moduleContainer.querySelector('.mod-headline-desc');
-
-            const currentTitle = titleNode.innerText;
-            const currentDesc = descNode.innerText;
-
-            const newTitle = prompt("Wpisz nową nazwę modułu (rozdziału):", currentTitle);
-            if (newTitle === null || newTitle.trim() === "") return;
-
-            const newDesc = prompt("Wpisz nowy opis dla tego modułu:", currentDesc);
-            if (newDesc === null) return;
-
-            // Aktualizacja w dokumencie
-            titleNode.innerText = newTitle;
-            descNode.innerText = newDesc;
-
-            // Aktualizacja w menu bocznym (link tekstowy)
-            let navId = 'nv-' + modId;
-            if (modId === 'gemini-engine') navId = 'nv-gemini';
-            const navLinkText = document.querySelector(`#${navId} .nav-link-text`);
-            if (navLinkText) {
-                navLinkText.innerText = newTitle;
-            }
-        }
-
-        function deleteEntireModule(modId) {
-            if (confirm(`KATEGORYCZNE OSTRZEŻENIE:\nCzy na pewno chcesz usunąć cały moduł [${modId}] wraz ze wszystkimi zawartymi w nim kartami chorób?`)) {
-                const tabElement = document.getElementById(modId);
-                if (tabElement) tabElement.remove();
-                
-                let navId = 'nv-' + modId;
-                if (modId === 'gemini-engine') navId = 'nv-gemini';
-                const navElement = document.getElementById(navId);
-                if (navElement) navElement.remove();
-                
-                switchTab('mod1');
-            }
-        }
-
-        function injectNewModule() {
-            const name = document.getElementById('newModName').value.trim();
-            const id = document.getElementById('newModId').value.trim().toLowerCase();
-            const filar = document.getElementById('newModFilar').value;
-
-            if(!name || !id) {
-                alert("Uzupełnij nazwę oraz unikalne ID modułu!");
-                return;
-            }
-
-            if(document.getElementById(id)) {
-                alert("Moduł o takim ID już istnieje na tej stronie!");
-                return;
-            }
-
-            const newNavItem = document.createElement('div');
-            newNavItem.className = 'nav-item';
-            newNavItem.id = 'nv-' + id;
-            newNavItem.setAttribute('onclick', `switchTab('${id}')`);
-            newNavItem.innerHTML = `<i class="fa-solid ${filar === 'genetics' ? 'fa-circle-nodes' : 'fa-sitemap'}"></i><span class="nav-link-text">${name}</span>`;
-            
-            if (filar === 'genetics') {
-                const testGenNode = document.getElementById('nv-test-gen');
-                testGenNode.parentNode.insertBefore(newNavItem, testGenNode);
-            } else {
-                const testNeuNode = document.getElementById('nv-test-neu');
-                testNeuNode.parentNode.insertBefore(newNavItem, testNeuNode);
-            }
-
-            const selectTarget = document.getElementById('addTarget');
-            const selectAiTarget = document.getElementById('aiCardTarget');
-            const optionText = `${name} [${filar === 'genetics' ? 'G' : 'N'}]`;
-            
-            selectTarget.add(new Option(optionText, id));
-            selectAiTarget.add(new Option(optionText, id));
-
-            const newTabContent = document.createElement('div');
-            newTabContent.className = 'content-tab';
-            newTabContent.id = id;
-            newTabContent.innerHTML = `
-                <div class="module-header ${filar === 'genetics' ? 'gen-border' : 'neu-border'}">
-                    <h1 class="mod-headline-title">${name}</h1>
-                    <p class="mod-headline-desc">Nowo utworzony rozdział akademicki.</p>
-                    <div class="module-admin-actions">
-                        <button class="btn" style="color:var(--color-warning); font-size:12px; border-color:var(--color-warning);" onclick="editModuleHeader('${id}')"><i class="fa-solid fa-pen-to-square"></i> Edytuj nagłówek modułu</button>
-                        <button class="btn" style="color:var(--color-danger); font-size:12px; border-color:var(--color-danger);" onclick="deleteEntireModule('${id}')"><i class="fa-solid fa-folder-minus"></i> Usuń cały moduł wraz z zawartością</button>
-                    </div>
-                </div>
-                <div class="list-layout" id="lay-${id}"></div>
-            `;
-            document.getElementById('main-content-tabs-holder').appendChild(newTabContent);
-
-            document.getElementById('newModName').value = '';
-            document.getElementById('newModId').value = '';
-            alert(`Moduł ${name} został pomyślnie skompilowany i dodany do struktury strony.`);
-            switchTab(id);
-        }
-
-        /* DYNAMICZNY PODGLĄD NA ŻYWO (LIVE PREVIEW) */
-        function updateLivePreview() {
-            const previewHolder = document.getElementById('liveCardPreviewContainer');
-            const title = document.getElementById('addTitle').value.trim() || "Tytuł tymczasowy";
-            const badge = document.getElementById('addBadge').value.trim() || "Kod / Tag";
-            const borderCol = document.getElementById('addBorderColor').value;
-            const icon = document.getElementById('addIconSelect').value;
-            const contentText = document.getElementById('addContent').value.trim();
-            const target = document.getElementById('addTarget').value;
-            
-            const lines = contentText.split('\n');
-            let listHTML = '<ul>';
-            lines.forEach(l => { if(l) listHTML += `<li>${l}</li>`; });
-            listHTML += '</ul>';
-
-            const isGen = target.startsWith('mod') || target === 'matrix';
-
-            previewHolder.innerHTML = `
-                <div class="horizontal-card" style="border-left: 6px solid ${borderCol}; margin-bottom: 0px;">
-                    <div class="hc-header">
-                        <div class="hc-title"><i class="fa-solid ${icon}"></i> ${title}</div>
-                        <div><span class="card-badge ${isGen ? 'badge-gen' : 'badge-neuro'}">${badge}</span></div>
-                    </div>
-                    <div class="hc-body">${listHTML}</div>
-                </div>
-            `;
-        }
-
-        /* AUTO-ŁADOWANIE SZABLONÓW MEDYCZNYCH DO POLA TEXTAREA */
-        function loadMedicalTemplate() {
-            const type = document.getElementById('templateSelector').value;
-            const textarea = document.getElementById('addContent');
-            
-            if (type === 'triada') {
-                textarea.value = "<strong>Objaw osiowy (Pierwszy element triady):</strong> Treść...\n<strong>Drugi element kliniczny triady:</strong> Treść...\n<strong>Trzeci element katedralny triady:</strong> Treść...";
-            } else if (type === 'profil') {
-                textarea.value = "<strong>Mechanizm patologii i dziedziczenie:</strong> Gen, locus, typ dziedziczenia...\n<strong>Cechy kliniczne i objawy:</strong> Objawy patognomoniczne...\n<strong>Powikłania i protokoły terapeutyczne:</strong> <span class=\"drug-tag\">Lek</span> dawkowanie, zabiegi...";
-            } else if (type === 'ratunkowy') {
-                textarea.value = "<strong>Kryteria rozpoznania i ostra faza:</strong> Stan pacjenta...\n<strong>Postępowanie ratunkowe pierwszego rzutu:</strong> <span class=\"drug-tag\">Lek_1</span> wlew ciągły/bolus...\n<strong>Procedura zabezpieczająca drugiego rzutu:</strong> Monitorowanie parametrów vitalnych...";
-            } else {
-                textarea.value = "";
-            }
-            updateLivePreview();
-        }
-
-        async function parseIncomingFile(targetBlock) {
-            const input = targetBlock === 'genetics' ? document.getElementById('fileInputGen') : document.getElementById('fileInputNeu');
-            const file = input.files[0];
-            if (!file) return;
-            const ext = file.name.split('.').pop().toLowerCase();
-
-            if (ext === 'json' || ext === 'txt') {
-                const reader = new FileReader();
-                reader.onload = function(e) { processTextBaza(e.target.result, targetBlock); };
-                reader.readAsText(file);
-            } 
-            else if (ext === 'pdf') {
-                const reader = new FileReader();
-                reader.onload = async function(e) {
-                    const typedarray = new Uint8Array(e.target.result);
-                    const pdf = await pdfjsLib.getDocument(typedarray).promise;
-                    let fullText = "";
-                    for(let i=1; i<=pdf.numPages; i++) {
-                        const page = await pdf.getPage(i);
-                        const txtObj = await page.getTextContent();
-                        fullText += txtObj.items.map(item => item.str).join(" ") + "\n";
-                    }
-                    processTextBaza(fullText, targetBlock);
-                };
-                reader.readAsArrayBuffer(file);
-            } 
-            else if (ext === 'docx') {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    mammoth.extractRawText({arrayBuffer: e.target.result})
-                        .then(function(result){ processTextBaza(result.value, targetBlock); });
-                };
-                reader.readAsArrayBuffer(file);
-            }
-        }
-
-        function processTextBaza(text, block) {
-            try {
-                const parsed = JSON.parse(text);
-                if(Array.isArray(parsed)) {
-                    parsed.forEach(q => {
-                        q.id = Date.now() + Math.random();
-                        if(!q.year) q.year = "2026";
-                        if(block === 'genetics') geneticsQuizDB.push(q); else neurologyQuizDB.push(q);
-                    });
-                    alert(`Zaimportowano pomyślnie ${parsed.length} zadań strukturalnych JSON.`);
-                    if(block === 'genetics') renderGeneticsQuiz(); else renderNeurologyQuiz();
-                    return;
-                }
-            } catch(e) {}
-
-            const wyekstrahowanePytania = [];
-            const linie = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-            let obecnePytanie = null;
-
-            linie.forEach(linia => {
-                const czyNowePytanie = linia.match(/^\d+[\.\)]/) || linia.endsWith('?') || linia.toLowerCase().includes('wskaż') || linia.toLowerCase().includes('które');
-                const czyOpcja = linia.match(/^[A-Ea-e][\.\)\-]/);
-
-                if (czyNowePytanie && !czyOpcja) {
-                    if (obecnePytanie && obecnePytanie.opts.length >= 2) {
-                        wyekstrahowanePytania.push(obecnePytanie);
-                    }
-                    obecnePytanie = {
-                        id: Date.now() + Math.random(),
-                        year: "2026",
-                        q: linia.replace(/^\d+[\.\)]/, '').trim(),
-                        opts: [],
-                        ans: 0,
-                        rat: "Ekstrakcja automatyczna z dokumentu."
-                    };
-                } else if (czyOpcja && obecnePytanie) {
-                    obecnePytanie.opts.push(linia.replace(/^[A-Ea-e][\.\)\-]/, '').trim());
-                } else if (obecnePytanie && !czyOpcja) {
-                    obecnePytanie.q += " " + linia;
-                }
-            });
-            if (obecnePytanie && obecnePytanie.opts.length >= 2) wyekstrahowanePytania.push(obecnePytanie);
-
-            if (wyekstrahowanePytania.length > 0) {
-                wyekstrahowanePytania.forEach(q => {
-                    if(block === 'genetics') geneticsQuizDB.push(q); else neurologyQuizDB.push(q);
-                });
-                alert(`Sukces: Parser Katedralny poprawnie wyodrębnił ${wyekstrahowanePytania.length} pytań z dokumentu.`);
-                if(block === 'genetics') renderGeneticsQuiz(); else renderNeurologyQuiz();
-            } else {
-                alert("Błąd dopasowania struktur. Sprawdź plik wejściowy.");
-            }
-        }
-
-        function openVisualEditor(cardId) {
-            const card = document.getElementById(cardId);
-            const body = card.querySelector('.hc-body');
-            const actions = card.querySelector('.card-actions');
-            const curHTML = body.innerHTML.trim();
-
-            body.innerHTML = `
-                <div class="format-bar">
-                    <button class="format-btn" onclick="insertStyle('bold', '${cardId}')"><i class="fa-solid fa-bold"></i></button>
-                    <button class="format-btn" onclick="insertStyle('italic', '${cardId}')"><i class="fa-solid fa-italic"></i></button>
-                    <button class="format-btn" onclick="insertStyle('underline', '${cardId}')"><i class="fa-solid fa-underline"></i></button>
-                    <button class="format-btn" onclick="insertStyle('li', '${cardId}')"><i class="fa-solid fa-list-ul"></i></button>
-                    <button class="format-btn" onclick="insertStyle('drug', '${cardId}')"><i class="fa-solid fa-capsules"></i></button>
-                </div>
-                <textarea class="form-control" style="min-height:140px;" id="ta-${cardId}">${curHTML}</textarea>
-            `;
-            actions.innerHTML = `<button class="btn primary" onclick="saveVisualEditor('${cardId}')">Zapisz i kompiluj</button>`;
-        }
-
-        function insertStyle(type, cardId) {
-            const area = document.getElementById(`ta-${cardId}`);
-            const start = area.selectionStart; const end = area.selectionEnd;
-            const txt = area.value; const sel = txt.substring(start, end);
-            
-            let rep = "";
-            if (type === 'bold') rep = `<strong>${sel}</strong>`;
-            if (type === 'italic') rep = `<em>${sel}</em>`;
-            if (type === 'underline') rep = `<u>${sel}</u>`;
-            if (type === 'li') rep = `<li>${sel}</li>`;
-            if (type === 'drug') rep = `<span class="drug-tag">${sel}</span>`;
-            
-            area.value = txt.substring(0, start) + rep + txt.substring(end);
-        }
-
-        function saveVisualEditor(cardId) {
-            const card = document.getElementById(cardId);
-            card.querySelector('.hc-body').innerHTML = document.getElementById(`ta-${cardId}`).value;
-            card.querySelector('.card-actions').innerHTML = `
-                <button class="btn-inline" onclick="openVisualEditor('${cardId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
-                <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('${cardId}')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
-            `;
-        }
-
-        function injectNewCard() {
-            const title = document.getElementById('addTitle').value.trim();
-            const target = document.getElementById('addTarget').value;
-            const badge = document.getElementById('addBadge').value.trim() || "Wpis własny";
-            const borderCol = document.getElementById('addBorderColor').value;
-            const icon = document.getElementById('addIconSelect').value;
-            const lines = document.getElementById('addContent').value.trim().split('\n');
-
-            let listHTML = '<ul>';
-            lines.forEach(l => { if(l) listHTML += `<li>${l}</li>`; });
-            listHTML += '</ul>';
-
-            const uId = 'c-' + Date.now();
-            const isGen = target.startsWith('mod') || target === 'matrix';
-            const cardHTML = `
-                <div class="horizontal-card" id="${uId}" style="border-left: 6px solid ${borderCol};">
-                    <div class="hc-header">
-                        <div class="hc-title"><i class="fa-solid ${icon}"></i> ${title}</div>
-                        <div><span class="card-badge ${isGen ? 'badge-gen' : 'badge-neuro'}">${badge}</span></div>
-                    </div>
-                    <div class="hc-body">${listHTML}</div>
-                    <div class="card-actions">
-                        <button class="btn-inline" onclick="openVisualEditor('${uId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
-                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('${uId}')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
-                    </div>
-                </div>
-            `;
-            document.getElementById(`lay-${target}`).insertAdjacentHTML('beforeend', cardHTML);
-            switchTab(target);
-            
-            document.getElementById('addTitle').value = "";
-            document.getElementById('addContent').value = "";
-            updateLivePreview();
-        }
-
-        function processAndInjectAI() {
-            const title = document.getElementById('aiCardTitle').value.trim();
-            const target = document.getElementById('aiCardTarget').value;
-            const raw = document.getElementById('rawNotesInput').value.trim();
-
-            if(!title || !raw) return;
-
-            const segments = raw.split(/[.\n]+/).map(s => s.trim()).filter(s => s.length > 5);
-            let listHTML = '<ul>';
-            segments.forEach(seg => {
-                const words = seg.split(' ');
-                if(words.length > 1) {
-                    words[0] = `<strong>${words[0]}`;
-                    words[1] = `${words[1]}</strong>`;
-                }
-                listHTML += `<li>${words.join(' ')}</li>`;
-            });
-            listHTML += '</ul>';
-
-            const uId = 'ai-' + Date.now();
-            const isGen = target.startsWith('mod') || target === 'matrix';
-            const cardHTML = `
-                <div class="horizontal-card" id="${uId}" style="border-left: 6px solid ${isGen ? '#0d9488' : '#1e3a8a'};">
-                    <div class="hc-header">
-                        <div class="hc-title"><i class="fa-solid ${isGen ? 'fa-dna' : 'fa-brain'}"></i> ${title}</div>
-                        <div><span class="card-badge ${isGen ? 'badge-success' : 'badge-warn'}">AI Konstrukt</span></div>
-                    </div>
-                    <div class="hc-body">${listHTML}</div>
-                    <div class="card-actions">
-                        <button class="btn-inline" onclick="openVisualEditor('${uId}')"><i class="fa-solid fa-palette"></i> Edytuj wygląd & tekst</button>
-                        <button class="btn-inline" style="color: var(--color-danger); margin-left: 8px;" onclick="deleteCard('${uId}')"><i class="fa-solid fa-trash-can"></i> Usuń kartę</button>
-                    </div>
-                </div>
-            `;
-            document.getElementById(`lay-${target}`).insertAdjacentHTML('beforeend', cardHTML);
-            switchTab(target);
-            document.getElementById('aiCardTitle').value = "";
-            document.getElementById('rawNotesInput').value = "";
-        }
-
-        function renderGeneticsQuiz() {
-            const container = document.getElementById('container-test-gen'); container.innerHTML = '';
-            genStats = { total: 0, correct: 0 }; updateStatsUI('genetics');
-            geneticsQuizDB.forEach((q, idx) => {
-                let html = `<div class="question-card" id="qcg-${q.id}" data-done="false"><div class="q-text">${idx+1}. ${q.q}</div>`;
-                q.opts.forEach((o, oIdx) => { html += `<div class="option-item" onclick="submitAnswer('genetics', ${q.id}, ${oIdx}, ${q.ans})">${o}</div>`; });
-                html += `<div class="rationale-box" id="ratg-${q.id}">${q.rat}</div></div>`;
-                container.innerHTML += html;
-            });
-        }
-
-        function renderNeurologyQuiz() {
-            const container = document.getElementById('container-test-neu'); const y = document.getElementById('yearSelectNeu').value;
-            container.innerHTML = ''; neuStats = { total: 0, correct: 0 }; updateStatsUI('neurology');
-            let fl = y === 'all' ? neurologyQuizDB : neurologyQuizDB.filter(q => q.year === y);
-            fl.forEach((q, idx) => {
-                let html = `<div class="question-card" id="qcn-${q.id}" data-done="false"><div class="q-meta">Rocznik ${q.year}</div><div class="q-text">${idx+1}. ${q.q}</div>`;
-                q.opts.forEach((o, oIdx) => { html += `<div class="option-item" onclick="submitAnswer('neurology', ${q.id}, ${oIdx}, ${q.ans})">${o}</div>`; });
-                html += `<div class="rationale-box" id="ratn-${q.id}">${q.rat}</div></div>`;
-                container.innerHTML += html;
-            });
-        }
-
-        function submitAnswer(block, qId, sel, corr) {
-            const card = document.getElementById(block === 'genetics' ? `qcg-${qId}` : `qcn-${qId}`);
-            if(card.getAttribute('data-done') === 'true') return; card.setAttribute('data-done', 'true');
-            const opts = card.querySelectorAll('.option-item'); opts[corr].classList.add('correct');
-            if(sel !== corr) opts[sel].classList.add('wrong');
-            if(block === 'genetics') { genStats.total++; if(sel===corr) genStats.correct++; updateStatsUI('genetics'); card.querySelector(`#ratg-${qId}`).style.display='block'; }
-            else { neuStats.total++; if(sel===corr) neuStats.correct++; updateStatsUI('neurology'); card.querySelector(`#ratn-${qId}`).style.display='block'; }
-        }
-
-        function updateStatsUI(block) {
-            const totalId = block === 'genetics' ? 'g-total' : 'n-total';
-            const corrId = block === 'genetics' ? 'g-correct' : 'n-correct';
-            const percId = block === 'genetics' ? 'g-percent' : 'n-percent';
-            const stats = block === 'genetics' ? genStats : neuStats;
-
-            document.getElementById(totalId).innerText = stats.total;
-            document.getElementById(corrId).innerText = stats.correct;
-            const sc = stats.total === 0 ? 0 : Math.round((stats.correct / stats.total) * 100);
-            const el = document.getElementById(percId);
-            el.innerText = sc + "%";
-            el.style.color = sc >= 65 ? 'var(--color-success)' : 'var(--color-danger)';
-        }
-        
-        window.addEventListener('load', () => { updateLivePreview(); });
-    </script>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, onSnapshot, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBZmrhKXYnZlYVsUpDtcizCrpiO2_qTErw",
-            authDomain: "baza-fc9ef.firebaseapp.com",
-            projectId: "baza-fc9ef",
-            storageBucket: "baza-fc9ef.appspot.com",
-            messagingSenderId: "148935839867",
-            appId: "1:148935839867:web:b6bf1bcfb1ed79f252d2de"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const docRef = doc(db, "strony", "glowna");
-
-        let stanKoduHistoria = null;
-
-        let wrapper = document.getElementById("live-wrapper");
-        if (!wrapper) {
-            wrapper = document.createElement("div");
-            wrapper.id = "live-wrapper";
-            while (document.body.firstChild) {
-                wrapper.appendChild(document.body.firstChild);
-            }
-            document.body.appendChild(wrapper);
-        }
-
-        const style = document.createElement("style");
-        style.innerHTML = `
-            #admin-bar { 
-                position: fixed; 
-                bottom: 25px; 
-                right: 25px; 
-                background: #1e293b; 
-                color: #f8fafc; 
-                padding: 10px 18px; 
-                border-radius: 30px; 
-                box-shadow: 0 10px 30px rgba(15, 23, 42, 0.3); 
-                z-index: 999999; 
-                display: none; 
-                align-items: center; 
-                gap: 12px; 
-                font-family: 'Poppins', sans-serif; 
-                border: 1px solid #334155;
-                transition: all 0.3s ease;
-            }
-            #admin-bar input { 
-                background: #0f172a; 
-                border: 1px solid #4b5563; 
-                color: #f8fafc; 
-                padding: 8px 16px; 
-                border-radius: 20px; 
-                font-size: 13px; 
-                outline: none; 
-                width: 110px; 
-                transition: all 0.2s; 
-            }
-            #admin-bar input:focus { 
-                width: 140px; 
-                border-color: #0d9488; 
-            }
-            #admin-bar button { 
-                background: linear-gradient(135deg, #0d9488, #0f766e); 
-                color: white; 
-                cursor: pointer; 
-                font-weight: 600; 
-                border: none; 
-                padding: 8px 18px; 
-                border-radius: 20px; 
-                font-size: 13px; 
-                letter-spacing: 0.5px;
-                box-shadow: 0 2px 8px rgba(13, 148, 136, 0.2);
-                transition: all 0.2s; 
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-            }
-            #admin-bar button:hover { 
-                transform: translateY(-1px);
-                box-shadow: 0 4px 12px rgba(13, 148, 136, 0.4);
-            }
-            #admin-bar .btn-undo {
-                background: linear-gradient(135deg, #64748b, #475569);
-                box-shadow: 0 2px 8px rgba(100, 116, 139, 0.2);
-            }
-            #sync-status { 
-                font-size: 12px; 
-                font-weight: 500;
-                font-family: 'Roboto Mono', monospace;
-            }
-        `;
-        document.head.appendChild(style);
-
-        const adminBar = document.createElement("div");
-        adminBar.id = "admin-bar";
-        adminBar.innerHTML = `
-            <span style="color:#2dd4bf; font-weight:bold; font-size:12px;">Centrala Cloud:</span>
-            <input type="password" id="admin-pass" placeholder="Klucz dostępu">
-            <button id="zapisz-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Push</button>
-            <button id="cofnij-btn" class="btn-undo"><i class="fa-solid fa-rotate-left"></i> Cofnij</button>
-            <span id="sync-status"></span>
-        `;
-        document.body.appendChild(adminBar);
-
-        const btnZapisz = document.getElementById("zapisz-btn");
-        const btnCofnij = document.getElementById("cofnij-btn");
-        const passInput = document.getElementById("admin-pass");
-        const status = document.getElementById("sync-status");
-
-        onSnapshot(docRef, (docSnapshot) => {
-            if (docSnapshot.exists()) {
-                const dane = docSnapshot.data();
-                if (document.activeElement !== passInput) {
-                    wrapper.innerHTML = dane.kodHTML || "";
-                }
-            }
-        });
-
-        btnZapisz.addEventListener("click", async () => {
-            if (passInput.value !== "baza2026") {
-                alert("Błędne hasło administratora katedralnego!");
-                return;
-            }
-            status.innerText = "Synchronizacja...";
-            status.style.color = "#ffc107";
-
-            try {
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    stanKoduHistoria = docSnap.data().kodHTML;
-                }
-
-                await setDoc(docRef, { kodHTML: wrapper.innerHTML }, { merge: true });
-                status.innerText = " Done!";
-                status.style.color = "#10b981";
-                setTimeout(() => { status.innerText = ""; }, 3000);
-            } catch (err) {
-                console.error("Błąd zapisu:", err);
-                status.innerText = " Error Cloud!";
-                status.style.color = "#be123c";
-            }
-        });
-
-        btnCofnij.addEventListener("click", async () => {
-            if (passInput.value !== "baza2026") {
-                alert("Błędne hasło administratora katedralnego!");
-                return;
-            }
-            if (!stanKoduHistoria) {
-                alert("Brak zapisanego punktu w cache historii do wycofania zmian!");
-                return;
-            }
-            if (!confirm("Czy na pewno chcesz cofnąć ostatni zapis chmurowy i przywrócić stan poprzedni?")) {
-                return;
-            }
-
-            status.innerText = "Przywracanie...";
-            status.style.color = "#fbbf24";
-
-            try {
-                await setDoc(docRef, { kodHTML: stanKoduHistoria }, { merge: true });
-                stanKoduHistoria = null;
-                status.innerText = " Cofnięto zmianę!";
-                status.style.color = "#10b981";
-                setTimeout(() => { status.innerText = ""; }, 3000);
-            } catch (err) {
-                console.error("Błąd przywracania:", err);
-                status.innerText = " Error Rollback!";
-                status.style.color = "#be123c";
-            }
-        });
-
-        // Rejestracja skrótu Ctrl + Shift + A dla administratora
-        window.addEventListener("keydown", (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
-                e.preventDefault();
-                document.body.classList.toggle('admin-mode');
-                
-                const bar = document.getElementById("admin-bar");
-                if (bar) {
-                    const isHidden = window.getComputedStyle(bar).display === "none";
-                    bar.style.display = isHidden ? "flex" : "none";
-                }
-            }
-        });
-    </script>
-
-  // CAŁKOWICIE NAPRAWIONA I DYNAMICZNA FUNKCJA PRZEŁĄCZANIA ZAKŁADEK I HIGHLIGHTOWANIA MENU
         function switchTab(id) {
             document.querySelectorAll('.content-tab').forEach(t => t.classList.remove('active'));
             const targetTab = document.getElementById(id);
@@ -2034,21 +1410,32 @@
             el.innerText = sc + "%";
             el.style.color = sc >= 65 ? 'var(--color-success)' : 'var(--color-danger)';
         }
+
+        // Nowa, stabilna funkcja wklejania bazy JSON dla Neurologii
+        window.submitNeurologyJsonImport = function() {
+            const year = document.getElementById('neu-import-year-input').value.trim();
+            const raw = document.getElementById('neu-import-textarea').value.trim();
+            if (!year || !raw) return alert("Uzupełnij pole rocznika oraz wklej kod bazy pytań!");
+            
+            try {
+                const parsed = JSON.parse(raw);
+                if (!Array.isArray(parsed)) return alert("Błąd: Dane wejściowe muszą być tablicą obiektów JSON [ {...} ]");
+                
+                parsed.forEach(q => {
+                    q.id = Date.now() + Math.random();
+                    q.year = year;
+                    neurologyQuizDB.push(q);
+                });
+                
+                alert(`Pomyślnie zaimportowano ${parsed.length} pytań dla rocznika ${year}. Kliknij 'Push' na pasku na dole, aby trwale utrwalić w chmurze.`);
+                document.getElementById('neu-import-textarea').value = '';
+                renderNeurologyQuiz();
+            } catch(e) {
+                alert("❌ BŁĄD SKŁADNI JSON! Upewnij się, że kod bazy nie zawiera urwanych klamer lub brakujących przecinków.");
+            }
+        };
         
         window.addEventListener('load', () => { updateLivePreview(); });
-
-        window.addEventListener("keydown", (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
-                e.preventDefault();
-                document.body.classList.toggle('admin-mode');
-                
-                const bar = document.getElementById("admin-bar");
-                if (bar) {
-                    const isHidden = window.getComputedStyle(bar).display === "none";
-                    bar.style.display = isHidden ? "flex" : "none";
-                }
-            }
-        });
     </script>
 
     <script type="module">
@@ -2143,6 +1530,7 @@
                 font-weight: 500;
                 font-family: 'Roboto Mono', monospace;
             }
+            .hidden-filar { display: none !important; }
         `;
         document.head.appendChild(style);
 
@@ -2261,178 +1649,47 @@
             }
         };
 
-        window.processTextBaza = function(text, block) {
-            try {
-                const cleanedText = text.replace(/^\uFEFF/, '').trim();
-                const parsed = JSON.parse(cleanedText);
-                
-                if (Array.isArray(parsed)) {
-                    if (block === 'genetics') {
-                        window.geneticsQuizDB = parsed;
-                        renderGeneticsQuiz();
-                    } else {
-                        window.neurologyQuizDB = parsed;
-                        renderNeurologyQuiz();
-                    }
-                    
-                    alert(`Sukces katedralny! Czytnik rozpoznał strukturę i załadował ${parsed.length} pytań.`);
-                    if (status) {
-                        status.innerText = " Gotowy do Push...";
-                        status.style.color = "#10b981";
-                    }
-                    return;
-                }
-            } catch (e) {
-                const wyekstrahowanePytania = [];
-                const linie = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-                let obecnePytanie = null;
+        window.toggleFilarVisibility = function(filar) {
+            const prefix = (filar === 'genetics') ? 'gen-' : 'neu-';
+            const elements = document.querySelectorAll(`[id*="${prefix}"], .module-${filar}`);
+            
+            elements.forEach(el => {
+                el.classList.toggle('hidden-filar');
+            });
 
-                linie.forEach(linia => {
-                    const czyNowePytanie = linia.match(/^\d+[\.\)]/) || linia.endsWith('?');
-                    const czyOpcja = linia.match(/^[A-Ea-e][\.\)\-]/);
-
-                    if (czyNowePytanie && !czyOpcja) {
-                        if (obecnePytanie && obecnePytanie.opts.length >= 2) wyekstrahowanePytania.push(obecnePytanie);
-                        obecnePytanie = {
-                            id: Date.now() + Math.random(),
-                            year: "2026",
-                            q: linia.replace(/^\d+[\.\)]/, '').trim(),
-                            opts: [],
-                            ans: 0,
-                            rat: "Ekstrakcja automatyczna."
-                        };
-                    } else if (czyOpcja && obecnePytanie) {
-                        obecnePytanie.opts.push(linia.replace(/^[A-Ea-e][\.\)\-]/, '').trim());
-                    }
-                });
-                if (obecnePytanie && obecnePytanie.opts.length >= 2) wyekstrahowanePytania.push(obecnePytanie);
-
-                if (wyekstrahowanePytania.length > 0) {
-                    if (block === 'genetics') {
-                        window.geneticsQuizDB = wyekstrahowanePytania;
-                        renderGeneticsQuiz();
-                    } else {
-                        window.neurologyQuizDB = wyekstrahowanePytania;
-                        renderNeurologyQuiz();
-                    }
-                    alert(`Pomyślnie przetworzono tekst i wyodrębniono ${wyekstrahowanePytania.length} pytań.`);
-                    return;
-                }
+            const btn = document.getElementById('tgl-' + filar);
+            if (btn) {
+                const isHidden = elements.length > 0 && elements[0].classList.contains('hidden-filar');
+                btn.innerHTML = isHidden ? `<i class="fa-solid fa-eye-slash"></i> Ukryto ${filar === 'genetics' ? 'Genetykę' : 'Neurologię'}` : `<i class="fa-solid fa-eye"></i> Filar ${filar === 'genetics' ? 'Genetyki' : 'Neurologii'}`;
+                btn.style.background = isHidden ? '#475569' : '#0284c7';
             }
-            alert("Błąd dopasowania struktur: Plik nie mógł zostać sparsowany. Upewnij się, że wgrywasz poprawny plik .json");
         };
-    </script>
-                        <style>
-    /* Klasa ukrywająca elementy o najwyższym priorytecie */
-    .hidden-filar { display: none !important; }
-</style>
 
-<script>
-(function() {
-    // === 1. INICJALIZACJA GLOBALNYCH FUNKCJI ===
-
-    // Funkcja zarządzania widocznością filarów (Genetyka / Neurologia)
-    window.toggleFilarVisibility = function(filar) {
-        const prefix = (filar === 'genetics') ? 'gen-' : 'neu-';
-        const elements = document.querySelectorAll(`[id*="${prefix}"], .module-${filar}`);
-        
-        elements.forEach(el => {
-            el.classList.toggle('hidden-filar');
-        });
-
-        const btn = document.getElementById('tgl-' + filar);
-        if (btn) {
-            const isHidden = elements.length > 0 && elements[0].classList.contains('hidden-filar');
-            btn.innerHTML = isHidden ? `<i class="fa-solid fa-eye-slash"></i> Ukryto ${filar === 'genetics' ? 'Genetykę' : 'Neurologię'}` : `<i class="fa-solid fa-eye"></i> Filar ${filar === 'genetics' ? 'Genetyki' : 'Neurologii'}`;
-            btn.style.background = isHidden ? '#475569' : '#0284c7';
-        }
-    };
-
-    // Funkcja importu pytań z pola tekstowego do bazy RAM
-    window.katedraImportQuestions = function() {
-        const inputData = document.getElementById('raw-questions-input').value.trim();
-        if (!inputData) {
-            alert("Pole tekstowe jest puste!");
-            return;
-        }
-
-        let parsedQuestions = [];
-        try {
-            parsedQuestions = JSON.parse(inputData);
-        } catch (e) {
-            alert("Błąd formatu! Wklej poprawną tablicę obiektów JSON.");
-            return;
-        }
-
-        if (!Array.isArray(parsedQuestions)) {
-            alert("Dane muszą być tablicą obiektów [ {...}, {...} ]!");
-            return;
-        }
-
-        if (!window.geneticsQuizDB) window.geneticsQuizDB = [];
-        
-        parsedQuestions.forEach(q => {
-            if (!q.id) q.id = Date.now() + Math.random();
-            window.geneticsQuizDB.push(q);
-        });
-
-        if (typeof window.renderGeneticsQuiz === 'function') {
-            window.renderGeneticsQuiz();
-        }
-
-        alert(`Pomyślnie dodano ${parsedQuestions.length} pytań! Kliknij systemowy przycisk 'PUSH' na pasku admina, aby zapisać je na stałe w chmurze.`);
-        document.getElementById('raw-questions-input').value = '';
-    };
-
-    // Funkcja twardego czyszczenia bazy pytań z chmury
-    window.katedraClearCloudDatabase = function() {
-        if (confirm("⚠️ Czy na pewno chcesz TRWALE USUNĄĆ wszystkie pytania egzaminacyjne z bazy?")) {
-            window.geneticsQuizDB = [];
-            window.genStats = { total: 0, correct: 0 };
-
-            const holder = document.getElementById('quiz-questions-target-holder');
-            if (holder) {
-                holder.innerHTML = '<p style="color: #64748b; text-align: center; padding: 20px;">Baza pytań jest obecnie pusta.</p>';
-            }
-
-            if (typeof window.updateStatsUI === 'function') {
-                window.updateStatsUI('genetics');
-            }
-
-            alert("Baza została wyczyszczona lokalnie. Kliknij teraz przycisk 'PUSH' na pasku admina, aby zatwierdzić usunięcie w chmurze.");
-        }
-    };
-
-
-    // === 2. DYNAMICZNA KONTROLA INTERFEJSU (ODPORNA NA REFRESHE FIREBASE) ===
-
-    function injectManagerElements() {
-        const adminBar = document.getElementById("admin-bar");
-        const status = document.getElementById("sync-status");
-        const testContainer = document.getElementById("container-test-gen");
-
-        // A. Wstrzykiwanie przycisków sterujących do admin-bar
+        // Pancerne wstrzykiwanie przycisków widoczności filarów na pasku centrali
         if (adminBar && !document.getElementById("katedra-filar-toggles")) {
             const togglesContainer = document.createElement("div");
             togglesContainer.id = "katedra-filar-toggles";
             togglesContainer.style.cssText = "display:flex; gap:8px; margin-left:12px; border-left:1px solid #4b5563; padding-left:12px; align-items:center;";
-            
             togglesContainer.innerHTML = `
-                <button id="tgl-genetics" style="background:#0284c7; padding:6px 12px; font-size:10px; border:none; border-radius:20px; color:white; cursor:pointer;"><i class="fa-solid fa-eye"></i> Filar Genetyki</button>
-                <button id="tgl-neurology" style="background:#0284c7; padding:6px 12px; font-size:10px; border:none; border-radius:20px; color:white; cursor:pointer;"><i class="fa-solid fa-eye"></i> Filar Neurologii</button>
-                <button id="clear-cloud-db-btn" style="background:linear-gradient(135deg, #be123c, #9f1239); color:white; border:none; padding:6px 12px; border-radius:20px; font-size:10px; font-weight:700; cursor:pointer; margin-left:4px;"><i class="fa-solid fa-trash-can"></i> Wyczyść bazę pytań</button>
+                <button id="tgl-genetics" onclick="window.toggleFilarVisibility('genetics')" style="background:#0284c7; padding:6px 12px; font-size:10px; border:none; border-radius:20px; color:white; cursor:pointer;"><i class="fa-solid fa-eye"></i> Filar Genetyki</button>
+                <button id="tgl-neurology" onclick="window.toggleFilarVisibility('neurology')" style="background:#0284c7; padding:6px 12px; font-size:10px; border:none; border-radius:20px; color:white; cursor:pointer;"><i class="fa-solid fa-eye"></i> Filar Neurologii</button>
             `;
+            adminBar.insertBefore(togglesContainer, status);
+        }
 
-            if (status && adminBar.contains(status)) {
-                adminBar.insertBefore(togglesContainer, status);
-            } else {
-                adminBar.appendChild(togglesContainer);
+        // Rejestracja skrótu Ctrl + Shift + A dla administratora
+        window.addEventListener("keydown", (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
+                e.preventDefault();
+                document.body.classList.toggle('admin-mode');
+                
+                const bar = document.getElementById("admin-bar");
+                if (bar) {
+                    const isHidden = window.getComputedStyle(bar).display === "none";
+                    bar.style.display = isHidden ? "flex" : "none";
+                }
             }
-
-            // Podpięcie pancerne eventów (omijanie CSP i blokad onclick)
-            document.getElementById('tgl-genetics').addEventListener('click', () => window.toggleFilarVisibility('genetics'));
-            document.getElementById('tgl-neurology').addEventListener('click', () => window.toggleFilarVisibility('neurology'));
-            document.getElementById('clear-cloud-db-btn').addEventListener('click', () => window
+        });
+    </script>
 </body>
 </html>
-
